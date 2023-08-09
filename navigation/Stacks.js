@@ -5,13 +5,34 @@ import SignUpScreen from "../screens/Signup";
 import HomeScreen from "../screens/HomeScreen";
 import Tabs from "./Tabs";
 import ProfileScreen from "../screens/ProfileScreen";
+import { HeaderBackButton } from "@react-navigation/elements";
 const Stacks = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}}/>
-      <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-      <Stack.Screen name="Tabs" component={Tabs} />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SignUpScreen"
+        component={SignUpScreen}
+        options={{
+          headerTitle: "",
+          headerTintColor: "black",
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Tabs"
+        component={Tabs}
+        options={{
+          headerTitle: "",
+          headerTintColor: "black",
+          headerShadowVisible: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
