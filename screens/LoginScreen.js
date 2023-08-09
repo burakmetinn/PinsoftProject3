@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: "bold",
     fontSize: 30,
-    width: 110,
+    width: 115,
     color: "black",
     marginBottom: 50,
-    marginTop: 120,
+    marginTop: 200,
     fontFamily: "Cochin-BoldItalic",
   },
   inputs: {
