@@ -1,4 +1,4 @@
-import { View, Text, Button, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { StyleSheet } from "react-native";
 
@@ -6,6 +6,20 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.view}>
       <Text style={styles.logo}>Time Off</Text>
+      <View>
+        <Image
+          style={{
+            width: 50,
+            height: 50,
+            marginRight: 145,
+            bottom: 43,
+            transform: [{ rotate: "300deg" }],
+          }}
+          source={{
+            uri: "https://o.remove.bg/downloads/f8b8ffe5-1580-4c51-99df-a51a246b459f/sun-removebg-preview.png",
+          }}
+        />
+      </View>
       <View>
         <View style={styles.inputs}>
           <TextInput placeholder="Email" />
@@ -45,7 +59,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     width: 115,
     color: "black",
-    marginBottom: 50,
     marginTop: 200,
     fontFamily: "Cochin-BoldItalic",
   },
