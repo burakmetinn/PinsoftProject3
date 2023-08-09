@@ -5,8 +5,8 @@ import { StyleSheet } from "react-native";
 const SignUpScreen = () => {
   return (
     <View style={styles.view}>
-      <Text>SignUpScreen</Text>
-      <Button style={styles.button} title="SignUpScreen" />
+      <Text>Create an acoount</Text>
+      <Button style={styles.button} title="Sign Up" />
     </View>
   );
 };

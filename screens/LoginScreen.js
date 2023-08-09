@@ -7,8 +7,14 @@ const LoginScreen = ({ navigation }) => {
     <View style={styles.view}>
       <Text>LoginScreen</Text>
       <Button
+        title="Log in"
+        onPress={() => {
+          navigation.navigate("Tabs");
+        }}
+      />
+      <Button
         style={styles.button}
-        title="LoginScreen"
+        title="Don't have an account? Click to sign up"
         onPress={() => {
           navigation.navigate("SignUpScreen");
         }}
