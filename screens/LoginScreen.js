@@ -9,10 +9,10 @@ const LoginScreen = ({ navigation }) => {
       <View>
         <Image
           style={{
-            width: 50,
+            width: 70,
             height: 50,
             marginRight: 145,
-            bottom: 43,
+            bottom: 45,
             transform: [{ rotate: "300deg" }],
           }}
           source={{
