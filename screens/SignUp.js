@@ -45,19 +45,8 @@ const SignUpScreen = ({ navigation }) => {
         <View style={styles.inputs}>
           <TextInput
             placeholder="Confirm Password"
-            style={{ top: 9 }}
             secureTextEntry={hidePass ? "true" : "false"}
           />
-          <TouchableOpacity
-            onPress={() => {
-              setHidePass(!hidePass);
-            }}
-          >
-            <Entypo
-              name={hidePass ? "lock" : "lock-open"}
-              style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
-            />
-          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.btn}>
