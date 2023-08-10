@@ -1,9 +1,11 @@
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
+import Entypo from "react-native-vector-icons/Entypo";
 
 const LoginScreen = ({ navigation }) => {
+  const [hidePass, setHidePass] = useState(true);
   return (
     <View style={styles.view}>
       <Text style={styles.logo}>Time Off</Text>
@@ -28,7 +30,21 @@ const LoginScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Password" secureTextEntry={true} />
+          <TextInput
+            placeholder="Password"
+            secureTextEntry={hidePass ? "true" : "false"}
+            style={{ top: 8 }}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              setHidePass(!hidePass);
+            }}
+          >
+            <Entypo
+              name={hidePass ? "lock" : "lock-open"}
+              style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
+            ></Entypo>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.btn}>
