@@ -15,9 +15,7 @@ const LoginScreen = ({ navigation }) => {
             bottom: 45,
             transform: [{ rotate: "300deg" }],
           }}
-          source={{
-            uri: "https://o.remove.bg/downloads/f8b8ffe5-1580-4c51-99df-a51a246b459f/sun-removebg-preview.png",
-          }}
+          source={require("../assets/sun.png")}
         />
       </View>
       <View>
