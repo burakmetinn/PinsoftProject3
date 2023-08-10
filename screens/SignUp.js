@@ -34,7 +34,7 @@ const SignUpScreen = ({ navigation }) => {
           navigation.navigate("LoginScreen");
         }}
       >
-        <Text style={styles.btnText2}>Already have an account? Log in.</Text>
+        <Text style={styles.btnText2}>Already have an account? Log In.</Text>
       </TouchableOpacity>
     </View>
   );

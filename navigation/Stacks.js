@@ -20,6 +20,7 @@ const Stacks = () => {
         component={SignUpScreen}
         options={{
           headerTitle: "",
+          headerBackTitle:"Log In",
           headerTintColor: "black",
           headerShadowVisible: false,
         }}
