@@ -1,10 +1,12 @@
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Entypo from "react-native-vector-icons/Entypo";
 
 const SignUpScreen = ({ navigation }) => {
+  const [hidePass, setHidePass] = useState(true);
   return (
     <View style={styles.view}>
       <Text style={styles.logo}>Sign Up</Text>
@@ -24,10 +26,38 @@ const SignUpScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Password" secureTextEntry={true} />
+          <TextInput
+            placeholder="Password"
+            style={{ top: 9 }}
+            secureTextEntry={hidePass ? "true" : "false"}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              setHidePass(!hidePass);
+            }}
+          >
+            <Entypo
+              name={hidePass ? "lock" : "lock-open"}
+              style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Confirm Password" secureTextEntry={true} />
+          <TextInput
+            placeholder="Confirm Password"
+            style={{ top: 9 }}
+            secureTextEntry={hidePass ? "true" : "false"}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              setHidePass(!hidePass);
+            }}
+          >
+            <Entypo
+              name={hidePass ? "lock" : "lock-open"}
+              style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.btn}>

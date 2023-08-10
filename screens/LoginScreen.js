@@ -43,7 +43,7 @@ const LoginScreen = ({ navigation }) => {
             <Entypo
               name={hidePass ? "lock" : "lock-open"}
               style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
-            ></Entypo>
+            />
           </TouchableOpacity>
         </View>
       </View>
