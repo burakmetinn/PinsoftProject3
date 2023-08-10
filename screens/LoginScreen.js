@@ -21,8 +21,8 @@ const LoginScreen = ({ navigation }) => {
       </View>
       <View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Email" />
-          <Ionicons name="person-circle-outline" />
+          <TextInput placeholder="Email" style={{top:10}} />
+          <Ionicons name="person-circle-outline" style={{fontSize:20, left:190, bottom:10}} />
         </View>
         <View style={styles.inputs}>
           <TextInput placeholder="Password" />
