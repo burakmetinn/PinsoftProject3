@@ -21,7 +21,7 @@ const LoginScreen = ({ navigation }) => {
       </View>
       <View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Email" style={{ top: 10 }} />
+          <TextInput placeholder="Email" style={{ top:8 }} />
           <Feather
             name="mail"
             style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}

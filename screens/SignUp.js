@@ -1,6 +1,8 @@
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
 import { StyleSheet } from "react-native";
+import Feather from "react-native-vector-icons/Feather";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const SignUpScreen = ({ navigation }) => {
   return (
@@ -8,10 +10,18 @@ const SignUpScreen = ({ navigation }) => {
       <Text style={styles.logo}>Sign Up</Text>
       <View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Name" />
+          <TextInput placeholder="Name" style={{ top: 9 }} />
+          <Ionicons
+            name="person"
+            style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
+          />
         </View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Email" />
+          <TextInput placeholder="Email" style={{ top: 9 }} />
+          <Feather
+            name="mail"
+            style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
+          />
         </View>
         <View style={styles.inputs}>
           <TextInput placeholder="Password" />
