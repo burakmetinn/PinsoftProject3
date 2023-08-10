@@ -8,10 +8,16 @@ const SignUpScreen = () => {
       <Text style={styles.logo}>Sign Up</Text>
       <View>
         <View style={styles.inputs}>
+          <TextInput placeholder="Name" />
+        </View>
+        <View style={styles.inputs}>
           <TextInput placeholder="Email" />
         </View>
         <View style={styles.inputs}>
           <TextInput placeholder="Password" />
+        </View>
+        <View style={styles.inputs}>
+          <TextInput placeholder="Confirm Password" />
         </View>
       </View>
       <View style={styles.btn}>
@@ -38,8 +44,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     width: 115,
     color: "black",
-    marginTop: 115,
-    marginBottom:50,
+    marginTop: 70,
+    marginBottom: 50,
     fontFamily: "Cochin-BoldItalic",
   },
   inputs: {
