@@ -24,10 +24,10 @@ const SignUpScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Password" />
+          <TextInput placeholder="Password" secureTextEntry={true} />
         </View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Confirm Password" />
+          <TextInput placeholder="Confirm Password" secureTextEntry={true} />
         </View>
       </View>
       <View style={styles.btn}>

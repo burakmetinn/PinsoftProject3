@@ -21,14 +21,14 @@ const LoginScreen = ({ navigation }) => {
       </View>
       <View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Email" style={{ top:8 }} />
+          <TextInput placeholder="Email" style={{ top: 8 }} />
           <Feather
             name="mail"
             style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
           />
         </View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Password" />
+          <TextInput placeholder="Password" secureTextEntry={true} />
         </View>
       </View>
       <View style={styles.btn}>
