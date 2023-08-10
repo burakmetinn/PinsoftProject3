@@ -21,7 +21,7 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="PermissionRequest"
+        name="Permission Request"
         component={PermissionRequestScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -30,7 +30,7 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="PermissionsPendingApproval"
+        name="Permissions Pending Approval"
         component={PermissionsPendingApprovalScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -39,7 +39,7 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="MyPermissions"
+        name="My Permissions"
         component={MyPermissionsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
