@@ -29,6 +29,13 @@ const SignUpScreen = ({ navigation }) => {
           <Text style={styles.btnText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("LoginScreen");
+        }}
+      >
+        <Text style={styles.btnText2}>Already have an account? Log in.</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -43,7 +50,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 30,
     color: "black",
-    marginTop: 70,
+    marginTop: 60,
     marginBottom: 50,
     fontFamily: "Cochin-BoldItalic",
   },
