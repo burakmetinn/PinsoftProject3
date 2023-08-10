@@ -2,7 +2,7 @@ import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
 import { StyleSheet } from "react-native";
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   return (
     <View style={styles.view}>
       <Text style={styles.logo}>Sign Up</Text>
@@ -26,7 +26,7 @@ const SignUpScreen = () => {
             navigation.navigate("Tabs");
           }}
         >
-          <Text style={styles.btnText}>Log In</Text>
+          <Text style={styles.btnText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: "bold",
     fontSize: 30,
-    width: 115,
     color: "black",
     marginTop: 70,
     marginBottom: 50,
