@@ -1,7 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { StyleSheet } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
 
 const LoginScreen = ({ navigation }) => {
   return (
@@ -21,8 +21,11 @@ const LoginScreen = ({ navigation }) => {
       </View>
       <View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Email" style={{top:10}} />
-          <Ionicons name="person-circle-outline" style={{fontSize:20, left:190, bottom:10}} />
+          <TextInput placeholder="Email" style={{ top: 10 }} />
+          <Feather
+            name="mail"
+            style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
+          />
         </View>
         <View style={styles.inputs}>
           <TextInput placeholder="Password" />
