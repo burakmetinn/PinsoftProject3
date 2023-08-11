@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 import { View, Text, Button, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-=======
-import { View, Text, Button } from "react-native";
-import React from "react";
-import { StyleSheet } from "react-native";
->>>>>>> demet
 
 const HomeScreen = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -73,7 +67,6 @@ const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
   container: {
     flex: 1,
     backgroundColor: '#FFE17B',
@@ -134,13 +127,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
   },
-=======
-  view: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
->>>>>>> demet
 });
 
 export default HomeScreen;
