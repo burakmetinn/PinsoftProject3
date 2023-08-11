@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  Image,
   TextInput,
   TouchableOpacity,
   Alert,
