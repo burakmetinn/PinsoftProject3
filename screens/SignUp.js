@@ -54,6 +54,7 @@ const SignUpScreen = ({ navigation }) => {
           onPress={() => {
             navigation.navigate("Tabs");
           }}
+          hitSlop={{left:"100",right:"100",top:"20",bottom:"20"}}
         >
           <Text style={styles.btnText}>Sign Up</Text>
         </TouchableOpacity>
