@@ -1,4 +1,11 @@
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
@@ -7,19 +14,51 @@ import Entypo from "react-native-vector-icons/Entypo";
 
 const SignUpScreen = ({ navigation }) => {
   const [hidePass, setHidePass] = useState(true);
+  const [textInputName, setTextInputName] = useState("");
+  const [textInputEmail, setTextInputEmail] = useState("");
+  const [textInputPwd, setTextInputPwd] = useState("");
+  const [textInputCPwd, setTextInputCPwd] = useState("");
+
+  const checkTextInput = () => {
+    if (!textInputName.trim()) {
+      Alert.alert("Error", "Please enter name.");
+      return;
+    }
+    if (!textInputEmail.trim()) {
+      Alert.alert("Error", "Please enter email.");
+      return;
+    }
+    if (!textInputPwd.trim()) {
+      Alert.alert("Error", "Please enter password.");
+      return;
+    }
+    if (!textInputCPwd.trim()) {
+      Alert.alert("Error", "Please enter password.");
+      return;
+    }
+    navigation.navigate("Tabs");
+  };
   return (
     <View style={styles.view}>
       <Text style={styles.logo}>Sign Up</Text>
       <View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Name" style={{ top: 9 }} />
+          <TextInput
+            placeholder="Name"
+            style={{ top: 9 }}
+            onChangeText={(value) => setTextInputName(value)}
+          />
           <Ionicons
             name="person"
             style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
           />
         </View>
         <View style={styles.inputs}>
-          <TextInput placeholder="Email" style={{ top: 9 }} />
+          <TextInput
+            placeholder="Email"
+            style={{ top: 9 }}
+            onChangeText={(value) => setTextInputEmail(value)}
+          />
           <Feather
             name="mail"
             style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
@@ -30,6 +69,7 @@ const SignUpScreen = ({ navigation }) => {
             placeholder="Password"
             style={{ top: 9 }}
             secureTextEntry={hidePass ? "true" : "false"}
+            onChangeText={(value) => setTextInputPwd(value)}
           />
           <TouchableOpacity
             onPress={() => {
@@ -46,14 +86,13 @@ const SignUpScreen = ({ navigation }) => {
           <TextInput
             placeholder="Confirm Password"
             secureTextEntry={hidePass ? "true" : "false"}
+            onChangeText={(value) => setTextInputCPwd(value)}
           />
         </View>
       </View>
       <View style={styles.btn}>
         <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Tabs");
-          }}
+          onPress={checkTextInput}
           hitSlop={{ left: "100", right: "100", top: "20", bottom: "20" }}
         >
           <Text style={styles.btnText}>Sign Up</Text>
