@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { StyleSheet } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -18,6 +18,10 @@ const SignUpScreen = ({ navigation }) => {
   const [textInputEmail, setTextInputEmail] = useState("");
   const [textInputPwd, setTextInputPwd] = useState("");
   const [textInputCPwd, setTextInputCPwd] = useState("");
+
+  const mail = useRef();
+  const pwd = useRef();
+  const pwd2 = useRef();
 
   const checkTextInput = () => {
     if (!textInputName.trim()) {
@@ -46,6 +50,11 @@ const SignUpScreen = ({ navigation }) => {
           <TextInput
             placeholder="Name"
             style={{ top: 9 }}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              mail.current.focus();
+            }}
+            blurOnSubmit={false}
             onChangeText={(value) => setTextInputName(value)}
           />
           <Ionicons
@@ -57,6 +66,12 @@ const SignUpScreen = ({ navigation }) => {
           <TextInput
             placeholder="Email"
             style={{ top: 9 }}
+            ref={mail}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              pwd.current.focus();
+            }}
+            blurOnSubmit={false}
             onChangeText={(value) => setTextInputEmail(value)}
           />
           <Feather
@@ -68,6 +83,12 @@ const SignUpScreen = ({ navigation }) => {
           <TextInput
             placeholder="Password"
             style={{ top: 9 }}
+            ref={pwd}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              pwd2.current.focus();
+            }}
+            blurOnSubmit={false}
             secureTextEntry={hidePass ? "true" : "false"}
             onChangeText={(value) => setTextInputPwd(value)}
           />
@@ -86,6 +107,7 @@ const SignUpScreen = ({ navigation }) => {
           <TextInput
             placeholder="Confirm Password"
             secureTextEntry={hidePass ? "true" : "false"}
+            ref={pwd2}
             onChangeText={(value) => setTextInputCPwd(value)}
           />
         </View>
