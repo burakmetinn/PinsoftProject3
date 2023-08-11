@@ -6,7 +6,7 @@ import {
   Image,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { StyleSheet } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Entypo from "react-native-vector-icons/Entypo";
@@ -27,7 +27,7 @@ const LoginScreen = ({ navigation }) => {
     }
     navigation.navigate("Tabs");
   };
-
+  const pwd = useRef();
   return (
     <View style={styles.view}>
       <Text style={styles.logo}>Time Off</Text>
@@ -48,6 +48,11 @@ const LoginScreen = ({ navigation }) => {
           <TextInput
             placeholder="Email"
             style={{ top: 8 }}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              pwd.current.focus();
+            }}
+            blurOnSubmit={false}
             onChangeText={(value) => setTextInputEmail(value)}
           />
           <Feather
@@ -58,6 +63,7 @@ const LoginScreen = ({ navigation }) => {
         <View style={styles.inputs}>
           <TextInput
             placeholder="Password"
+            ref={pwd}
             secureTextEntry={hidePass ? "true" : "false"}
             style={{ top: 8 }}
             onChangeText={(value) => setTextInputPwd(value)}
