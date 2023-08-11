@@ -15,6 +15,7 @@ const Tabs = () => {
         name="Home"
         component={HomeScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
@@ -24,6 +25,7 @@ const Tabs = () => {
         name="Permission Request"
         component={PermissionRequestScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="md-add-circle-outline" color={color} size={size} />
           ),
@@ -33,6 +35,7 @@ const Tabs = () => {
         name="Permissions Pending Approval"
         component={PermissionsPendingApprovalScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="md-hourglass-outline" color={color} size={size} />
           ),
@@ -42,6 +45,7 @@ const Tabs = () => {
         name="My Permissions"
         component={MyPermissionsScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="md-list" color={color} size={size} />
           ),
@@ -51,6 +55,7 @@ const Tabs = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="md-person" color={color} size={size} />
           ),
