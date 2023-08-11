@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { StyleSheet } from "react-native";
@@ -43,91 +44,93 @@ const SignUpScreen = ({ navigation }) => {
     navigation.navigate("Tabs");
   };
   return (
-    <View style={styles.view}>
-      <Text style={styles.logo}>Sign Up</Text>
-      <View>
-        <View style={styles.inputs}>
-          <TextInput
-            placeholder="Name"
-            style={{ top: 9 }}
-            returnKeyType="next"
-            onSubmitEditing={() => {
-              mail.current.focus();
-            }}
-            blurOnSubmit={false}
-            onChangeText={(value) => setTextInputName(value)}
-          />
-          <Ionicons
-            name="person"
-            style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
-          />
-        </View>
-        <View style={styles.inputs}>
-          <TextInput
-            placeholder="Email"
-            style={{ top: 9 }}
-            ref={mail}
-            returnKeyType="next"
-            onSubmitEditing={() => {
-              pwd.current.focus();
-            }}
-            blurOnSubmit={false}
-            onChangeText={(value) => setTextInputEmail(value)}
-          />
-          <Feather
-            name="mail"
-            style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
-          />
-        </View>
-        <View style={styles.inputs}>
-          <TextInput
-            placeholder="Password"
-            style={{ top: 9 }}
-            ref={pwd}
-            returnKeyType="next"
-            onSubmitEditing={() => {
-              pwd2.current.focus();
-            }}
-            blurOnSubmit={false}
-            secureTextEntry={hidePass ? "true" : "false"}
-            onChangeText={(value) => setTextInputPwd(value)}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              setHidePass(!hidePass);
-            }}
-          >
-            <Entypo
-              name={hidePass ? "lock" : "lock-open"}
+    <ScrollView keyboardShouldPersistTaps="handled" style={styles.scroll}>
+      <View style={styles.view}>
+        <Text style={styles.logo}>Sign Up</Text>
+        <View>
+          <View style={styles.inputs}>
+            <TextInput
+              placeholder="Name"
+              style={{ top: 9 }}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                mail.current.focus();
+              }}
+              blurOnSubmit={false}
+              onChangeText={(value) => setTextInputName(value)}
+            />
+            <Ionicons
+              name="person"
               style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
             />
+          </View>
+          <View style={styles.inputs}>
+            <TextInput
+              placeholder="Email"
+              style={{ top: 9 }}
+              ref={mail}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                pwd.current.focus();
+              }}
+              blurOnSubmit={false}
+              onChangeText={(value) => setTextInputEmail(value)}
+            />
+            <Feather
+              name="mail"
+              style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
+            />
+          </View>
+          <View style={styles.inputs}>
+            <TextInput
+              placeholder="Password"
+              style={{ top: 9 }}
+              ref={pwd}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                pwd2.current.focus();
+              }}
+              blurOnSubmit={false}
+              secureTextEntry={hidePass ? "true" : "false"}
+              onChangeText={(value) => setTextInputPwd(value)}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                setHidePass(!hidePass);
+              }}
+            >
+              <Entypo
+                name={hidePass ? "lock" : "lock-open"}
+                style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.inputs}>
+            <TextInput
+              placeholder="Confirm Password"
+              secureTextEntry={hidePass ? "true" : "false"}
+              ref={pwd2}
+              onChangeText={(value) => setTextInputCPwd(value)}
+            />
+          </View>
+        </View>
+        <View style={styles.btn}>
+          <TouchableOpacity
+            onPress={checkTextInput}
+            hitSlop={{ left: "100", right: "100", top: "20", bottom: "20" }}
+          >
+            <Text style={styles.btnText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.inputs}>
-          <TextInput
-            placeholder="Confirm Password"
-            secureTextEntry={hidePass ? "true" : "false"}
-            ref={pwd2}
-            onChangeText={(value) => setTextInputCPwd(value)}
-          />
-        </View>
-      </View>
-      <View style={styles.btn}>
         <TouchableOpacity
-          onPress={checkTextInput}
-          hitSlop={{ left: "100", right: "100", top: "20", bottom: "20" }}
+          onPress={() => {
+            navigation.navigate("LoginScreen");
+          }}
         >
-          <Text style={styles.btnText}>Sign Up</Text>
+          <Text style={styles.btnText2}>Already have an account? Log In.</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("LoginScreen");
-        }}
-      >
-        <Text style={styles.btnText2}>Already have an account? Log In.</Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -135,6 +138,9 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: "white",
+  },
+  scroll: {
     backgroundColor: "white",
   },
   logo: {
