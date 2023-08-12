@@ -9,7 +9,6 @@ import MyPermissionsScreenProfile from "../screens/MyPermissionsScreen/MyPermiss
 import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
 
-
 const Stack = createStackNavigator();
 
 const MyPermissionsScreenStack = () => {
@@ -23,18 +22,16 @@ const MyPermissionsScreenStack = () => {
       <Stack.Screen
         name="My Permissions Detail"
         component={MyPermissionsScreenDetail}
-        options={{ title: "Permission Details" }}
+        options={{ title: "Permission Details", headerTintColor: "black" }}
       />
       <Stack.Screen
         name="My Permissions Profile"
         component={MyPermissionsScreenProfile}
-        options={{ title: "Profile" }}
+        options={{ title: "Profile", headerTintColor: "black" }}
       />
     </Stack.Navigator>
   );
 };
-
-
 
 const Tabs = () => {
   const Tab = createBottomTabNavigator();
