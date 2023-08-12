@@ -1,10 +1,40 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
-import MyPermissionsScreen from "../screens/MyPermissionsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import PermissionRequestScreen from "../screens/PermissionRequestScreen";
 import PermissionsPendingApprovalScreen from "../screens/PermissionsPendingApprovalScreen";
+import MyPermissionsScreenList from "../screens/MyPermissionsScreen/MyPermissionsScreenList";
+import MyPermissionsScreenDetail from "../screens/MyPermissionsScreen/MyPermissionsScreenDetail";
+import MyPermissionsScreenProfile from "../screens/MyPermissionsScreen/MyPermissionsScreenProfile";
+import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
+
+
+const Stack = createStackNavigator();
+
+const MyPermissionsScreenStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="My Permissions List"
+        component={MyPermissionsScreenList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="My Permissions Detail"
+        component={MyPermissionsScreenDetail}
+        options={{ title: "Permission Details" }}
+      />
+      <Stack.Screen
+        name="My Permissions Profile"
+        component={MyPermissionsScreenProfile}
+        options={{ title: "Profile" }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+
 
 const Tabs = () => {
   const Tab = createBottomTabNavigator();
@@ -43,7 +73,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="My Permissions"
-        component={MyPermissionsScreen}
+        component={MyPermissionsScreenStack}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
