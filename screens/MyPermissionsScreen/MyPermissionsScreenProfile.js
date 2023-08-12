@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity ,TouchableWithoutFeedback ,StyleSheet, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const ProfileScreen = () => {
+const MyPermissionsScreenProfile = ({route}) => {
   const [isSheetVisible, setSheetVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState('Name 1');
+
+  const { selectedRequester } = route.params;
+
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
@@ -17,7 +20,7 @@ const ProfileScreen = () => {
       
       <View style={styles.infoSection}>
         <Ionicons name="person-circle"  size={100} />
-        <Text style={styles.sampleName}>Firstname Lastname</Text>
+        <Text style={styles.sampleName}>{selectedRequester}</Text>
       </View>
       
       <View style={styles.optionsContainer}>
@@ -30,13 +33,6 @@ const ProfileScreen = () => {
           <Ionicons style={styles.managerIcon} name="chevron-forward" size={20}  color='gray'/> 
         </TouchableOpacity>
       </View>
-
-      <TouchableWithoutFeedback onPress={() => alert("You have been logged out")}>
-        <View style={styles.logOutContainer}>
-          <Ionicons name="log-out-outline" size={25} color="red" />
-          <Text style={styles.logOutText}>Log Out</Text>
-        </View>
-      </TouchableWithoutFeedback>
 
       <Modal 
         animationType="slide"
@@ -175,21 +171,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#dbdbdb',
   },
-  
-  logOutContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    marginLeft: 30,
-    marginTop: 50,
-    width: 120,
-  },
-  logOutText: {
-    marginLeft: 10,
-    color: 'red',
-    fontWeight: 'bold',
-    fontSize: 15,
-  },
+
 });
 
-export default ProfileScreen
+export default MyPermissionsScreenProfile
