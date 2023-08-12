@@ -67,7 +67,7 @@ const LoginScreen = ({ navigation }) => {
               placeholder="Password"
               style={{ top: 9 }}
               ref={pwd}
-              secureTextEntry={hidePass ? "true" : "false"}
+              secureTextEntry={hidePass ? true : false}
               onChangeText={(value) => setTextInputPwd(value)}
             />
             <TouchableOpacity
