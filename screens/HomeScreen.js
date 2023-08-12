@@ -81,28 +81,28 @@ const styles = StyleSheet.create({
   calendar: {
     marginBottom: 20,
     borderRadius: 10,
-    elevation: 4,
+    elevation: 3,
     shadowColor: 'black',
     shadowOpacity: 0.5,
     shadowOffset: {
       width: 1,
       height: 6,
     },
-    shadowRadius: 50,
+    shadowRadius: 30,
   },
   eventsContainer: {
     flex: 1,
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 10,
-    elevation: 4,
+    elevation: 3,
     shadowColor: 'black',
     shadowOpacity: 0.5,
     shadowOffset: {
       width: 1,
       height: 6,
     },
-    shadowRadius: 40,
+    shadowRadius: 30,
   },
   selectedDateText: {
     textAlign: 'center',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Button, Modal } from 'react-native';
 
-function permissionRequested() {
+function PermissionRequested() {
   const [isPermissionRequested, setIsPermissionRequested] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [permissionStatus, setPermissionStatus] = useState('');
@@ -45,4 +45,4 @@ function permissionRequested() {
   );
 }
 
-export default permissionRequested;
+export default PermissionRequested;
