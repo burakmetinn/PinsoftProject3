@@ -90,7 +90,7 @@ const SignUpScreen = ({ navigation }) => {
                 pwd2.current.focus();
               }}
               blurOnSubmit={false}
-              secureTextEntry={hidePass ? "true" : "false"}
+              secureTextEntry={hidePass ? true : false}
               onChangeText={(value) => setTextInputPwd(value)}
             />
             <TouchableOpacity
