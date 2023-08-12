@@ -16,11 +16,11 @@ const PermissionRequestScreen = () => {
     console.log("Bitiş Tarihi:", bitisTarihi);
   };
 
+
+
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <Text style={styles.header}>İzin Talebi Formu</Text>
-
         <View style={styles.inputContainer}>
           <Text style={styles.label}>İzin Nedeni</Text>
           <TextInput
@@ -32,14 +32,12 @@ const PermissionRequestScreen = () => {
         </View>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>İzin Türü</Text>
           <View style={styles.switchContainer}>
-            <Text style={styles.switchLabel}>Tek Gün İzin</Text>
+            <Text style={styles.switchLabel}>Tek Gün İzin / Çoklu Gün İzin</Text>
             <Switch
               value={!tekGunIzin}
               onValueChange={() => setTekGunIzin(!tekGunIzin)}
             />
-            <Text style={styles.switchLabel}>Çoklu Gün İzin</Text>
           </View>
         </View>
 
@@ -61,7 +59,7 @@ const PermissionRequestScreen = () => {
         ) : (
           <View style={styles.inputContainer}>
             <Text style={styles.label}>İzin Tarihi Aralığı</Text>
-            <Text>Başlangıç Tarihi</Text>
+            <Text style={styles.subtitle}>Başlangıç Tarihi</Text>
             <DateTimePicker
               value={baslangicTarihi}
               mode="date"
@@ -72,7 +70,7 @@ const PermissionRequestScreen = () => {
                 }
               }}
             />
-            <Text>Bitiş Tarihi</Text>
+            <Text style={styles.subtitle}>Bitiş Tarihi</Text>
 
             <DateTimePicker
               value={bitisTarihi}
@@ -102,6 +100,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor:"#fff",
   },
   view: {
     flex: 1,
@@ -116,12 +115,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   label: {
-    fontSize: 18,
+    fontSize: 32,
   },
   input: {
     borderWidth: 1,
     padding: 10,
     marginTop: 5,
+  },
+  subtitle:{
+fontSize:18,
+marginTop:16,
   },
   switchContainer: {
     flexDirection: "row",
