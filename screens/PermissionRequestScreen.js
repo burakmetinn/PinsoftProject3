@@ -8,12 +8,18 @@ const PermissionRequestScreen = () => {
   const [tekGunIzin, setTekGunIzin] = useState(true);
   const [baslangicTarihi, setBaslangicTarihi] = useState(new Date());
   const [bitisTarihi, setBitisTarihi] = useState(new Date());
+  // const [izinBilgileri, setIzinBilgileri] = useState("");
+
 
   const handleOnayPress = () => {
-    console.log("İzin Nedeni:", izinNedeni);
-    console.log("İzin Türü: ", tekGunIzin ? "Tek Gün İzin" : "Çoklu Gün İzin");
-    console.log("Başlangıç Tarihi:", baslangicTarihi);
-    console.log("Bitiş Tarihi:", bitisTarihi);
+    // const izinBilgiMetni = `
+    //   İzin Nedeni: ${izinNedeni}
+    //   İzin Türü: ${tekGunIzin ? "Tek Gün İzin" : "Çoklu Gün İzin"}
+    //   Başlangıç Tarihi: ${baslangicTarihi.toDateString()}
+    //   Bitiş Tarihi: ${bitisTarihi.toDateString()}
+    // `;
+  
+    // setIzinBilgileri(izinBilgiMetni);
   };
 
 
@@ -22,6 +28,8 @@ const PermissionRequestScreen = () => {
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
+        {/* <Text style={styles.izinBilgileriText}>{izinBilgileri}</Text> */}
+
           <Text style={styles.label}>İzin Nedeni</Text>
           <TextInput
             placeholder="İzin nedeninizi girin..."
