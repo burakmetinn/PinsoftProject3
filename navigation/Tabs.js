@@ -1,4 +1,3 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import PermissionRequestScreen from "../screens/PermissionRequestScreen";
@@ -7,7 +6,13 @@ import MyPermissionsScreenList from "../screens/MyPermissionsScreen/MyPermission
 import MyPermissionsScreenDetail from "../screens/MyPermissionsScreen/MyPermissionsScreenDetail";
 import MyPermissionsScreenProfile from "../screens/MyPermissionsScreen/MyPermissionsScreenProfile";
 import { createStackNavigator } from "@react-navigation/stack";
+<<<<<<< HEAD
 import { Ionicons } from "@expo/vector-icons";
+=======
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StyleSheet } from "react-native";
+>>>>>>> main
 
 const Stack = createStackNavigator();
 
@@ -34,17 +39,24 @@ const MyPermissionsScreenStack = () => {
 };
 
 const Tabs = () => {
-  const Tab = createBottomTabNavigator();
+  const Tab = createMaterialBottomTabNavigator();
+
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      activeColor="#e6d663"
+      inactiveColor="#3e2465"
+      barStyle={styles.tab}
+      
+    >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" color={color} size={size} />
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
         }}
       />
@@ -53,8 +65,9 @@ const Tabs = () => {
         component={PermissionRequestScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="md-add-circle-outline" color={color} size={size} />
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="plus-circle-outline" color={color} size={26} />
           ),
         }}
       />
@@ -63,8 +76,9 @@ const Tabs = () => {
         component={PermissionsPendingApprovalScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="md-hourglass-outline" color={color} size={size} />
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="timer-sand" color={color} size={26} />
           ),
         }}
       />
@@ -73,8 +87,9 @@ const Tabs = () => {
         component={MyPermissionsScreenStack}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="md-list" color={color} size={size} />
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="format-list-checkbox" color={color} size={26} />
           ),
         }}
       />
@@ -83,13 +98,23 @@ const Tabs = () => {
         component={ProfileScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="md-person" color={color} size={size} />
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" color={color} size={26} />
           ),
         }}
       />
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  tab: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor:"#fff",
+    height:40,
+  }
+})
 
 export default Tabs;
