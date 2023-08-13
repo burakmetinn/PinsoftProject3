@@ -7,8 +7,8 @@ import MyPermissionsScreenDetail from "../screens/MyPermissionsScreen/MyPermissi
 import MyPermissionsScreenProfile from "../screens/MyPermissionsScreen/MyPermissionsScreenProfile";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { StyleSheet } from "react-native";
 
 const Stack = createStackNavigator();
@@ -38,13 +38,11 @@ const MyPermissionsScreenStack = () => {
 const Tabs = () => {
   const Tab = createMaterialBottomTabNavigator();
 
-
   return (
     <Tab.Navigator
       activeColor="#e6d663"
       inactiveColor="#3e2465"
       barStyle={styles.tab}
-      
     >
       <Tab.Screen
         name="Home"
@@ -64,7 +62,11 @@ const Tabs = () => {
           headerShown: false,
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="plus-circle-outline" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="plus-circle-outline"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
@@ -86,7 +88,11 @@ const Tabs = () => {
           headerShown: false,
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="format-list-checkbox" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="format-list-checkbox"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
@@ -109,9 +115,9 @@ const styles = StyleSheet.create({
   tab: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor:"#fff",
-    height:40,
-  }
-})
+    backgroundColor: "#fff",
+    height: 40,
+  },
+});
 
 export default Tabs;
