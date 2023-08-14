@@ -40,8 +40,13 @@ const SignUpScreen = ({ navigation }) => {
       Alert.alert("Error", "Please enter password.");
       return;
     }
-    navigation.navigate("Tabs");
+    if (textInputPwd === textInputCPwd) {
+      navigation.navigate("Tabs");
+    } else {
+      Alert.alert("Error","Passwords should be the same!");
+    }
   };
+
   return (
     <ScrollView keyboardShouldPersistTaps="handled" style={styles.scroll}>
       <View style={styles.view}>
