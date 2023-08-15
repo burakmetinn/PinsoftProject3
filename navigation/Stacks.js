@@ -21,7 +21,7 @@ const Stacks = () => {
         component={SignUpScreen}
         options={{
           headerTitle: "",
-          headerBackTitle:"Log In",
+          headerBackTitle: "Log In",
           headerTintColor: "black",
           headerShadowVisible: false,
         }}
@@ -30,19 +30,14 @@ const Stacks = () => {
         name="TabsManager"
         component={TabsManager}
         options={{
-          headerTitle: "",
-          headerTintColor: "black",
-          headerShadowVisible: false,
+          headerTitle: "Time Off",
+          headerLeft: null,
         }}
       />
       <Stack.Screen
         name="TabsEmployee"
         component={TabsEmployee}
-        options={{
-          headerTitle: "",
-          headerTintColor: "black",
-          headerShadowVisible: false,
-        }}
+        options={{ headerTitle: "Time Off", headerLeft: null }}
       />
     </Stack.Navigator>
   );
