@@ -19,14 +19,17 @@ const LoginScreen = ({ navigation }) => {
 
   const checkTextInput = () => {
     if (!textInputEmail.trim()) {
-      Alert.alert('Error', 'Please enter email.');
-      return;
+      Alert.alert("Error", "Please enter email.");
     }
-    if (!textInputPwd.trim()) {
-      Alert.alert('Error', 'Please enter password.');
-      return;
+    else if (!textInputPwd.trim()) {
+      Alert.alert("Error", "Please enter password.");
     }
-    navigation.navigate('Tabs');
+    else if (textInputEmail=="manager" && textInputPwd=="manager123") {
+      navigation.navigate("TabsManager");
+    }
+    else{
+    navigation.navigate("TabsEmployee");
+    }
   };
   const pwd = useRef();
   return (
@@ -135,15 +138,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     width: 247,
+    backgroundColor: "#0f396b",
   },
   btnText: {
-    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 16,
   },
   button: {
     fontSize: 120,
   },
   btnText2: {
-    paddingTop: 15,
+    paddingTop: 20,
     fontWeight: 'bold',
   },
   lockBtn: {

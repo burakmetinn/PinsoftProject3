@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity ,TouchableWithoutFeedback ,StyleSheet, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const ProfileScreen = () => {
+const ProfileScreenEmployee = ({navigation}) => {
   const [isSheetVisible, setSheetVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState('Name 1');
 
@@ -10,6 +10,10 @@ const ProfileScreen = () => {
     setSelectedOption(option);
     setSheetVisible(false);
   };
+
+  const handleLogout = () => {
+    navigation.navigate("LoginScreen");
+  }
 
   return (
     
@@ -31,7 +35,7 @@ const ProfileScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableWithoutFeedback onPress={() => alert("You have been logged out")}>
+      <TouchableWithoutFeedback onPress={handleLogout}>
         <View style={styles.logOutContainer}>
           <Ionicons name="log-out-outline" size={25} color="red" />
           <Text style={styles.logOutText}>Log Out</Text>
@@ -192,4 +196,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen
+export default ProfileScreenEmployee

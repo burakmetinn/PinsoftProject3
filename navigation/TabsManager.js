@@ -1,5 +1,5 @@
 import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import ProfileScreenManager from '../screens/ProfileScreenManager';
 import PermissionRequestScreen from '../screens/PermissionRequestScreen';
 import PermissionsPendingApprovalScreen from '../screens/PermissionsPendingApprovalScreen';
 import MyPermissionsScreenList from '../screens/MyPermissionsScreen/MyPermissionsScreenList';
@@ -35,7 +35,7 @@ const MyPermissionsScreenStack = () => {
   );
 };
 
-const Tabs = () => {
+const TabsManager = () => {
   const Tab = createMaterialBottomTabNavigator();
 
   return (
@@ -52,21 +52,6 @@ const Tabs = () => {
           tabBarLabel: '',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name='home' color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name='Permission Request'
-        component={PermissionRequestScreen}
-        options={{
-          headerShown: false,
-          tabBarLabel: '',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name='plus-circle-outline'
-              color={color}
-              size={26}
-            />
           ),
         }}
       />
@@ -98,7 +83,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name='Profile'
-        component={ProfileScreen}
+        component={ProfileScreenManager}
         options={{
           headerShown: false,
           tabBarLabel: '',
@@ -120,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Tabs;
+export default TabsManager;

@@ -3,8 +3,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUp";
 import HomeScreen from "../screens/HomeScreen";
-import Tabs from "./Tabs";
-import ProfileScreen from "../screens/ProfileScreen";
+import TabsManager from "./TabsManager";
+import TabsEmployee from "./TabsEmployee";
+import ProfileScreen from "../screens/ProfileScreenEmployee";
 import { HeaderBackButton } from "@react-navigation/elements";
 const Stacks = () => {
   const Stack = createNativeStackNavigator();
@@ -26,8 +27,17 @@ const Stacks = () => {
         }}
       />
       <Stack.Screen
-        name="Tabs"
-        component={Tabs}
+        name="TabsManager"
+        component={TabsManager}
+        options={{
+          headerTitle: "",
+          headerTintColor: "black",
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="TabsEmployee"
+        component={TabsEmployee}
         options={{
           headerTitle: "",
           headerTintColor: "black",

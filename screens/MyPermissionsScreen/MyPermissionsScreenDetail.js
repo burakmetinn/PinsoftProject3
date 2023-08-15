@@ -22,17 +22,30 @@ const MyPermissionsScreenDetail = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{permission.title}</Text>
-      <Text style={styles.requesterName}  onPress={openProfileScreen}>{permission.requester}</Text>
-      <Text style={styles.excuse}>"Reason of the permission"</Text>
-      <Text style={styles.status}>{permission.status}</Text>
-      {permission.status === 'pending' && (
+      
+      <View style={styles.detailContainer}>
+        <Text style={styles.detailTitle}>Date:</Text>
+        <Text style={styles.detailContent}>{permission.title}</Text>
+      </View>
+      <View style={styles.detailContainer}>
+        <Text style={styles.detailTitle}>Requester:</Text>
+        <Text style={styles.requesterName} onPress={openProfileScreen}>{permission.requester}</Text>
+      </View>
+      <View style={styles.detailContainer}>
+        <Text style={styles.detailTitle}>Reason:</Text>
+        <Text style={styles.detailContent}>"Medical Appointment"</Text>
+      </View>
+      <View style={styles.detailContainer}>
+        <Text style={styles.detailTitle}>Status:</Text>
+        <Text style={styles.status}>{permission.status}</Text>
+      </View>
+      {permission.status === 'Pending' && (
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.denyButton} onPress={handleDeny}>
-            <Text style={styles.buttonText}>Deny</Text>
+            <Text style={styles.buttonTextDeny}>Deny</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.approveButton} onPress={handleApprove}>
-            <Text style={styles.buttonText}>Approve</Text>
+            <Text style={styles.buttonTextApprove}>Approve</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -43,51 +56,61 @@ const MyPermissionsScreenDetail = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+    paddingTop: 50,
+    padding: 30,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  status: {
-    fontSize: 20,
-    marginBottom: 20,
+  detailContainer: {
+    marginBottom: 30,
   },
-  excuse: {
-    fontSize: 15,
+  detailTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginRight: 5,
+    marginBottom: 7,
+  },
+  detailContent: {
+    fontSize: 16,
+  },
+  status: {
+    fontSize: 16,
     marginBottom: 20,
   },
   requesterName: {
     fontSize: 16,
-    color: 'blue',
-    marginBottom: 20,
+    color: '#2968b3',
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 20,
   },
   approveButton: {
-    backgroundColor: 'green',
+    borderWidth: 3,
+    borderColor: 'green',
     padding: 10,
-    marginHorizontal: 10,
-    borderRadius: 5,
-    width: 100,
+    borderRadius: 10,
+    width: 140,
     alignItems: 'center',
   },
   denyButton: {
-    backgroundColor: '#bd2d2d',
+    borderWidth: 3,
+    borderColor: '#bd2d2d',
     padding: 10,
-    marginHorizontal: 10,
-    borderRadius: 5,
-    width: 100,
+    borderRadius: 10,
+    width: 140,
     alignItems: 'center',
   },
-  buttonText: {
-    color: 'white',
+  buttonTextDeny: {
+    color: '#bd2d2d',
+    fontWeight: 'bold',
+  },
+  buttonTextApprove: {
+    color: 'green',
     fontWeight: 'bold',
   },
 });

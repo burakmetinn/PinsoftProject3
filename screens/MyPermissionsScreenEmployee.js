@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, SafeAreaView
 import { useNavigation } from '@react-navigation/native';
 
 
-const MyPermissionsScreenList = () => {
+const MyPermissionsScreenEmployee = () => {
   const navigation = useNavigation();
 
 
@@ -29,13 +29,8 @@ const MyPermissionsScreenList = () => {
   const [selectedPermission, setSelectedPermission] = useState(null);
 
 
-  const openPermissionDetails = (permission) => {
-    navigation.navigate("My Permissions Detail",{permission});
-  };
-
-
   const renderPermissionItem = ({ item }) => (
-    <TouchableOpacity onPress={() => openPermissionDetails(item)}>
+    <TouchableOpacity>
       <View style={styles.permissionItem}>
         <Text style={styles.permissionTitle}>{item.title}</Text>
         <Text style={getStatusStyle(item.status)}>{getStatusText(item.status)}</Text>
@@ -66,7 +61,7 @@ const MyPermissionsScreenList = () => {
   return (
  
     <View style={styles.container}>
-      <Text style={styles.header}>Permission Requests</Text>
+      <Text style={styles.header}>My Permission Requests</Text>
       <FlatList
         data={permissions}
         renderItem={renderPermissionItem}
@@ -121,4 +116,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default MyPermissionsScreenList
+export default MyPermissionsScreenEmployee

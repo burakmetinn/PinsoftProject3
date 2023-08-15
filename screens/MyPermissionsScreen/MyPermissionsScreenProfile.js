@@ -9,10 +9,6 @@ const MyPermissionsScreenProfile = ({route}) => {
   const { selectedRequester } = route.params;
 
 
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    setSheetVisible(false);
-  };
 
   return (
     
@@ -29,72 +25,12 @@ const MyPermissionsScreenProfile = ({route}) => {
           style={styles.optionButton}
           onPress={() => setSheetVisible(true)}>
           <Ionicons name="person-circle" size={30}  color='gray'/>    
-          <Text style={styles.managerText}>{selectedOption}</Text>
-          <Ionicons style={styles.managerIcon} name="chevron-forward" size={20}  color='gray'/> 
+          <Text style={styles.managerText}>Name 1</Text>
+          
         </TouchableOpacity>
       </View>
 
-      <Modal 
-        animationType="slide"
-        transparent={true}
-        visible={isSheetVisible}
-        onRequestClose={() => setSheetVisible(false)}>
-          
-          <TouchableOpacity 
-            style={styles.container} 
-            activeOpacity={1} 
-            onPressOut={() => setSheetVisible(false)}
-          ></TouchableOpacity>
-       
-        <View style={styles.bottomSheet}>
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={() => setSheetVisible(false)}>
-            <Ionicons name='reorder-two-outline'  size={25}/>
-          </TouchableOpacity>
-
-          <TouchableOpacity 
-            style={[
-              styles.sheetOption,
-              selectedOption === 'Name 1' && styles.selectedOption,
-            ]}
-            onPress={() => handleOptionSelect('Name 1')}>
-            <Text>Name 1</Text>
-            {selectedOption === 'Name 1' && <Ionicons name='checkmark-sharp' color='green' size={15}/>}
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[
-              styles.sheetOption,
-              selectedOption === 'Name 2' && styles.selectedOption,
-            ]}
-            onPress={() => handleOptionSelect('Name 2')}>
-            <Text>Name 2</Text>
-            {selectedOption === 'Name 2' && <Ionicons name='checkmark-sharp' color='green' size={15}/>}
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[
-              styles.sheetOption,
-              selectedOption === 'Name 3' && styles.selectedOption,
-            ]}
-            onPress={() => handleOptionSelect('Name 3')}>
-            <Text>Name 3</Text>
-            {selectedOption === 'Name 3' && <Ionicons name='checkmark-sharp' color='green' size={15}/>}
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            style={[
-              styles.sheetOption,
-              selectedOption === 'Name 4' && styles.selectedOption,
-            ]}
-            onPress={() => handleOptionSelect('Name 4')}>
-            <Text>Name 4</Text>
-            {selectedOption === 'Name 4' && <Ionicons name='checkmark-sharp' color='green' size={15}/>}
-          </TouchableOpacity>
-        </View>
-        
-      </Modal>
+      
     </View>
   );
 };

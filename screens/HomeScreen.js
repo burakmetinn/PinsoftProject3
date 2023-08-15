@@ -37,7 +37,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Choose your Date</Text>
+      <Text style={styles.heading}>Choose Your Date</Text>
 
       <Calendar
         onDayPress={(day) => handleDateSelection(day.dateString)}
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   calendar: {
+    padding: 5,
     marginBottom: 20,
     borderRadius: 10,
     elevation: 3,

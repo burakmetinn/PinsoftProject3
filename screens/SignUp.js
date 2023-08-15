@@ -170,15 +170,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     width: 247,
+    backgroundColor: "#0f396b",
   },
   btnText: {
-    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 16,
   },
   button: {
     fontSize: 120,
   },
   btnText2: {
-    paddingTop: 15,
+    paddingTop: 20,
     fontWeight: 'bold',
   },
 
