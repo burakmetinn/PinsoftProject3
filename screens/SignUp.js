@@ -41,7 +41,7 @@ const SignUpScreen = ({ navigation }) => {
       return;
     }
     if (textInputPwd === textInputCPwd) {
-      navigation.navigate('Tabs');
+      navigation.navigate('TabsEmployee');
     } else {
       Alert.alert('Error', 'Passwords should be the same!');
     }
