@@ -69,14 +69,16 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFE17B',
+    backgroundColor: '#0A2647',
     padding: 20,
+    marginBottom:20,
   },
   heading: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    color: 'white',
   },
   calendar: {
     marginBottom: 20,
