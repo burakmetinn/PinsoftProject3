@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Button, Modal } from 'react-native';
+import PermissionRequestScreen from './PermissionRequestScreen';
 
 function PermissionRequestsScreen() {
   const [isPermissionRequested, setIsPermissionRequested] = useState(false);

@@ -1,6 +1,7 @@
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreenEmployee from '../screens/ProfileScreenEmployee';
 import PermissionRequestScreen from '../screens/PermissionRequestScreen';
+import PermissionRequestsScreen from '../screens/PermissionRequestsScreen';
 import PermissionsPendingApprovalScreen from '../screens/PermissionsPendingApprovalScreen';
 import MyPermissionsScreenList from '../screens/MyPermissionsScreen/MyPermissionsScreenList';
 import MyPermissionsScreenDetail from '../screens/MyPermissionsScreen/MyPermissionsScreenDetail';
@@ -43,6 +44,21 @@ const TabsEmployee = () => {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name='plus-circle-outline'
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name='Permission Requests'
+        component={PermissionRequestsScreen}
+        options={{
+          headerShown: false,
+          tabBarLabel: '',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name='checkcircle'
               color={color}
               size={26}
             />
