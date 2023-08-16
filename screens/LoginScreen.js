@@ -24,7 +24,7 @@ const LoginScreen = ({ navigation }) => {
     else if (!textInputPwd.trim()) {
       Alert.alert("Error", "Please enter password.");
     }
-    else if (textInputEmail=="menager" && textInputPwd=="menager123") {
+    else if (textInputEmail=="manager" && textInputPwd=="manager123") {
       navigation.navigate("TabsManager");
     }
     else{
