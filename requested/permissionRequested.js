@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text, Button, Modal,TouchableOpacity } from 'react-native';
 
+<<<<<<< HEAD:screens/permissionRequestsScreen.js
 function PermissionRequestsScreen() {
   const [permissionRequests, setPermissionRequests] = useState([
     { id: 1, user: 'Rabia Can', permission: 'Hastane randevum var.', startDate: '2023-08-16', endDate: '2023-08-16'},
     { id: 2, user: 'Ülkü Bıçak', permission: 'Acil şehir dışına çıkmam gerekiyor.', startDate: '2023-09-16', endDate: '2023-09-20' },
   ]);
+=======
+function PermissionRequested() {
+  const [isPermissionRequested, setIsPermissionRequested] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [permissionStatus, setPermissionStatus] = useState('');
+>>>>>>> parent of 7e8bac0 (r):requested/permissionRequested.js
 
   const [selectedPermission, setSelectedPermission] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
