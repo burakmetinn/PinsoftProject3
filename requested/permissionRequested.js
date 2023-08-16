@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import { View, Text, Button, Modal,TouchableOpacity } from 'react-native';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Button,
+  Modal,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 
-<<<<<<< HEAD:screens/permissionRequestsScreen.js
-function PermissionRequestsScreen() {
-  const [permissionRequests, setPermissionRequests] = useState([
-    { id: 1, user: 'Rabia Can', permission: 'Hastane randevum var.', startDate: '2023-08-16', endDate: '2023-08-16'},
-    { id: 2, user: 'Ülkü Bıçak', permission: 'Acil şehir dışına çıkmam gerekiyor.', startDate: '2023-09-16', endDate: '2023-09-20' },
-  ]);
-=======
+
 function PermissionRequested() {
   const [isPermissionRequested, setIsPermissionRequested] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [permissionStatus, setPermissionStatus] = useState('');
->>>>>>> parent of 7e8bac0 (r):requested/permissionRequested.js
+  const [permissionStatus, setPermissionStatus] = useState("");
 
   const [selectedPermission, setSelectedPermission] = useState(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handlePermissionClick = (permission) => {
     setSelectedPermission(permission);
@@ -30,13 +29,15 @@ function PermissionRequested() {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }}>
-        {permissionRequests.map((permission) => (
+        {PermissionRequested.map((permission) => (
           <TouchableOpacity
             key={permission.id}
-            style={{ padding: 10, borderBottomWidth: 1, borderColor: 'gray' }}
+            style={{ padding: 10, borderBottomWidth: 1, borderColor: "gray" }}
             onPress={() => handlePermissionClick(permission)}
           >
-            <Text>{permission.user} - {permission.permission}</Text>
+            <Text>
+              {permission.user} - {permission.permission}
+            </Text>
             <Text>Başlangıç Tarihi: {permission.startDate}</Text>
             <Text>Bitiş Tarihi: {permission.endDate}</Text>
           </TouchableOpacity>
@@ -44,8 +45,17 @@ function PermissionRequested() {
       </ScrollView>
 
       <Modal visible={isModalVisible} animationType="slide" transparent>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <View style={{ padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0,0,0,0.5)",
+          }}
+        >
+          <View
+            style={{ padding: 20, backgroundColor: "white", borderRadius: 10 }}
+          >
             {selectedPermission && (
               <View>
                 <Text>Kullanıcının İzin Talebi</Text>
