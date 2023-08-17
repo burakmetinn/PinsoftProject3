@@ -1,6 +1,7 @@
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreenManager from '../screens/ProfileScreenManager';
 import PermissionRequestScreen from '../screens/PermissionRequestScreen';
+import PermissionRequestsScreen from '../screens/ExecutivePermissionScreen/PermissionRequestsScreen';
 import PermissionsPendingApprovalScreen from '../screens/PermissionsPendingApprovalScreen';
 import MyPermissionsScreenList from '../screens/MyPermissionsScreen/MyPermissionsScreenList';
 import MyPermissionsScreenDetail from '../screens/MyPermissionsScreen/MyPermissionsScreenDetail';
