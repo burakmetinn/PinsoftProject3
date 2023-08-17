@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, Button, Modal,TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native';
+import { View, Text, Button, Modal,TouchableOpacity,ScrollView  } from 'react-native';
 
 function PermissionRequestsScreen() {
   const [permissionRequests, setPermissionRequests] = useState([
     { id: 1, user: 'Rabia Can', permission: 'Hastane randevum var.', startDate: '2023-08-16', endDate: '2023-08-16'},
     { id: 2, user: 'Ülkü Bıçak', permission: 'Acil şehir dışına çıkmam gerekiyor.', startDate: '2023-09-16', endDate: '2023-09-20' },
   ]);
-
   const [selectedPermission, setSelectedPermission] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
