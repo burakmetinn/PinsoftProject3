@@ -35,17 +35,16 @@ const LoginScreen = ({ navigation }) => {
   return (
     <ScrollView keyboardShouldPersistTaps='handled' style={styles.scroll}>
       <View style={styles.view}>
-        <Text style={styles.logo}>Time Off</Text>
         <View>
           <Image
             style={{
-              width: 70,
-              height: 50,
+              width: 300,
+              height: 250,
               marginRight: 145,
-              bottom: 45,
-              transform: [{ rotate: '300deg' }],
+              left: 65,
+              top: 50,
             }}
-            source={require('../assets/sun.png')}
+            source={require('../assets/headerLogo.png')}
           />
         </View>
         <View>

@@ -39,16 +39,7 @@ const MyPermissionsScreenDetail = ({ route, navigation }) => {
         <Text style={styles.detailTitle}>Status:</Text>
         <Text style={styles.status}>{permission.status}</Text>
       </View>
-      {permission.status === 'Pending' && (
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.denyButton} onPress={handleDeny}>
-            <Text style={styles.buttonTextDeny}>Deny</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.approveButton} onPress={handleApprove}>
-            <Text style={styles.buttonTextApprove}>Approve</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+      
     </View>
   );
 };
@@ -83,35 +74,6 @@ const styles = StyleSheet.create({
   requesterName: {
     fontSize: 16,
     color: '#2968b3',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-  },
-  approveButton: {
-    borderWidth: 3,
-    borderColor: 'green',
-    padding: 10,
-    borderRadius: 10,
-    width: 140,
-    alignItems: 'center',
-  },
-  denyButton: {
-    borderWidth: 3,
-    borderColor: '#bd2d2d',
-    padding: 10,
-    borderRadius: 10,
-    width: 140,
-    alignItems: 'center',
-  },
-  buttonTextDeny: {
-    color: '#bd2d2d',
-    fontWeight: 'bold',
-  },
-  buttonTextApprove: {
-    color: 'green',
-    fontWeight: 'bold',
   },
 });
 

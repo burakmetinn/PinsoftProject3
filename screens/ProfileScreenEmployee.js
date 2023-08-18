@@ -35,12 +35,10 @@ const ProfileScreenEmployee = ({navigation}) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableWithoutFeedback onPress={handleLogout}>
-        <View style={styles.logOutContainer}>
+      <TouchableOpacity onPress={handleLogout}  style={styles.logOutContainer}>
           <Ionicons name="log-out-outline" size={25} color="red" />
           <Text style={styles.logOutText}>Log Out</Text>
-        </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
 
       <Modal 
         animationType="slide"
