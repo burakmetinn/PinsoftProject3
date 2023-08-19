@@ -22,6 +22,7 @@ const LoginScreen = ({ navigation }) => {
       password: "123123",
       statu: "user",
       admin: "burak",
+      starting:"2023/12/12",
       izinler: [
         {
           date: "11/08/2023",
@@ -45,6 +46,7 @@ const LoginScreen = ({ navigation }) => {
       password: "123123",
       statu: "user",
       admin: "burak",
+      starting:"2023/12/12",
     },
     {
       mail: "burak@gmail.com",

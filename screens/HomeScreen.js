@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0A2647',
     padding: 20,
     marginBottom:20,
+    
   },
   heading: {
     fontSize: 24,

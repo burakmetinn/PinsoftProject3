@@ -8,18 +8,18 @@ const PermissionRequestScreen = () => {
   const [tekGunIzin, setTekGunIzin] = useState(true);
   const [baslangicTarihi, setBaslangicTarihi] = useState(new Date());
   const [bitisTarihi, setBitisTarihi] = useState(new Date());
-  // const [izinBilgileri, setIzinBilgileri] = useState("");
+  const [izinBilgileri, setIzinBilgileri] = useState("");
 
 
   const handleOnayPress = () => {
-    // const izinBilgiMetni = `
-    //   İzin Nedeni: ${izinNedeni}
-    //   İzin Türü: ${tekGunIzin ? "Tek Gün İzin" : "Çoklu Gün İzin"}
-    //   Başlangıç Tarihi: ${baslangicTarihi.toDateString()}
-    //   Bitiş Tarihi: ${bitisTarihi.toDateString()}
-    // `;
+    const izinBilgiMetni = `
+      İzin Nedeni: ${izinNedeni}
+      İzin Türü: ${tekGunIzin ? "Tek Gün İzin" : "Çoklu Gün İzin"}
+      Başlangıç Tarihi: ${baslangicTarihi.toDateString()}
+      Bitiş Tarihi: ${bitisTarihi.toDateString()}
+    `;
   
-    // setIzinBilgileri(izinBilgiMetni);
+    setIzinBilgileri(izinBilgiMetni);
   };
 
 // tarihler modal ekranı üzerinden gösterilecek, seçtikten sonra input içinde karşımıza çıkacak
