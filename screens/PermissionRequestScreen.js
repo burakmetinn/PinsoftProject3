@@ -22,7 +22,7 @@ const PermissionRequestScreen = () => {
     // setIzinBilgileri(izinBilgiMetni);
   };
 
-
+// tarihler modal ekranı üzerinden gösterilecek, seçtikten sonra input içinde karşımıza çıkacak
 
   return (
     <ScrollView style={styles.scrollView}>
