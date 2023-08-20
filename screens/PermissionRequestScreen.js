@@ -1,92 +1,99 @@
-import { View, Text, Button } from "react-native";
-import React, { useState } from "react";
-import { StyleSheet, TextInput, Switch, TouchableOpacity, ScrollView } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { View, Text, Button } from 'react-native';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  TextInput,
+  Switch,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const PermissionRequestScreen = () => {
-  const [izinNedeni, setIzinNedeni] = useState("");
-  const [tekGunIzin, setTekGunIzin] = useState(true);
-  const [baslangicTarihi, setBaslangicTarihi] = useState(new Date());
-  const [bitisTarihi, setBitisTarihi] = useState(new Date());
-  const [izinBilgileri, setIzinBilgileri] = useState("");
-
+  const [cause, setCause] = useState('');
+  const [OneDay, setOneDay] = useState(true);
+  const [StartDate, setStartDate] = useState(new Date());
+  const [EndDate, setEndDate] = useState(new Date());
+  const [PremInfo, setPremInfo] = useState('');
 
   const handleOnayPress = () => {
-    const izinBilgiMetni = `
-      İzin Nedeni: ${izinNedeni}
-      İzin Türü: ${tekGunIzin ? "Tek Gün İzin" : "Çoklu Gün İzin"}
-      Başlangıç Tarihi: ${baslangicTarihi.toDateString()}
-      Bitiş Tarihi: ${bitisTarihi.toDateString()}
+    const PremDisc = `
+      Permission cause: ${cause}
+      Permission Type: ${OneDay ? 'One Day Permission' : 'Few Days Permission'}
+      Start date: ${StartDate.toDateString()}
+      End Date : ${EndDate.toDateString()}
     `;
-  
-    setIzinBilgileri(izinBilgiMetni);
+
+    setPremInfo(PremDisc);
   };
 
-// tarihler modal ekranı üzerinden gösterilecek, seçtikten sonra input içinde karşımıza çıkacak
+  // tarihler modal ekranı üzerinden gösterilecek, seçtikten sonra input içinde karşımıza çıkacak
 
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-        {/* <Text style={styles.izinBilgileriText}>{izinBilgileri}</Text> */}
+          {/* <Text style={styles.PremInfoText}>{PremInfo}</Text> */}
 
-          <Text style={styles.label}>İzin Nedeni</Text>
+          <Text style={styles.label}>Permission cause</Text>
           <TextInput
-            placeholder="İzin nedeninizi girin..."
-            onChangeText={(text) => setIzinNedeni(text)}
-            value={izinNedeni}
+            placeholder='Write the Permission cause...'
+            onChangeText={(text) => setCause(text)}
+            value={cause}
             style={styles.input}
           />
         </View>
 
         <View style={styles.inputContainer}>
           <View style={styles.switchContainer}>
-            <Text style={styles.switchLabel}>Tek Gün İzin / Çoklu Gün İzin</Text>
+            <Text style={styles.switchLabel}>
+              Permission for one Day / few Days
+            </Text>
             <Switch
-              value={!tekGunIzin}
-              onValueChange={() => setTekGunIzin(!tekGunIzin)}
+              value={!OneDay}
+              onValueChange={() => setOneDay(!OneDay)}
             />
           </View>
         </View>
 
-        {tekGunIzin ? (
+        {OneDay ? (
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>İzin Tarihi</Text>
+            <Text style={styles.label}>Permission Date</Text>
 
             <DateTimePicker
-              value={baslangicTarihi}
-              mode="date"
-              display="spinner"
+              value={StartDate}
+              mode='date'
+              display='spinner'
               onChange={(event, selectedDate) => {
                 if (selectedDate !== undefined) {
-                  setBaslangicTarihi(selectedDate);
+                  setStartDate(selectedDate);
                 }
               }}
             />
           </View>
         ) : (
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>İzin Tarihi Aralığı</Text>
-            <Text style={styles.subtitle}>Başlangıç Tarihi</Text>
+            <Text style={styles.label}>Permission period date </Text>
+            <Text style={styles.subtitle}>Start date</Text>
             <DateTimePicker
-              value={baslangicTarihi}
-              mode="date"
-              display="spinner"
+              value={StartDate}
+              mode='date'
+              display='spinner'
               onChange={(event, selectedDate) => {
                 if (selectedDate !== undefined) {
-                  setBaslangicTarihi(selectedDate);
+                  setStartDate(selectedDate);
                 }
               }}
             />
-            <Text style={styles.subtitle}>Bitiş Tarihi</Text>
+            <Text style={styles.subtitle}>Expire date</Text>
 
             <DateTimePicker
-              value={bitisTarihi}
-              mode="date"
-              display="spinner"
+              value={EndDate}
+              mode='date'
+              display='spinner'
               onChange={(event, selectedDate) => {
                 if (selectedDate !== undefined) {
-                  setBitisTarihi(selectedDate);
+                  setEndDate(selectedDate);
                 }
               }}
             />
@@ -94,7 +101,7 @@ const PermissionRequestScreen = () => {
         )}
 
         <TouchableOpacity onPress={handleOnayPress} style={styles.button}>
-          <Text style={styles.buttonText}>İzni Onaya Gönder</Text>
+          <Text style={styles.buttonText}>Send Permission to approval </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -108,12 +115,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor:"#fff",
+    backgroundColor: '#fff',
   },
   view: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   header: {
     fontSize: 24,
@@ -130,26 +137,26 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 5,
   },
-  subtitle:{
-fontSize:18,
-marginTop:16,
+  subtitle: {
+    fontSize: 18,
+    marginTop: 16,
   },
   switchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   switchLabel: {
     fontSize: 16,
     marginRight: 10,
   },
   button: {
-    backgroundColor: "green",
+    backgroundColor: 'green',
     padding: 10,
-    alignItems: "center",
+    alignItems: 'center',
   },
   buttonText: {
     fontSize: 18,
-    color: "white",
+    color: 'white',
   },
 });
 export default PermissionRequestScreen;
