@@ -1,7 +1,7 @@
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreenEmployee from '../screens/ProfileScreenEmployee';
 import PermissionRequestScreen from '../screens/PermissionRequestScreen';
-import PermissionRequested from '../requested/permissionRequested';
+import PermissionRequestsScreen from '../screens/ExecutivePermissionScreen/PermissionRequestsScreen';
 import PermissionsPendingApprovalScreen from '../screens/PermissionsPendingApprovalScreen';
 import MyPermissionsScreenList from '../screens/MyPermissionsScreen/MyPermissionsScreenList';
 import MyPermissionsScreenDetail from '../screens/MyPermissionsScreen/MyPermissionsScreenDetail';
@@ -52,7 +52,7 @@ const TabsEmployee = () => {
       />
       <Tab.Screen
         name='Permission Requests'
-        component={PermissionRequested}
+        component={PermissionRequestsScreen}
         options={{
           headerShown: false,
           tabBarLabel: '',

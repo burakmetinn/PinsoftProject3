@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, Button, Modal,TouchableOpacity,ScrollView } from 'react-native';
+import { View, Text, Button, Modal,TouchableOpacity,ScrollView  } from 'react-native';
 
-function PermissionRequested() {
-  const [isPermissionRequested, setIsPermissionRequested] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [permissionStatus, setPermissionStatus] = useState('');
+function PermissionRequestsScreen() {
   const [permissionRequests, setPermissionRequests] = useState([
     { id: 1, user: 'Rabia Can', permission: 'Hastane randevum var.', startDate: '2023-08-16', endDate: '2023-08-16'},
     { id: 2, user: 'Ülkü Bıçak', permission: 'Acil şehir dışına çıkmam gerekiyor.', startDate: '2023-09-16', endDate: '2023-09-20' },
   ]);
   const [selectedPermission, setSelectedPermission] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handlePermissionClick = (permission) => {
     setSelectedPermission(permission);
@@ -27,7 +25,7 @@ function PermissionRequested() {
         {permissionRequests.map((permission) => (
           <TouchableOpacity
             key={permission.id}
-            style={{ padding: 10, borderBottomWidth: 1, borderColor: 'gray' }}
+            style={{ padding: 10, borderBottomWidth: 1, borderColor: 'gray',flex:1 }}
             onPress={() => handlePermissionClick(permission)}
           >
             <Text>{permission.user} - {permission.permission}</Text>
@@ -57,4 +55,4 @@ function PermissionRequested() {
   );
 }
 
-export default PermissionRequested;
+export default PermissionRequestsScreen;
