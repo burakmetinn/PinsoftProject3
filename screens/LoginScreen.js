@@ -22,7 +22,7 @@ const LoginScreen = ({ navigation }) => {
       password: "123123",
       statu: "user",
       admin: "burak",
-      starting:"2023/12/12",
+      starting: "2023/12/12",
       izinler: [
         {
           date: "11/08/2023",
@@ -46,7 +46,7 @@ const LoginScreen = ({ navigation }) => {
       password: "123123",
       statu: "user",
       admin: "burak",
-      starting:"2023/12/12",
+      starting: "2023/12/12",
     },
     {
       mail: "burak@gmail.com",
@@ -67,7 +67,7 @@ const LoginScreen = ({ navigation }) => {
       const user = users.find(
         (u) => u.mail === textInputEmail && u.password === textInputPwd
       );
-  
+
       if (user) {
         if (user.statu === "admin") {
           navigation.navigate("TabsManager");
@@ -81,7 +81,7 @@ const LoginScreen = ({ navigation }) => {
       }
     }
   };
-  
+
   const pwd = useRef();
   return (
     <ScrollView keyboardShouldPersistTaps="handled" style={styles.scroll}>
@@ -93,7 +93,8 @@ const LoginScreen = ({ navigation }) => {
               height: 250,
               marginRight: 145,
               left: 65,
-              top: 50,
+              top: 130,
+              marginBottom: 70,
             }}
             source={require("../assets/headerLogo.png")}
           />
