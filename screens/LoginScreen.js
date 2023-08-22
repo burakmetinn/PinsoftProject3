@@ -91,8 +91,6 @@ const LoginScreen = ({ navigation }) => {
             style={{
               width: 300,
               height: 250,
-              marginRight: 145,
-              left: 65,
               top: 130,
               marginBottom: 70,
             }}
