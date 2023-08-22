@@ -85,10 +85,7 @@ const Stacks = () => {
       <Stack.Screen
         name="SelectAdminScreen"
         component={SelectAdminScreen}
-        options={{
-          header: () => headerEmployee,
-          headerLeft: null,
-        }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

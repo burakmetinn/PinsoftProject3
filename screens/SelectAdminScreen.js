@@ -3,6 +3,7 @@ import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { Text, ScrollView, View } from "react-native";
 import { StyleSheet } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const SelectAdminScreen = ({ navigation }) => {
   const [users, setUsers] = useState([
@@ -32,7 +33,7 @@ const SelectAdminScreen = ({ navigation }) => {
               navigation.navigate("TabsEmployee");
             }}
           >
-            <Text style={styles.us}>{item.name}</Text>
+            <Text style={styles.userText}>{item.name}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -50,18 +51,23 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   text: {
-    paddingTop: 180,
+    paddingTop: 220,
     fontWeight: "bold",
+    fontFamily: "AvenirNext-DemiBold",
+    fontSize: 20,
   },
-  us: {
+  userText: {
     width: 110,
-    backgroundColor: "#ebeff2",
+    fontSize: 17,
+    backgroundColor: "#0f396b",
+    fontFamily: "Avenir-Heavy",
+    color: "white",
     borderRadius: 20,
-    height: 50,
+    height: 70,
     marginBottom: 20,
     justifyContent: "center",
     textAlign: "center",
-    padding: 15,
+    padding: 23,
     top: 30,
   },
 });
