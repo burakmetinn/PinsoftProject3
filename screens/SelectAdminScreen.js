@@ -26,7 +26,12 @@ const SelectAdminScreen = ({ navigation }) => {
       </View>
       <ScrollView style={styles.scroll}>
         {users.map((item) => (
-          <TouchableOpacity id={item.id}>
+          <TouchableOpacity
+            id={item.id}
+            onPress={() => {
+              navigation.navigate("TabsEmployee");
+            }}
+          >
             <Text style={styles.us}>{item.name}</Text>
           </TouchableOpacity>
         ))}
