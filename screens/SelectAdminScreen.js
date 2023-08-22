@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     fontFamily: "Cochin-Italic",
     fontWeight: "bold",
-    fontSize: 23,
+    fontSize: 22,
   },
   userText: {
     width: 150,
