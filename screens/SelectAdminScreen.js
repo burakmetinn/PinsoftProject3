@@ -8,15 +8,15 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 const SelectAdminScreen = ({ navigation }) => {
   const [users, setUsers] = useState([
     {
-      name: "John",
+      name: "Burak",
       id: "1",
     },
     {
-      name: "Jake",
+      name: "Selim",
       id: "2",
     },
     {
-      name: "Anna",
+      name: "Zeynep",
       id: "3",
     },
   ]);
@@ -53,11 +53,12 @@ const styles = StyleSheet.create({
   text: {
     paddingTop: 220,
     fontWeight: "bold",
-    fontFamily: "Didot",
+    fontFamily: "HiraginoSans-W6",
     fontSize: 20,
+    height: 245,
   },
   userText: {
-    width: 110,
+    width: 150,
     fontSize: 17,
     backgroundColor: "#0f396b",
     fontFamily: "Avenir-Heavy",
