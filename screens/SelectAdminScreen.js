@@ -27,8 +27,6 @@ const SelectAdminScreen = ({ navigation }) => {
           style={{
             width: 280,
             height: 230,
-            marginRight: 145,
-            left: 65,
             top: 40,
           }}
           source={require("../assets/headerLogo.png")}

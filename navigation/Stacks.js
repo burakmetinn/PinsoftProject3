@@ -20,31 +20,12 @@ import SelectAdminScreen from "../screens/SelectAdminScreen";
 const Stacks = () => {
   const headerManager = (
     <View style={styles.header}>
-      <TouchableOpacity>
-        <Ionicons
-          name="reorder-three-outline"
-          size={30}
-          style={styles.menuIcon}
-        />
-      </TouchableOpacity>
-      <Image
-        style={styles.logo}
-        source={require("../assets/headerLogoManager.png")}
-      />
-      {/* <Ionicons name="person-circle"   size={30} color={"#bd2d2d"} style={{left: 80 ,top: 45, alignItems: 'center', justifyContent: 'center'}}></Ionicons> */}
+      <Image style={styles.logo} source={require("../assets/headerLogoManager.png")} />
     </View>
   );
   const headerEmployee = (
     <View style={styles.header}>
-      <TouchableOpacity>
-        <Ionicons
-          name="reorder-three-outline"
-          size={30}
-          style={styles.menuIcon}
-        />
-      </TouchableOpacity>
       <Image style={styles.logo} source={require("../assets/headerLogo.png")} />
-      {/* <Ionicons name="person-circle"   size={30} color={"black"} style={{left: 80 ,top: 45, alignItems: 'center', justifyContent: 'center'}}></Ionicons>  */}
     </View>
   );
 
@@ -94,18 +75,19 @@ const Stacks = () => {
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
+    justifyContent: Platform.OS === 'web' ? 'flex-start' : 'center',
   },
 
   logo: {
     width: 200,
     height: 80,
     bottom: 10,
-    left: 45,
     top: 25,
     marginBottom: 10,
+    marginRight: 10,
     ...Platform.select({
       web: {
-        top: 10,
+        top: 5,
         height: 100,
         width: 250,
         bottom: 0,
@@ -113,20 +95,7 @@ const styles = StyleSheet.create({
       },
     }),
   },
-
-  menuIcon: {
-    left: 15,
-    top: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    ...Platform.select({
-      web: {
-        left: 25,
-        top: 40,
-        fontSize: 35,
-      },
-    }),
-  },
+  
 });
 
 export default Stacks;
