@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useRef, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Entypo from "react-native-vector-icons/Entypo";
 
@@ -103,7 +103,7 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.inputs}>
             <TextInput
               placeholder="Email"
-              style={{ top: 8 }}
+              style={styles.ins}
               returnKeyType="next"
               onSubmitEditing={() => {
                 pwd.current.focus();
@@ -119,7 +119,7 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.inputs}>
             <TextInput
               placeholder="Password"
-              style={{ top: 9 }}
+              style={styles.ins}
               ref={pwd}
               secureTextEntry={hidePass ? true : false}
               onChangeText={(value) => setTextInputPwd(value)}
@@ -180,6 +180,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: "center",
     padding: 20,
+  },
+  ins: {
+    top: 9,
+    ...Platform.select({
+      default: {
+        outlineStyle: "none",
+      },
+    }),
   },
 
   btn: {
