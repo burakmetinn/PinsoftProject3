@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   text: {
     paddingTop: 220,
     fontWeight: "bold",
-    fontFamily: "AvenirNext-DemiBold",
+    fontFamily: "Didot",
     fontSize: 20,
   },
   userText: {
