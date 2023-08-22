@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   ins: {
     top: 9,
     ...Platform.select({
-      default: {
+      web: {
         outlineStyle: "none",
       },
     }),
