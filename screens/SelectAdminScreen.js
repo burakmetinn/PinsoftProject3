@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { Text, ScrollView, View } from "react-native";
+import { Text, ScrollView, View, Image } from "react-native";
 import { StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -9,26 +9,38 @@ const SelectAdminScreen = ({ navigation }) => {
   const [users, setUsers] = useState([
     {
       name: "Burak",
-      id: "1",
+      key: "1",
     },
     {
       name: "Selim",
-      id: "2",
+      key: "2",
     },
     {
       name: "Zeynep",
-      id: "3",
+      key: "3",
     },
   ]);
   return (
     <View style={styles.view}>
       <View>
-        <Text style={styles.text}>Select Your Menager</Text>
+        <Image
+          style={{
+            width: 280,
+            height: 230,
+            marginRight: 145,
+            left: 65,
+            top: 40,
+          }}
+          source={require("../assets/headerLogo.png")}
+        />
+      </View>
+      <View>
+        <Text style={styles.text}>Select Your Manager</Text>
       </View>
       <ScrollView style={styles.scroll}>
         {users.map((item) => (
           <TouchableOpacity
-            id={item.id}
+            key={item.key}
             onPress={() => {
               navigation.navigate("TabsEmployee");
             }}
@@ -51,15 +63,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   text: {
-    paddingTop: 220,
+    paddingTop: 50,
+    fontFamily: "Cochin-Italic",
     fontWeight: "bold",
-    fontFamily: "HiraginoSans-W6",
-    fontSize: 20,
-    height: 245,
+    fontSize: 23,
   },
   userText: {
     width: 150,
-    fontSize: 17,
+    fontSize: 16,
     backgroundColor: "#0f396b",
     fontFamily: "Avenir-Heavy",
     color: "white",
