@@ -29,7 +29,7 @@ const SelecetAdminScreen = ({ navigation }) => {
           style={{
             width: 300,
             height: 250,
-            top: 60,
+            top: -30,
             left: 23,
             marginBottom: 70,
           }}
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   dropdown: {
+    top: -80,
     height: 50,
     borderColor: "gray",
     borderWidth: 0.5,
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   text: {
+    top: -80,
     paddingBottom: 30,
     left: 85,
     fontFamily: "Cochin",
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 247,
     backgroundColor: "#0f396b",
-    top: 150,
+    top: 50,
     left: 60,
   },
   btnText: {
