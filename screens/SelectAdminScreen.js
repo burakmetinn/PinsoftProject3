@@ -128,7 +128,8 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 16,
-    fontFamily: "Avenir-Heavy",
+    fontFamily: "Avenir",
+    fontWeight: "bold",
   },
   iconStyle: {
     width: 20,

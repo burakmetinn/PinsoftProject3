@@ -20,7 +20,10 @@ import SelectAdminScreen from "../screens/SelectAdminScreen";
 const Stacks = () => {
   const headerManager = (
     <View style={styles.header}>
-      <Image style={styles.logo} source={require("../assets/headerLogoManager.png")} />
+      <Image
+        style={styles.logo}
+        source={require("../assets/headerLogoManager.png")}
+      />
     </View>
   );
   const headerEmployee = (
@@ -66,7 +69,12 @@ const Stacks = () => {
       <Stack.Screen
         name="SelectAdminScreen"
         component={SelectAdminScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerTitle: "",
+          headerBackTitle: "Back",
+          headerTintColor: "black",
+          headerShadowVisible: false,
+        }}
       />
     </Stack.Navigator>
   );
@@ -75,7 +83,7 @@ const Stacks = () => {
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
-    justifyContent: Platform.OS === 'web' ? 'flex-start' : 'center',
+    justifyContent: Platform.OS === "web" ? "flex-start" : "center",
   },
 
   logo: {
@@ -95,7 +103,6 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  
 });
 
 export default Stacks;
