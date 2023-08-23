@@ -1,4 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUp";
@@ -13,6 +13,7 @@ import {
   View,
   StyleSheet,
   Platform,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import SelectAdminScreen from "../screens/SelectAdminScreen";
@@ -33,6 +34,7 @@ const Stacks = () => {
   );
 
   const Stack = createNativeStackNavigator();
+  const navigation = useNavigation();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -74,6 +76,26 @@ const Stacks = () => {
           headerBackTitle: "Back",
           headerTintColor: "black",
           headerShadowVisible: false,
+          headerLeft: (props) => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                Alert.alert(
+                  "Warning",
+                  "The action you have taken will not be recorded.",
+                  (onPress = () => navigation.navigate("SignUpScreen"))
+                );
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Stacks"
+        component={Stacks}
+        options={{
+          header: () => headerEmployee,
+          headerLeft: null,
         }}
       />
     </Stack.Navigator>
