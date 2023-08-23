@@ -1,4 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUp";
@@ -13,6 +13,7 @@ import {
   View,
   StyleSheet,
   Platform,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import SelectAdminScreen from "../screens/SelectAdminScreen";
@@ -20,7 +21,10 @@ import SelectAdminScreen from "../screens/SelectAdminScreen";
 const Stacks = () => {
   const headerManager = (
     <View style={styles.header}>
-      <Image style={styles.logo} source={require("../assets/headerLogoManager.png")} />
+      <Image
+        style={styles.logo}
+        source={require("../assets/headerLogoManager.png")}
+      />
     </View>
   );
   const headerEmployee = (
@@ -30,6 +34,7 @@ const Stacks = () => {
   );
 
   const Stack = createNativeStackNavigator();
+  const navigation = useNavigation();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -66,7 +71,32 @@ const Stacks = () => {
       <Stack.Screen
         name="SelectAdminScreen"
         component={SelectAdminScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerTitle: "",
+          headerBackTitle: "Back",
+          headerTintColor: "black",
+          headerShadowVisible: false,
+          headerLeft: (props) => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                Alert.alert(
+                  "Warning",
+                  "The action you have taken will not be recorded.",
+                  (onPress = () => navigation.navigate("SignUpScreen"))
+                );
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Stacks"
+        component={Stacks}
+        options={{
+          header: () => headerEmployee,
+          headerLeft: null,
+        }}
       />
     </Stack.Navigator>
   );
@@ -75,7 +105,7 @@ const Stacks = () => {
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
-    justifyContent: Platform.OS === 'web' ? 'flex-start' : 'center',
+    justifyContent: Platform.OS === "web" ? "flex-start" : "center",
   },
 
   logo: {
@@ -95,7 +125,6 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  
 });
 
 export default Stacks;
