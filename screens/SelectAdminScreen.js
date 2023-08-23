@@ -21,6 +21,7 @@ const users = [
 const SelecetAdminScreen = ({ navigation }) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+  const [selected, setSelected] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -58,6 +59,7 @@ const SelecetAdminScreen = ({ navigation }) => {
           onChange={(item) => {
             setValue(item.value);
             setIsFocus(false);
+            setSelected(true);
           }}
           renderLeftIcon={() => (
             <Ionicons
@@ -71,6 +73,7 @@ const SelecetAdminScreen = ({ navigation }) => {
       </View>
       <View style={styles.btn}>
         <TouchableOpacity
+          disabled={selected === false ? true === true : false}
           onPress={() => {
             navigation.navigate("TabsEmployee");
           }}
@@ -89,6 +92,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     padding: 16,
+    flex: 1,
   },
   dropdown: {
     top: -80,
