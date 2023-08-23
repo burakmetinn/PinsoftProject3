@@ -8,10 +8,26 @@ function PermissionRequestsScreen() {
   ]);
   const [selectedPermission, setSelectedPermission] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [activePermissionIndex, setActivePermissionIndex] = useState(null); 
 
-  const handlePermissionClick = (permission) => {
+  const handlePermissionClick = (permission,index) => {
     setSelectedPermission(permission);
+    setActivePermissionIndex(index); 
     setIsModalVisible(true);
+  };
+  const handleApprove = () => {
+    const updatedPermissionRequests = [...permissionRequests];
+    updatedPermissionRequests[activePermissionIndex].status = 'Onaylandı'; 
+    setPermissionRequests(updatedPermissionRequests);
+    setActivePermissionIndex(null); 
+    handleCloseModal();
+  };
+  const handleReject = () => {
+    const updatedPermissionRequests = [...permissionRequests];
+    updatedPermissionRequests[activePermissionIndex].status = 'Reddedildi'; 
+    setPermissionRequests(updatedPermissionRequests);
+    setActivePermissionIndex(null); 
+    handleCloseModal();
   };
 
   const handleCloseModal = () => {
@@ -25,8 +41,8 @@ function PermissionRequestsScreen() {
         {permissionRequests.map((permission) => (
           <TouchableOpacity
             key={permission.id}
-            style={{ padding: 10, borderBottomWidth: 1, borderColor: 'gray',flex:1 }}
-            onPress={() => handlePermissionClick(permission)}
+            style={{ padding: 10, borderBottomWidth: 1, borderColor: 'gray',backgroundColor: permission.id % 2 === 0 ? 'lightgray' : 'white',flex:1 }}
+            onPress={() => handlePermissionClick(permission,index)}
           >
             <Text>{permission.user} - {permission.permission}</Text>
             <Text>Başlangıç Tarihi: {permission.startDate}</Text>
@@ -36,20 +52,26 @@ function PermissionRequestsScreen() {
       </ScrollView>
 
       <Modal visible={isModalVisible} animationType="slide" transparent>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+      <TouchableOpacity
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}
+          onPress={handleCloseModal}
+        >
           <View style={{ padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
             {selectedPermission && (
               <View>
-                <Text>Kullanıcının İzin Talebi</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Kullanıcının İzin Talebi</Text>
                 <Text>Kullanıcı: {selectedPermission.user}</Text>
                 <Text>İzin: {selectedPermission.permission}</Text>
                 <Text>Başlangıç Tarihi: {selectedPermission.startDate}</Text>
                 <Text>Bitiş Tarihi: {selectedPermission.endDate}</Text>
-                <Button title="Kapat" onPress={handleCloseModal} />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+                  <Button title="Onayla" onPress={handleApprove} color="green" />
+                  <Button title="Reddet" onPress={handleReject} color="red" />
+                </View>
               </View>
             )}
           </View>
-        </View>
+        </TouchableOpacity>
       </Modal>
     </View>
   );
