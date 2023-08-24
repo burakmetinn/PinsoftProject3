@@ -124,6 +124,8 @@ const PermissionsPendingApprovalScreen = () => {
         <Text style={styles.title}>Approving Pending</Text>
       </View>
       <FlatList
+        showsHorizontalScrollIndicator={false}
+        style={styles.flatList}
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
@@ -143,6 +145,7 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: "#0A2647",
+    alignItems: "center",
   },
   header: {
     flexDirection: "row",
@@ -150,6 +153,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
@@ -214,6 +218,13 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontSize: 16,
+  },
+  flatList: {
+    ...Platform.select({
+      web: {
+        width: 800,
+      },
+    }),
   },
 });
 
