@@ -21,6 +21,10 @@ const ProfileScreenManager = ({ navigation }) => {
         <Text style={styles.sampleName}>Firstname Lastname</Text>
       </View>
 
+      <TouchableOpacity>
+        <Text>New Manager</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
         <Ionicons name="log-out-outline" size={25} color="red" />
         <Text style={styles.logOutText}>Log Out</Text>

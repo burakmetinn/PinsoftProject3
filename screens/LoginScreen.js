@@ -60,6 +60,13 @@ const LoginScreen = ({ navigation }) => {
       statu: "admin", // Corrected property name here
       users: "utku, aylin, elif",
     },
+    {
+      mail: "d",
+      password: "d",
+      statu: "user",
+      admin: "a",
+      starting: "2023/12/12",
+    },
   ]);
 
   console.log(users);
