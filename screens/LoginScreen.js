@@ -129,7 +129,7 @@ const LoginScreen = ({ navigation }) => {
           );
 
           if (response.data.role === "EMPLOYEE") {
-            navigation.navigate("TabsEmployee");
+            navigation.navigate("SelectAdminScreen");
           } else if (response.data.role === "ADMIN") {
             navigation.navigate("TabsManager");
           }
@@ -139,6 +139,7 @@ const LoginScreen = ({ navigation }) => {
           alert("make sure you entered the right parameters");
         }
       );
+      
   };
 
   const pwd = useRef();
