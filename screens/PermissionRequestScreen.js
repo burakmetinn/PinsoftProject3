@@ -36,7 +36,10 @@ const PermissionRequestScreen = () => {
     } else if (EndDate < StartDate) {
       Alert.alert("Error", "Permission end date cannot be before start date!");
     } else if (StartDate < new Date()) {
-      Alert.alert("Error", "The earliest date you can choose is the day after today!");
+      Alert.alert(
+        "Error",
+        "The earliest date you can choose is the day after today!"
+      );
     } else if (!OneDay && daysDifference > 20) {
       Alert.alert("Warning", "Permission period cannot be more than 20 days");
     } else {
@@ -49,43 +52,45 @@ const PermissionRequestScreen = () => {
 
   console.log(StartDate);
   console.log(EndDate);
+  console.log(cause);
 
   const handleSubmit = () => {
-    if (!cause || !StartDate || !EndDate) {
-      setError("Please fill out all fields.");
-      Alert.alert("Error", "Please fill out all fields.");
-    } else {
-      setError("");
-      axios
-        .post("https://time-off-tracker-production.up.railway.app/time-off", {
-          description: cause,
-          startDate: StartDate,
-          endDate: EndDate,
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
+    try {
+      if (!cause || !StartDate || !EndDate) {
+        setError("Please fill out all fields.");
+        Alert.alert("Error", "Please fill out all fields.");
+      } else {
+        setError("");
+        axios
+          .post("https://time-off-tracker-production.up.railway.app/time-off", {
+            description: cause,
+            startDate: StartDate,
+            endDate: EndDate,
+          })
+          .then((response) => {
             console.log(response);
-          }
-          if (error) {
-            console.log(error);
-            Alert.alert("Error", "Make sure you entered the right parameters");
-          } else {
-            const PremDisc = `
-              Permission cause: ${cause}
-              Permission Type: ${
-                OneDay ? "One Day Permission" : "Few Days Permission"
-              }
-              Start date: ${StartDate.toDateString()}
-              End Date: ${EndDate.toDateString()}
-            `;
-
-            setPremInfo(PremDisc);
-
-            Alert.alert("", PremDisc);
-          }
-        });
+            if (response.status === 200) {
+              const PremDisc = `
+                Permission cause: ${cause}
+                Permission Type: ${
+                  OneDay ? "One Day Permission" : "Few Days Permission"
+                }
+                Start date: ${StartDate.toDateString()}
+                End Date: ${EndDate.toDateString()}
+              `;
+              setPremInfo(PremDisc);
+              Alert.alert("", PremDisc);
+            }
+            if (error) {
+              console.log(error);
+              Alert.alert("Error", "Make sure you entered the right parameters");
+            }
+          });
+      }
+    } catch (error) {
+      throw error;
     }
+    
   };
 
   return (
