@@ -81,7 +81,7 @@ const LoginScreen = ({ navigation }) => {
   //       Alert.alert('Error', 'Invalid email or password.');
   //     }
   //   }
-  // };
+  // }; 
 
   const cookies = new Cookies();
   
