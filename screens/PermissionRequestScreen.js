@@ -214,10 +214,20 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginBottom: 20,
     color: "white",
+    ...Platform.select({
+      web: {
+        alignItems: "center",
+      },
+    }),
   },
   label: {
     fontSize: 25,
     color: "white",
+    ...Platform.select({
+      web: {
+        margin: 10,
+      },
+    }),
   },
   input: {
     borderWidth: 1,
@@ -227,6 +237,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     color: "#0A2647",
     textAlign: "center",
+    ...Platform.select({
+      web: {
+        width: 500,
+      },
+    }),
   },
   subtitle: {
     flex: 1,
@@ -241,6 +256,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     color: "white",
+    ...Platform.select({
+      web: {
+        margin: 10,
+      },
+    }),
   },
   switchLabel: {
     fontSize: 16,
@@ -263,6 +283,12 @@ const styles = StyleSheet.create({
       height: 6,
     },
     shadowRadius: 30,
+    ...Platform.select({
+      web: {
+        width: 500,
+        marginLeft: 500,
+      },
+    }),
   },
   SelectButton: {
     backgroundColor: "#ffdb58",
@@ -281,6 +307,11 @@ const styles = StyleSheet.create({
       height: 6,
     },
     shadowRadius: 30,
+    ...Platform.select({
+      web: {
+        width: 500,
+      },
+    }),
   },
   buttonText: {
     fontSize: 18,
