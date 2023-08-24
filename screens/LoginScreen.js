@@ -95,21 +95,6 @@ const LoginScreen = ({ navigation }) => {
 
       .then(
         (response) => {
-
-
-
-          cookies.set(
-            'login',
-            JSON.stringify({
-              login: true,
-              role: response.data.role,
-              token: response.data.token,
-            }),
-            { path: '/' }
-          );
-
-
-
           console.log(response);
           setToken(response.data.token);
           console.log(token);
@@ -135,7 +120,7 @@ const LoginScreen = ({ navigation }) => {
           );
 
           if (response.data.role === 'EMPLOYEE') {
-            navigation.navigate('TabsEmployee');
+            navigation.navigate("SelectAdminScreen");
           } else if (response.data.role === 'ADMIN') {
             navigation.navigate('TabsManager');
           }
