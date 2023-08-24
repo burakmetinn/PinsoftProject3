@@ -67,11 +67,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#0A2647',
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 30,
+    color:"white"
   },
   listContent: {
     marginTop: 0,
