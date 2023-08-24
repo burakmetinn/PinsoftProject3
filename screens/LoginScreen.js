@@ -16,62 +16,6 @@ import Cookies from 'universal-cookie';
 
 const LoginScreen = ({ navigation }) => {
   const [hidePass, setHidePass] = useState(true);
-<<<<<<< HEAD
-  const [textInputEmail, setTextInputEmail] = useState("");
-  const [textInputPwd, setTextInputPwd] = useState("");
-  const [users, setUsers] = useState([
-    {
-      mail: "cekicengiz01@gmail.com",
-      password: "123123",
-      statu: "user",
-      admin: "burak",
-      starting: "2023/12/12",
-      izinler: [
-        {
-          date: "11/08/2023",
-          dateend: "13/08/2023",
-          statu: "onaylandı",
-        },
-        {
-          date: "15/08/2023",
-          dateend: "15/08/2023",
-          statu: "onaylanmadı",
-        },
-        {
-          date: "16/08/2023",
-          dateend: "18/08/2023",
-          statu: "bekliyor",
-        },
-      ],
-    },
-    {
-      mail: "elif@gmail.com",
-      password: "123123",
-      statu: "user",
-      admin: "burak",
-      starting: "2023/12/12",
-    },
-    {
-      mail: "burak@gmail.com",
-      password: "123123",
-      statu: "admin", // Corrected property name here
-      users: "utku, aylin, elif",
-    },
-    {
-      mail: "a",
-      password: "a",
-      statu: "admin", // Corrected property name here
-      users: "utku, aylin, elif",
-    },
-    {
-      mail: "d",
-      password: "d",
-      statu: "user",
-      admin: "a",
-      starting: "2023/12/12",
-    },
-  ]);
-=======
   const [textInputEmail, setTextInputEmail] = useState('');
   const [textInputPwd, setTextInputPwd] = useState('');
   const [token, setToken] = useState('');
@@ -114,7 +58,6 @@ const LoginScreen = ({ navigation }) => {
   //     users: 'utku, aylin, elif',
   //   },
   // ]);
->>>>>>> main
 
   // const checkTextInput = () => {
   //   if (!textInputEmail.trim()) {
