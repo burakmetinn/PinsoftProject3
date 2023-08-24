@@ -20,7 +20,7 @@ const ProfileScreenEmployee = ({navigation}) => {
     <View style={styles.container}>
       
       <View style={styles.infoSection}>
-        <Ionicons name="person-circle"  size={100} />
+        <Ionicons name="person-circle" color="white" size={100} />
         <Text style={styles.sampleName}>Firstname Lastname</Text>
       </View>
       
@@ -29,7 +29,7 @@ const ProfileScreenEmployee = ({navigation}) => {
         <TouchableOpacity
           style={styles.optionButton}
           onPress={() => setSheetVisible(true)}>
-          <Ionicons name="person-circle" size={30}  color='gray'/>    
+          <Ionicons name="person-circle" size={30}  color='white'/>    
           <Text style={styles.managerText}>{selectedOption}</Text>
           <Ionicons style={styles.managerIcon} name="chevron-forward" size={20}  color='gray'/> 
         </TouchableOpacity>
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     paddingTop: 20,
+    backgroundColor: "#0f396b",
   },
   infoSection: {
     marginTop: 5,
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     marginBottom: 5,
+    color:"white"
   },
   sampleName: {
     fontSize: 20,
@@ -129,6 +131,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     justifyContent: 'center',
     alignItems: 'center',
+    color:"white"
   },
   optionsContainer: {
     marginTop: 30,
