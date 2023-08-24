@@ -21,6 +21,12 @@ const ProfileScreenManager = ({ navigation }) => {
         <Text style={styles.sampleName}>Firstname Lastname</Text>
       </View>
 
+      <View style={styles.newM}>
+        <TouchableOpacity>
+          <Text style={styles.new}>Select New Manager</Text>
+        </TouchableOpacity>
+      </View>
+
       <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
         <Ionicons name="log-out-outline" size={25} color="red" />
         <Text style={styles.logOutText}>Log Out</Text>
@@ -34,7 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     paddingTop: 20,
-    backgroundColor: "#0f396b",
+    backgroundColor: "#0A2647",
   },
   infoSection: {
     marginTop: 5,
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     justifyContent: "center",
     alignItems: "center",
-    color:"white"
+    color: "white",
   },
 
   logOutContainer: {
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
     marginLeft: 30,
-    marginTop: 50,
+    marginTop: 380,
     width: 120,
   },
   logOutText: {
@@ -69,6 +75,21 @@ const styles = StyleSheet.create({
     color: "red",
     fontWeight: "bold",
     fontSize: 15,
+  },
+  newM: {
+    top: 50,
+    left: 30,
+    marginBottom: 10,
+    padding: 15,
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    width: 182,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  new: {
+    fontSize: 15,
+    color: "black",
   },
 });
 

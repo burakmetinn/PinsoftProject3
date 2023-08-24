@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
     color:"white"
-
   },
   requesterName: {
     fontSize: 16,

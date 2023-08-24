@@ -72,11 +72,12 @@ const Stacks = () => {
         name="SelectAdminScreen"
         component={SelectAdminScreen}
         options={{
-          headerTitle: "",
-          headerBackTitle: "Back",
-          headerTintColor: "black",
-          headerShadowVisible: false,
-          headerLeft: (props) => (
+          headerShown: false
+          //headerTitle: "",
+         // headerBackTitle: "Back",
+          //headerTintColor: "black",
+          //headerShadowVisible: false,
+          /* headerLeft: (props) => (
             <HeaderBackButton
               {...props}
               onPress={() => {
@@ -87,7 +88,7 @@ const Stacks = () => {
                 );
               }}
             />
-          ),
+          ),*/
         }}
       />
       <Stack.Screen

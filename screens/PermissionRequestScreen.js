@@ -20,6 +20,7 @@ const PermissionRequestScreen = () => {
   const [PremInfo, setPremInfo] = useState('');
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+  const [error, setError] = useState('');
 
   const handleStartDateChange = (selectedDate) => {
     setStartDate(selectedDate);
