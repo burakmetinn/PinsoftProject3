@@ -71,14 +71,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A2647",
     padding: 20,
     marginBottom: 20,
-<<<<<<< HEAD
-=======
     ...Platform.select({
       web: {
-        alignItems: "center",
+        
       },
     }),
->>>>>>> demet
   },
   heading: {
     fontSize: 24,

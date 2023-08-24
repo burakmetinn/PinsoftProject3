@@ -213,13 +213,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 20,
-<<<<<<< HEAD
-    color: 'white',
-  },
-  label: {
-    fontSize: 25,
-    color: 'white',
-=======
     color: "white",
     ...Platform.select({
       web: {
@@ -235,7 +228,6 @@ const styles = StyleSheet.create({
         margin: 10,
       },
     }),
->>>>>>> demet
   },
   input: {
     borderWidth: 1,
@@ -243,10 +235,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginTop: 5,
-<<<<<<< HEAD
-    color: '#0A2647',
-    textAlign: 'center',
-=======
     color: "#0A2647",
     textAlign: "center",
     ...Platform.select({
@@ -254,7 +242,6 @@ const styles = StyleSheet.create({
         width: 500,
       },
     }),
->>>>>>> demet
   },
   subtitle: {
     flex: 1,
@@ -266,11 +253,6 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
   switchContainer: {
-<<<<<<< HEAD
-    flexDirection: 'row',
-    alignItems: 'center',
-    color: 'white',
-=======
     flexDirection: "row",
     alignItems: "center",
     color: "white",
@@ -279,7 +261,6 @@ const styles = StyleSheet.create({
         margin: 10,
       },
     }),
->>>>>>> demet
   },
   switchLabel: {
     fontSize: 16,
