@@ -6,19 +6,19 @@ import {
   Image,
   Alert,
   ScrollView,
-} from 'react-native';
-import React, { useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
-import Entypo from 'react-native-vector-icons/Entypo';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
+} from "react-native";
+import React, { useRef, useState } from "react";
+import { StyleSheet } from "react-native";
+import Feather from "react-native-vector-icons/Feather";
+import Entypo from "react-native-vector-icons/Entypo";
+import axios from "axios";
+import Cookies from "universal-cookie";
 
 const LoginScreen = ({ navigation }) => {
   const [hidePass, setHidePass] = useState(true);
-  const [textInputEmail, setTextInputEmail] = useState('');
-  const [textInputPwd, setTextInputPwd] = useState('');
-  const [token, setToken] = useState('');
+  const [textInputEmail, setTextInputEmail] = useState("");
+  const [textInputPwd, setTextInputPwd] = useState("");
+  const [token, setToken] = useState("");
   // const [users, setUsers] = useState([
   //   {
   //     mail: 'cekicengiz01@gmail.com',
@@ -81,34 +81,28 @@ const LoginScreen = ({ navigation }) => {
   //       Alert.alert('Error', 'Invalid email or password.');
   //     }
   //   }
-  // }; 
+  // };
 
   const cookies = new Cookies();
-  
 
   const loginHandler = () => {
     axios
-      .post('https://time-off-tracker-production.up.railway.app/auth/login', {
+      .post("https://time-off-tracker-production.up.railway.app/auth/login", {
         email: textInputEmail,
         password: textInputPwd,
       })
 
       .then(
         (response) => {
-
-
-
           cookies.set(
-            'login',
+            "login",
             JSON.stringify({
               login: true,
               role: response.data.role,
               token: response.data.token,
             }),
-            { path: '/' }
+            { path: "/" }
           );
-
-
 
           console.log(response);
           setToken(response.data.token);
@@ -125,50 +119,44 @@ const LoginScreen = ({ navigation }) => {
           //   );
           // }
           cookies.set(
-            'login',
+            "login",
             JSON.stringify({
               login: true,
               role: response.data.role,
               token: response.data.token,
             }),
-            { path: '/' }
+            { path: "/" }
           );
 
-          if (response.data.role === 'EMPLOYEE') {
-            navigation.navigate('TabsEmployee');
-          } else if (response.data.role === 'ADMIN') {
-            navigation.navigate('TabsManager');
+          if (response.data.role === "EMPLOYEE") {
+            navigation.navigate("TabsEmployee");
+          } else if (response.data.role === "ADMIN") {
+            navigation.navigate("TabsManager");
           }
         },
         (error) => {
           console.log(error);
-          alert('make sure you entered the right parameters');
+          alert("make sure you entered the right parameters");
         }
       );
   };
 
   const pwd = useRef();
   return (
-    <ScrollView keyboardShouldPersistTaps='handled' style={styles.scroll}>
+    <ScrollView keyboardShouldPersistTaps="handled" style={styles.scroll}>
       <View style={styles.view}>
         <View>
           <Image
-            style={{
-              width: 300,
-              height: 250,
-              marginRight: 145,
-              left: 65,
-              top: 50,
-            }}
-            source={require('../assets/headerLogo.png')}
+            style={styles.img}
+            source={require("../assets/headerLogo.png")}
           />
         </View>
         <View>
           <View style={styles.inputs}>
             <TextInput
-              placeholder='Email'
+              placeholder="Email"
               style={{ top: 8 }}
-              returnKeyType='next'
+              returnKeyType="next"
               onSubmitEditing={() => {
                 pwd.current.focus();
               }}
@@ -176,13 +164,13 @@ const LoginScreen = ({ navigation }) => {
               onChangeText={(value) => setTextInputEmail(value)}
             />
             <Feather
-              name='mail'
-              style={{ fontSize: 15, left: 195, bottom: 7, color: '#999999' }}
+              name="mail"
+              style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
             />
           </View>
           <View style={styles.inputs}>
             <TextInput
-              placeholder='Password'
+              placeholder="Password"
               style={{ top: 9 }}
               ref={pwd}
               secureTextEntry={hidePass ? true : false}
@@ -190,7 +178,7 @@ const LoginScreen = ({ navigation }) => {
             />
             <TouchableOpacity style={styles.lockButton}>
               <Entypo
-                name={hidePass ? 'lock' : 'lock-open'}
+                name={hidePass ? "lock" : "lock-open"}
                 style={styles.lockBtn}
                 onPress={() => {
                   setHidePass(!hidePass);
@@ -209,7 +197,7 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('SignUpScreen');
+            navigation.navigate("SignUpScreen");
           }}
         >
           <Text style={styles.btnText2}>Don't have an account? Sign Up.</Text>
@@ -222,27 +210,38 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'white',
+    alignItems: "center",
+    backgroundColor: "white",
   },
   scroll: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   logo: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 30,
     width: 115,
-    color: 'black',
+    color: "black",
     marginTop: 200,
-    fontFamily: 'Cochin-BoldItalic',
+    fontFamily: "Cochin-BoldItalic",
+  },
+  img: {
+    width: 300,
+    height: 250,
+    top: 130,
+    marginBottom: 70,
+    ...Platform.select({
+      web: {
+        top: 80,
+      },
+    }),
   },
   inputs: {
     width: 250,
-    backgroundColor: '#ebeff2',
+    backgroundColor: "#ebeff2",
     borderRadius: 20,
     height: 60,
     marginBottom: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 20,
 
     ...Platform.select({
@@ -256,22 +255,27 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         outlineStyle: "none",
-        paddingTop:15
+        paddingTop: 15,
       },
     }),
   },
 
   btn: {
     padding: 20,
-    backgroundColor: '#e1e5e8',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#e1e5e8",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 20,
     width: 247,
-    backgroundColor: '#0f396b',
+    backgroundColor: "#0f396b",
+    ...Platform.select({
+      web: {
+        bottom: 50,
+      },
+    }),
   },
   btnText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
   },
   button: {
@@ -279,13 +283,18 @@ const styles = StyleSheet.create({
   },
   btnText2: {
     paddingTop: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+    ...Platform.select({
+      web: {
+        bottom: 50,
+      },
+    }),
   },
   lockBtn: {
     fontSize: 15,
     left: 195,
     bottom: 7,
-    color: '#999999',
+    color: "#999999",
     width: 20,
     marginLeft: 0,
     padding: 0,
