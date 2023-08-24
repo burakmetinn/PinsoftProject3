@@ -43,7 +43,21 @@ const PermissionRequestScreen = () => {
     } else if (!OneDay && daysDifference > 20) {
       Alert.alert("Warning", "Permission period cannot be more than 20 days");
     } else {
-      handleSubmit();
+      if (!cause || !StartDate || !EndDate) {
+        setError("Please fill out all fields.");
+        Alert.alert("Error", "Please fill out all fields.");
+      } else {
+        const PremDisc = `
+        Permission cause: ${cause}
+        Permission Type: ${
+          OneDay ? "One Day Permission" : "Few Days Permission"
+        }
+        Start date: ${StartDate.toDateString()}
+        End Date: ${EndDate.toDateString()}
+      `;
+        setPremInfo(PremDisc);
+        Alert.alert("", PremDisc);
+      }
     }
     const timeDiff = Math.abs(EndDate - StartDate);
     const daysDifference = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
@@ -54,44 +68,20 @@ const PermissionRequestScreen = () => {
   console.log(EndDate);
   console.log(cause);
 
-  const handleSubmit = () => {
-    try {
-      if (!cause || !StartDate || !EndDate) {
-        setError("Please fill out all fields.");
-        Alert.alert("Error", "Please fill out all fields.");
-      } else {
-        setError("");
-        axios
-          .post("https://time-off-tracker-production.up.railway.app/time-off", {
-            description: cause,
-            startDate: StartDate,
-            endDate: EndDate,
-          })
-          .then((response) => {
-            console.log(response);
-            if (response.status === 200) {
-              const PremDisc = `
-                Permission cause: ${cause}
-                Permission Type: ${
-                  OneDay ? "One Day Permission" : "Few Days Permission"
-                }
-                Start date: ${StartDate.toDateString()}
-                End Date: ${EndDate.toDateString()}
-              `;
-              setPremInfo(PremDisc);
-              Alert.alert("", PremDisc);
-            }
-            if (error) {
-              console.log(error);
-              Alert.alert("Error", "Make sure you entered the right parameters");
-            }
-          });
-      }
-    } catch (error) {
-      throw error;
-    }
-    
-  };
+  /* const handleSubmit = () => {
+    setError("");
+    axios
+      .post("https://time-off-tracker-production.up.railway.app/time-off", {
+        description: cause,
+        startDate: StartDate,
+        endDate: EndDate,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+        }
+      });
+  };*/
 
   return (
     <ScrollView style={styles.scrollView}>
