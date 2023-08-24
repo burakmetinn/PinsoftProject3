@@ -99,16 +99,7 @@ const LoginScreen = ({ navigation }) => {
           setToken(response.data.token);
           console.log(token);
           console.log(response.data.token);
-          // if (typeof window !== 'undefined') {
-          //   window.localStorage.setItem(
-          //     'login',
-          //     JSON.stringify({
-          //       login: true,
-          //       role: response.data.role,
-          //       token: response.data.token,
-          //     })
-          //   );
-          // }
+          
           cookies.set(
             'login',
             JSON.stringify({
