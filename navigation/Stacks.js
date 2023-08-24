@@ -1,4 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUp";
@@ -7,34 +7,34 @@ import TabsManager from "./TabsManager";
 import TabsEmployee from "./TabsEmployee";
 import ProfileScreen from "../screens/ProfileScreenEmployee";
 import { HeaderBackButton } from "@react-navigation/elements";
-import { Image, TouchableOpacity, View, StyleSheet, Platform } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
-
-
-
+import {
+  Image,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  Platform,
+  Alert,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import SelectAdminScreen from "../screens/SelectAdminScreen";
 
 const Stacks = () => {
-
   const headerManager = (
     <View style={styles.header}>
-  <TouchableOpacity>
-    <Ionicons name="reorder-three-outline" size={30} style={styles.menuIcon}/>
-  </TouchableOpacity>
-    <Image  style={styles.logo}    source={require('../assets/headerLogoManager.png')}  />
-    {/* <Ionicons name="person-circle"   size={30} color={"#bd2d2d"} style={{left: 80 ,top: 45, alignItems: 'center', justifyContent: 'center'}}></Ionicons> */}
+      <Image
+        style={styles.logo}
+        source={require("../assets/headerLogoManager.png")}
+      />
     </View>
-  )
+  );
   const headerEmployee = (
     <View style={styles.header}>
-  <TouchableOpacity>
-    <Ionicons name="reorder-three-outline" size={30} style={styles.menuIcon}/>
-  </TouchableOpacity>
-    <Image  style={styles.logo}    source={require('../assets/headerLogo.png')}  />
-    {/* <Ionicons name="person-circle"   size={30} color={"black"} style={{left: 80 ,top: 45, alignItems: 'center', justifyContent: 'center'}}></Ionicons>  */}
+      <Image style={styles.logo} source={require("../assets/headerLogo.png")} />
     </View>
-  )
+  );
 
   const Stack = createNativeStackNavigator();
+  const navigation = useNavigation();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -56,16 +56,46 @@ const Stacks = () => {
         name="TabsManager"
         component={TabsManager}
         options={{
-          header: ()=> headerManager,
+          header: () => headerManager,
           headerLeft: null,
         }}
       />
       <Stack.Screen
         name="TabsEmployee"
         component={TabsEmployee}
-        options={{ 
-          header: ()=> headerEmployee,
-          headerLeft: null 
+        options={{
+          header: () => headerEmployee,
+          headerLeft: null,
+        }}
+      />
+      <Stack.Screen
+        name="SelectAdminScreen"
+        component={SelectAdminScreen}
+        options={{
+          headerTitle: "",
+          headerBackTitle: "Back",
+          headerTintColor: "black",
+          headerShadowVisible: false,
+          headerLeft: (props) => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                Alert.alert(
+                  "Warning",
+                  "The action you have taken will not be recorded.",
+                  (onPress = () => navigation.navigate("SignUpScreen"))
+                );
+              }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Stacks"
+        component={Stacks}
+        options={{
+          header: () => headerEmployee,
+          headerLeft: null,
         }}
       />
     </Stack.Navigator>
@@ -74,41 +104,32 @@ const Stacks = () => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection:"row",
+    flexDirection: "row",
+    justifyContent: Platform.OS === "web" ? "flex-start" : "center",
+    ...Platform.select({
+      web: {
+        height: 60,
+      },
+    }),
   },
 
   logo: {
     width: 200,
     height: 80,
     bottom: 10,
-    left: 45,
-    top:25, 
+    top: 25,
     marginBottom: 10,
+    marginRight: 10,
     ...Platform.select({
       web: {
-        top: 10,
-        height: 100,
+        top: 12,
+        height: 60,
         width: 250,
         bottom: 0,
         marginBottom: 0,
       },
     }),
   },
-
-  menuIcon: {
-    left: 15,
-    top: 45,
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...Platform.select({
-      web: {
-        left: 25,
-        top: 40,
-        fontSize: 35,
-      },
-    }),
-  },
-  
 });
 
 export default Stacks;

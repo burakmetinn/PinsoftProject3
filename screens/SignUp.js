@@ -220,6 +220,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: 'center',
     padding: 20,
+    ...Platform.select({
+      web: {
+        outlineStyle: "none",
+      },
+    }),
   },
   btn: {
     padding: 20,

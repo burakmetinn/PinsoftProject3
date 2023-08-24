@@ -49,6 +49,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     padding: 30,
+    backgroundColor: '#0A2647',
+
   },
   title: {
     fontSize: 24,
@@ -63,13 +65,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 5,
     marginBottom: 7,
+    color:"white"
   },
   detailContent: {
     fontSize: 16,
+    color:"white"
+
   },
   status: {
     fontSize: 16,
     marginBottom: 20,
+    color:"white"
+
   },
   requesterName: {
     fontSize: 16,

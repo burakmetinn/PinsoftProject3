@@ -244,6 +244,21 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: 'center',
     padding: 20,
+
+    ...Platform.select({
+      web: {
+        bottom: 50,
+      },
+    }),
+  },
+  ins: {
+    top: 9,
+    ...Platform.select({
+      web: {
+        outlineStyle: "none",
+        paddingTop:15
+      },
+    }),
   },
 
   btn: {
