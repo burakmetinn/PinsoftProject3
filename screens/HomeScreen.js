@@ -8,7 +8,6 @@ const HomeScreen = () => {
   const [events, setEvents] = useState([]);
 
   const handleDateSelection = (date) => {
-    // Dummy events data for demonstration
     const dummyEvents = [
       { id: 1, date: '2023-08-15', time: '10:00 AM', description: 'Meeting' },
       { id: 2, date: '2023-08-15', time: '12:00 AM', description: 'Sport' },

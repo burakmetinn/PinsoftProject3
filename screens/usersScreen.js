@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const PermissionRequestScreen = () => {
+const usersScreen = () => {
   const [cause, setCause] = useState('');
   const [OneDay, setOneDay] = useState(true);
   const [StartDate, setStartDate] = useState(new Date());
@@ -36,10 +36,6 @@ const PermissionRequestScreen = () => {
 
     if (EndDate < StartDate) {
       Alert.alert('Error', 'Permission end date cannot be before start date');
-      return;
-    }
-    if (StartDate < new date()) {
-      Alert.alert('Error', "The Start Date can't be in the past ");
       return;
     }
     const timeDiff = Math.abs(EndDate - StartDate);
@@ -269,4 +265,4 @@ const styles = StyleSheet.create({
     color: '#0A2647',
   },
 });
-export default PermissionRequestScreen;
+export default usersScreen;
