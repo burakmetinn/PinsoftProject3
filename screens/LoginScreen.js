@@ -136,10 +136,15 @@ const LoginScreen = ({ navigation }) => {
         },
         (error) => {
           console.log(error);
-          alert("make sure you entered the right parameters");
+          if (!textInputEmail.trim()) {
+            Alert.alert("Error", "Please enter email!");
+          } else if (!textInputPwd.trim()) {
+            Alert.alert("Error", "Please enter password!");
+          } else {
+            Alert.alert("Error", "Make sure you entered the right parameters!");
+          }
         }
       );
-      
   };
 
   const pwd = useRef();

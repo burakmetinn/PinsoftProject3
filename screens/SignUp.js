@@ -33,7 +33,7 @@ const SignUpScreen = ({ navigation }) => {
       return;
     }
     if (!textInputlastName.trim()) {
-      Alert.alert("Error", "Please enter name.");
+      Alert.alert("Error", "Please enter last name.");
       return;
     }
     if (!textInputEmail.trim()) {
