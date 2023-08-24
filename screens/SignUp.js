@@ -11,20 +11,27 @@ import { StyleSheet } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import axios from 'axios';
 
 const SignUpScreen = ({ navigation }) => {
   const [hidePass, setHidePass] = useState(true);
-  const [textInputName, setTextInputName] = useState('');
+  const [textInputfirstName, setTextInputfirstName] = useState('');
+  const [textInputlastName, setTextInputlastName] = useState('');
   const [textInputEmail, setTextInputEmail] = useState('');
   const [textInputPwd, setTextInputPwd] = useState('');
   const [textInputCPwd, setTextInputCPwd] = useState('');
+  const [error, setError] = useState('');
 
   const mail = useRef();
   const pwd = useRef();
   const pwd2 = useRef();
 
   const checkTextInput = () => {
-    if (!textInputName.trim()) {
+    if (!textInputfirstName.trim()) {
+      Alert.alert('Error', 'Please enter name.');
+      return;
+    }
+    if (!textInputlastName.trim()) {
       Alert.alert('Error', 'Please enter name.');
       return;
     }
@@ -41,9 +48,44 @@ const SignUpScreen = ({ navigation }) => {
       return;
     }
     if (textInputPwd === textInputCPwd) {
-      navigation.navigate('SelectAdminScreen');
+      handleSubmit();
     } else {
       Alert.alert('Error', 'Passwords should be the same!');
+    }
+  };
+
+  const handleSubmit = () => {
+    if (
+      !textInputPwd ||
+      !textInputEmail ||
+      !textInputlastName ||
+      !textInputfirstName
+    ) {
+      setError('Please fill out all fields.');
+    } else {
+      setError('');
+      axios
+        .post(
+          'https://time-off-tracker-production.up.railway.app/auth/register',
+          {
+            firstName: textInputfirstName,
+            lastName: textInputlastName,
+            email: textInputEmail,
+            password: textInputPwd,
+          }
+        )
+
+        .then(
+          (response) => {
+            console.log(response);
+            if (response.status === 200) {
+              navigation.navigate('LoginScreen');
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     }
   };
 
@@ -54,14 +96,30 @@ const SignUpScreen = ({ navigation }) => {
         <View>
           <View style={styles.inputs}>
             <TextInput
-              placeholder='Name'
+              placeholder='firstName'
               style={{ top: 9 }}
               returnKeyType='next'
               onSubmitEditing={() => {
                 mail.current.focus();
               }}
               blurOnSubmit={false}
-              onChangeText={(value) => setTextInputName(value)}
+              onChangeText={(value) => setTextInputfirstName(value)}
+            />
+            <Ionicons
+              name='person'
+              style={{ fontSize: 15, left: 195, bottom: 7, color: '#999999' }}
+            />
+          </View>
+          <View style={styles.inputs}>
+            <TextInput
+              placeholder='lastName'
+              style={{ top: 9 }}
+              returnKeyType='next'
+              onSubmitEditing={() => {
+                mail.current.focus();
+              }}
+              blurOnSubmit={false}
+              onChangeText={(value) => setTextInputlastName(value)}
             />
             <Ionicons
               name='person'
@@ -175,7 +233,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     width: 247,
-    backgroundColor: "#0f396b",
+    backgroundColor: '#0f396b',
   },
   btnText: {
     color: 'white',
