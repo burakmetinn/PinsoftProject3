@@ -72,14 +72,15 @@ const Stacks = () => {
         name="SelectAdminScreen"
         component={SelectAdminScreen}
         options={{
-          headerTitle: "",
-          headerBackTitle: "Back",
-          headerTintColor: "black",
-          headerShadowVisible: false,
-          headerLeft: (props) => (
+          headerShown: false
+          //headerTitle: "",
+         // headerBackTitle: "Back",
+          //headerTintColor: "black",
+          //headerShadowVisible: false,
+          /* headerLeft: (props) => (
             <HeaderBackButton
               {...props}
-              onPress={() => { 
+              onPress={() => {
                 Alert.alert(
                   "Warning",
                   "The action you have taken will not be recorded.",
@@ -87,7 +88,7 @@ const Stacks = () => {
                 );
               }}
             />
-          ),
+          ),*/
         }}
       />
       <Stack.Screen
