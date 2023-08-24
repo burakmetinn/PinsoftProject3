@@ -106,6 +106,11 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: Platform.OS === "web" ? "flex-start" : "center",
+    ...Platform.select({
+      web: {
+        height: 60,
+      },
+    }),
   },
 
   logo: {
@@ -117,8 +122,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
     ...Platform.select({
       web: {
-        top: 5,
-        height: 100,
+        top: 12,
+        height: 60,
         width: 250,
         bottom: 0,
         marginBottom: 0,
