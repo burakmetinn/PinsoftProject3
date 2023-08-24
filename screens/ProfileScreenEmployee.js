@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
   managerText: {
     paddingRight: 90,
     paddingLeft: 10,
+    color:"white"
 
   },
 

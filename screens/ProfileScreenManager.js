@@ -17,7 +17,7 @@ const ProfileScreenManager = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.infoSection}>
-        <Ionicons name="person-circle" size={100} />
+        <Ionicons name="person-circle" color="white" size={100} />
         <Text style={styles.sampleName}>Firstname Lastname</Text>
       </View>
 
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     justifyContent: "center",
     alignItems: "center",
+    color:"white"
   },
 
   logOutContainer: {
