@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 // const users = [
 //   {
@@ -24,6 +25,7 @@ const SelecetAdminScreen = ({ navigation }) => {
   const [isFocus, setIsFocus] = useState(false);
   const [selected, setSelected] = useState(false);
   const [managers, setManagers] = useState([]);
+  const cookies = new Cookies();
 
   useEffect(() => {
     axios
@@ -90,7 +92,7 @@ const SelecetAdminScreen = ({ navigation }) => {
           onChange={(item) => {
             setValue(item.value);
             setIsFocus(false);
-            setSelected(true);
+            setSelected(item);
           }}
           renderLeftIcon={() => (
             <Ionicons
@@ -106,6 +108,14 @@ const SelecetAdminScreen = ({ navigation }) => {
         <TouchableOpacity
           disabled={selected === false ? true === true : false}
           onPress={() => {
+            cookies.set(
+              'id',
+
+              selected.value,
+
+              { path: '/' }
+            );
+
             navigation.navigate('TabsEmployee');
           }}
           hitSlop={{ left: 100, right: 100, top: 20, bottom: 20 }}

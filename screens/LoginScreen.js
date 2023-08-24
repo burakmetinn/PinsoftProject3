@@ -84,7 +84,6 @@ const LoginScreen = ({ navigation }) => {
   // };
 
   const cookies = new Cookies();
-  
 
   const loginHandler = () => {
     axios
@@ -99,19 +98,25 @@ const LoginScreen = ({ navigation }) => {
           setToken(response.data.token);
           console.log(token);
           console.log(response.data.token);
-          
+
           cookies.set(
             'login',
             JSON.stringify({
               login: true,
               role: response.data.role,
-              token: response.data.token,
             }),
+            { path: '/' }
+          );
+          cookies.set(
+            'token',
+
+            response.data.token,
+
             { path: '/' }
           );
 
           if (response.data.role === 'EMPLOYEE') {
-            navigation.navigate("SelectAdminScreen");
+            navigation.navigate('SelectAdminScreen');
           } else if (response.data.role === 'ADMIN') {
             navigation.navigate('TabsManager');
           }
@@ -231,8 +236,8 @@ const styles = StyleSheet.create({
     top: 9,
     ...Platform.select({
       web: {
-        outlineStyle: "none",
-        paddingTop:15
+        outlineStyle: 'none',
+        paddingTop: 15,
       },
     }),
   },

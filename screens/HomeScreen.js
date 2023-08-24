@@ -35,7 +35,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.heading}>Choose Your Date</Text>
 
       <Calendar
@@ -61,7 +61,7 @@ const HomeScreen = () => {
           </ScrollView>
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -70,8 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0A2647',
     padding: 20,
-    marginBottom:20,
-    
+    marginBottom: 20,
   },
   heading: {
     fontSize: 24,
