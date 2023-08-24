@@ -79,7 +79,7 @@ const Stacks = () => {
           headerLeft: (props) => (
             <HeaderBackButton
               {...props}
-              onPress={() => {
+              onPress={() => { 
                 Alert.alert(
                   "Warning",
                   "The action you have taken will not be recorded.",
