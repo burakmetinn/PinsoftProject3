@@ -33,6 +33,12 @@ const SelecetAdminScreen = ({ navigation }) => {
             top: -30,
             left: 23,
             marginBottom: 70,
+            ...Platform.select({
+              web: {
+                left: 600,
+                bottom: 30,
+              },
+            }),
           }}
           source={require("../assets/headerLogo.png")}
         />
@@ -101,6 +107,13 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 8,
+    ...Platform.select({
+      web: {
+        width: 850,
+        marginLeft: 350,
+        bottom: 130,
+      },
+    }),
   },
   list: {
     backgroundColor: "white",
@@ -114,6 +127,11 @@ const styles = StyleSheet.create({
     left: 85,
     fontFamily: "Cochin",
     fontSize: 22,
+    ...Platform.select({
+      web: {
+        marginLeft: 580,
+      },
+    }),
   },
   btn: {
     padding: 20,
@@ -124,6 +142,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#0f396b",
     top: 50,
     left: 60,
+    ...Platform.select({
+      web: {
+        marginLeft: 580,
+        bottom: 30,
+      },
+    }),
   },
   btnText: {
     color: "white",

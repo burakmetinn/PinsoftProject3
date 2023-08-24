@@ -87,15 +87,7 @@ const LoginScreen = ({ navigation }) => {
     <ScrollView keyboardShouldPersistTaps="handled" style={styles.scroll}>
       <View style={styles.view}>
         <View>
-          <Image
-            style={{
-              width: 300,
-              height: 250,
-              top: 130,
-              marginBottom: 70,
-            }}
-            source={require("../assets/headerLogo.png")}
-          />
+          <Image style={styles.img} source={require("../assets/headerLogo.png")} />
         </View>
         <View>
           <View style={styles.inputs}>
@@ -170,6 +162,17 @@ const styles = StyleSheet.create({
     marginTop: 200,
     fontFamily: "Cochin-BoldItalic",
   },
+  img: {
+    width: 300,
+    height: 250,
+    top: 130,
+    marginBottom: 70,
+    ...Platform.select({
+      web: {
+        top:80,
+      },
+    }),
+  },
   inputs: {
     width: 250,
     backgroundColor: "#ebeff2",
@@ -178,12 +181,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: "center",
     padding: 20,
+
+    ...Platform.select({
+      web: {
+        bottom: 50,
+      },
+    }),
   },
   ins: {
     top: 9,
     ...Platform.select({
       web: {
         outlineStyle: "none",
+        paddingTop:15
       },
     }),
   },
@@ -196,6 +206,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 247,
     backgroundColor: "#0f396b",
+    ...Platform.select({
+      web: {
+        bottom: 50,
+      },
+    }),
   },
   btnText: {
     color: "white",
@@ -207,6 +222,11 @@ const styles = StyleSheet.create({
   btnText2: {
     paddingTop: 20,
     fontWeight: "bold",
+    ...Platform.select({
+      web: {
+        bottom: 50,
+      },
+    }),
   },
   lockBtn: {
     fontSize: 15,
