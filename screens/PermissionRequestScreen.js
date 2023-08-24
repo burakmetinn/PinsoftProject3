@@ -9,6 +9,7 @@ import {
   Alert,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import axios from "axios";
 
 const PermissionRequestScreen = () => {
   const [cause, setCause] = useState("");
@@ -18,6 +19,7 @@ const PermissionRequestScreen = () => {
   const [PremInfo, setPremInfo] = useState("");
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+  const [error, setError] = useState("");
 
   const handleStartDateChange = (selectedDate) => {
     setStartDate(selectedDate);
@@ -31,44 +33,60 @@ const PermissionRequestScreen = () => {
         "Error",
         "Permission start date cannot be before work start date!"
       );
-      return;
-    }
-
-    if (EndDate < StartDate) {
+    } else if (EndDate < StartDate) {
       Alert.alert("Error", "Permission end date cannot be before start date!");
-      return;
-    }
-    const today = new Date();
-    if (StartDate < today) {
-      Alert.alert("Error", "The earliest date you can choose:  " + Date());
-      return;
-    }
-    if (StartDate < new date()) {
-      Alert.alert('Error', "The Start Date can't be in the past ");
-      return;
+    } else if (StartDate < new Date()) {
+      Alert.alert("Error", "The earliest date you can choose is the day after today!");
+    } else if (!OneDay && daysDifference > 20) {
+      Alert.alert("Warning", "Permission period cannot be more than 20 days");
+    } else {
+      handleSubmit();
     }
     const timeDiff = Math.abs(EndDate - StartDate);
     const daysDifference = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-
-    if (!OneDay && daysDifference > 20) {
-      Alert.alert("Warning", "Permission period cannot be more than 20 days");
-      return;
-    }
-
-    const PremDisc = `
-      Permission cause: ${cause}
-      Permission Type: ${OneDay ? "One Day Permission" : "Few Days Permission"}
-      Start date: ${StartDate.toDateString()}
-      End Date: ${EndDate.toDateString()}
-    `;
-
-    setPremInfo(PremDisc);
-
-    Alert.alert("", PremDisc);
+    const today = new Date();
   };
 
   console.log(StartDate);
   console.log(EndDate);
+
+  const handleSubmit = () => {
+    if (!cause || !StartDate || !EndDate) {
+      setError("Please fill out all fields.");
+      Alert.alert("Error", "Please fill out all fields.");
+    } else {
+      setError("");
+      axios
+        .post("https://time-off-tracker-production.up.railway.app/time-off", {
+          description: cause,
+          startDate: StartDate,
+          endDate: EndDate,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log(response);
+          }
+          if (error) {
+            console.log(error);
+            Alert.alert("Error", "Make sure you entered the right parameters");
+          } else {
+            const PremDisc = `
+              Permission cause: ${cause}
+              Permission Type: ${
+                OneDay ? "One Day Permission" : "Few Days Permission"
+              }
+              Start date: ${StartDate.toDateString()}
+              End Date: ${EndDate.toDateString()}
+            `;
+
+            setPremInfo(PremDisc);
+
+            Alert.alert("", PremDisc);
+          }
+        });
+    }
+  };
 
   return (
     <ScrollView style={styles.scrollView}>
