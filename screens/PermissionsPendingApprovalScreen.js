@@ -145,7 +145,11 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: "#0A2647",
-    alignItems: "center",
+    ...Platform.select({
+      web: {
+        alignItems: "center",
+      },
+    }),
   },
   header: {
     flexDirection: "row",
