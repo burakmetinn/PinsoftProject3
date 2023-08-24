@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     paddingTop: 20,
-    backgroundColor: "#0f396b",
+    backgroundColor: "#0A2647",
   },
   infoSection: {
     marginTop: 5,
