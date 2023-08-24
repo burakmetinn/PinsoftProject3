@@ -1,7 +1,7 @@
-import { View, Text, Button, ScrollView } from 'react-native';
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+import { View, Text, Button, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
+import { Calendar } from "react-native-calendars";
 
 const HomeScreen = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -9,24 +9,24 @@ const HomeScreen = () => {
 
   const handleDateSelection = (date) => {
     const dummyEvents = [
-      { id: 1, date: '2023-08-15', time: '10:00 AM', description: 'Meeting' },
-      { id: 2, date: '2023-08-15', time: '12:00 AM', description: 'Sport' },
-      { id: 3, date: '2023-08-15', time: '13:00 PM', description: 'Running' },
-      { id: 4, date: '2023-08-15', time: '14:00 PM', description: 'Swimming' },
+      { id: 1, date: "2023-08-15", time: "10:00 AM", description: "Meeting" },
+      { id: 2, date: "2023-08-15", time: "12:00 AM", description: "Sport" },
+      { id: 3, date: "2023-08-15", time: "13:00 PM", description: "Running" },
+      { id: 4, date: "2023-08-15", time: "14:00 PM", description: "Swimming" },
       {
         id: 5,
-        date: '2023-08-15',
-        time: '15:00 pM',
-        description: 'Feed the dog',
+        date: "2023-08-15",
+        time: "15:00 pM",
+        description: "Feed the dog",
       },
       {
         id: 6,
-        date: '2023-08-15',
-        time: '16:00 PM',
-        description: 'Feed your self',
+        date: "2023-08-15",
+        time: "16:00 PM",
+        description: "Feed your self",
       },
-      { id: 7, date: '2023-08-16', time: '12:30 PM', description: 'dinner' },
-      { id: 8, date: '2023-08-17', time: '6:00 AM', description: 'Gym' },
+      { id: 7, date: "2023-08-16", time: "12:30 PM", description: "dinner" },
+      { id: 8, date: "2023-08-17", time: "6:00 AM", description: "Gym" },
     ];
 
     setSelectedDate(date);
@@ -41,7 +41,7 @@ const HomeScreen = () => {
       <Calendar
         onDayPress={(day) => handleDateSelection(day.dateString)}
         markedDates={{
-          [selectedDate]: { selected: true, selectedColor: 'blue' },
+          [selectedDate]: { selected: true, selectedColor: "blue" },
         }}
         style={styles.calendar}
       />
@@ -51,7 +51,7 @@ const HomeScreen = () => {
           <Text style={styles.selectedDateText}>
             Selected Date: {selectedDate}
           </Text>
-          <ScrollView>
+          <ScrollView showsHorizontalScrollIndicator={false}>
             {events.map((event) => (
               <View key={event.id} style={styles.eventItem}>
                 <Text style={styles.eventTime}>{event.time}</Text>
@@ -68,46 +68,64 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0A2647',
+    backgroundColor: "#0A2647",
     padding: 20,
     marginBottom: 20,
+<<<<<<< HEAD
+=======
+    ...Platform.select({
+      web: {
+        alignItems: "center",
+      },
+    }),
+>>>>>>> demet
   },
   heading: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
-    textAlign: 'center',
-    color: 'white',
+    textAlign: "center",
+    color: "white",
   },
   calendar: {
     padding: 5,
     marginBottom: 20,
     borderRadius: 10,
     elevation: 3,
-    shadowColor: 'black',
+    shadowColor: "black",
     shadowOpacity: 0.5,
     shadowOffset: {
       width: 1,
       height: 6,
     },
     shadowRadius: 30,
+    ...Platform.select({
+      web: {
+        width: 850,
+      },
+    }),
   },
   eventsContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 10,
     elevation: 3,
-    shadowColor: 'black',
+    shadowColor: "black",
     shadowOpacity: 0.5,
     shadowOffset: {
       width: 1,
       height: 6,
     },
     shadowRadius: 30,
+    ...Platform.select({
+      web: {
+        width: 850,
+      },
+    }),
   },
   selectedDateText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 18,
     marginBottom: 10,
   },
@@ -115,11 +133,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   eventItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 10,
     borderBottomWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
   },
   eventTime: {
     fontSize: 16,

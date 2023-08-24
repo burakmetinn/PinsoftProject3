@@ -10,21 +10,25 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 const ProfileScreenManager = ({ navigation }) => {
+  const [role, setRole] = useState("user");
+
+  const makeManager = () => {
+    setRole("manager");
+  };
   const handleLogout = () => {
     navigation.navigate("LoginScreen");
   };
 
+  /*<View style={styles.newM}>
+  <TouchableOpacity onPress={makeManager}>
+  <Text style={styles.new}>Select New Manager</Text>
+</TouchableOpacity>
+</View>*/
   return (
     <View style={styles.container}>
       <View style={styles.infoSection}>
         <Ionicons name="person-circle" color="white" size={100} />
         <Text style={styles.sampleName}>Firstname Lastname</Text>
-      </View>
-
-      <View style={styles.newM}>
-        <TouchableOpacity>
-          <Text style={styles.new}>Select New Manager</Text>
-        </TouchableOpacity>
       </View>
 
       <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
@@ -67,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
     marginLeft: 30,
-    marginTop: 380,
+    marginTop: 50,
     width: 120,
   },
   logOutText: {

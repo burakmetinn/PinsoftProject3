@@ -148,7 +148,14 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.inputs}>
             <TextInput
               placeholder="Email"
-              style={{ top: 8 }}
+              style={{
+                top: 8,
+                ...Platform.select({
+                  web: {
+                    outline: "none",
+                  },
+                }),
+              }}
               returnKeyType="next"
               onSubmitEditing={() => {
                 pwd.current.focus();
@@ -164,7 +171,14 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.inputs}>
             <TextInput
               placeholder="Password"
-              style={{ top: 9 }}
+              style={{
+                top: 9,
+                ...Platform.select({
+                  web: {
+                    outline: "none",
+                  },
+                }),
+              }}
               ref={pwd}
               secureTextEntry={hidePass ? true : false}
               onChangeText={(value) => setTextInputPwd(value)}
