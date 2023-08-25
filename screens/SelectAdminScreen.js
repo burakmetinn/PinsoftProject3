@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
       web: {
         width: 850,
         marginLeft: 350,
-        bottom: 130,
       },
     }),
   },
@@ -161,7 +160,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         marginLeft: 580,
-        bottom: 30,
+        marginBottom: 50,
       },
     }),
   },

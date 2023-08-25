@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  Modal,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const ProfileScreenManager = ({ navigation }) => {
+  const [role, setRole] = useState("user");
+
+  const user = {
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+  };
+
+  const makeManager = () => {
+    setRole("manager");
+  };
+
   const handleLogout = () => {
     navigation.navigate("LoginScreen");
   };
@@ -18,19 +23,29 @@ const ProfileScreenManager = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.infoSection}>
         <Ionicons name="person-circle" color="white" size={100} />
-        <Text style={styles.sampleName}>Firstname Lastname</Text>
+        <View style={styles.nameInfo}>
+          <Text style={styles.firstName}>{user.firstName}</Text>
+          <Text style={styles.lastName}>{user.lastName}</Text>
+        </View>
       </View>
 
-      <View style={styles.newM}>
-        <TouchableOpacity>
-          <Text style={styles.new}>Select New Manager</Text>
+      <View style={styles.emailSection}>
+        <Ionicons name="mail-outline" size={25} color="gray" />
+        <Text style={styles.email}>{user.email}</Text>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        {role === "user" && (
+          <TouchableOpacity onPress={makeManager} style={styles.selectManagerButton}>
+            <Text style={styles.buttonText}>Select Manager</Text>
+          </TouchableOpacity>
+        )}
+
+        <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
+          <Ionicons name="log-out-outline" size={25} color="red" />
+          <Text style={styles.logOutText}>Log Out</Text>
         </TouchableOpacity>
       </View>
-
-      <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
-        <Ionicons name="log-out-outline" size={25} color="red" />
-        <Text style={styles.logOutText}>Log Out</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -43,32 +58,44 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A2647",
   },
   infoSection: {
-    marginTop: 5,
+    marginTop: 30,
     marginBottom: 20,
     flexDirection: "row",
     marginLeft: 20,
     alignItems: "center",
   },
-  sectionTitle: {
-    fontSize: 20,
-    marginBottom: 5,
+  nameInfo: {
+    marginLeft: 10,
   },
-  sampleName: {
-    fontSize: 20,
-    paddingLeft: 10,
+  firstName: {
+    fontSize: 24,
     fontWeight: "bold",
-    justifyContent: "center",
-    alignItems: "center",
     color: "white",
   },
-
+  lastName: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
+  },
+  emailSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 20,
+    marginBottom: 20,
+  },
+  email: {
+    fontSize: 18,
+    marginLeft: 10,
+    color: "gray",
+  },
+  buttonContainer: {
+    marginTop: 20,
+    alignItems: "center",
+  },
   logOutContainer: {
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
-    marginLeft: 30,
-    marginTop: 380,
-    width: 120,
   },
   logOutText: {
     marginLeft: 10,
@@ -76,20 +103,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
   },
-  newM: {
-    top: 50,
-    left: 30,
+  selectManagerButton: {
     marginBottom: 10,
-    padding: 15,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     backgroundColor: "#fff",
     borderRadius: 20,
-    width: 182,
-    justifyContent: "center",
-    alignItems: "center",
   },
-  new: {
+  buttonText: {
     fontSize: 15,
     color: "black",
+    fontWeight: "bold",
   },
 });
 

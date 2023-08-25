@@ -97,8 +97,15 @@ const SignUpScreen = ({ navigation }) => {
         <View>
           <View style={styles.inputs}>
             <TextInput
-              placeholder="firstName"
-              style={{ top: 9 }}
+              placeholder="First Name"
+              style={{
+                top: 9,
+                ...Platform.select({
+                  web: {
+                    outline: "none",
+                  },
+                }),
+              }}
               returnKeyType="next"
               onSubmitEditing={() => {
                 lastname.current.focus();
@@ -113,8 +120,15 @@ const SignUpScreen = ({ navigation }) => {
           </View>
           <View style={styles.inputs}>
             <TextInput
-              placeholder="lastName"
-              style={{ top: 9 }}
+              placeholder="Last Name"
+              style={{
+                top: 9,
+                ...Platform.select({
+                  web: {
+                    outline: "none",
+                  },
+                }),
+              }}
               returnKeyType="next"
               ref={lastname}
               onSubmitEditing={() => {
@@ -131,7 +145,14 @@ const SignUpScreen = ({ navigation }) => {
           <View style={styles.inputs}>
             <TextInput
               placeholder="Email"
-              style={{ top: 9 }}
+              style={{
+                top: 9,
+                ...Platform.select({
+                  web: {
+                    outline: "none",
+                  },
+                }),
+              }}
               ref={mail}
               returnKeyType="next"
               onSubmitEditing={() => {
@@ -148,7 +169,14 @@ const SignUpScreen = ({ navigation }) => {
           <View style={styles.inputs}>
             <TextInput
               placeholder="Password"
-              style={{ top: 9 }}
+              style={{
+                top: 9,
+                ...Platform.select({
+                  web: {
+                    outline: "none",
+                  },
+                }),
+              }}
               ref={pwd}
               returnKeyType="next"
               onSubmitEditing={() => {
@@ -170,6 +198,13 @@ const SignUpScreen = ({ navigation }) => {
           </View>
           <View style={styles.inputs}>
             <TextInput
+              style={{
+                ...Platform.select({
+                  web: {
+                    outline: "none",
+                  },
+                }),
+              }}
               placeholder="Confirm Password"
               secureTextEntry={hidePass ? true : false}
               ref={pwd2}
