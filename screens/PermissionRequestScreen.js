@@ -1,5 +1,5 @@
-import { View, Text, Button } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, Button } from "react-native";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -7,58 +7,64 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
+} from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import axios from "axios";
+import Cookies from "universal-cookie";
 
 const PermissionRequestScreen = () => {
-  const [cause, setCause] = useState('');
+  const [cause, setCause] = useState("");
   const [OneDay, setOneDay] = useState(true);
   const [StartDate, setStartDate] = useState(new Date());
   const [EndDate, setEndDate] = useState(new Date());
-  const [PremInfo, setPremInfo] = useState('');
+  const [PremInfo, setPremInfo] = useState("");
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleStartDateChange = (selectedDate) => {
     setStartDate(selectedDate);
     setEndDate(selectedDate);
   };
   const cookies = new Cookies();
-  let manId = cookies.get('id');
-  let token = cookies.get('token');
+  let manId = cookies.get("id");
+  let token = cookies.get("token");
 
-  const WorkStartDate = new Date('2013-03-10T21:41:51.058Z');
+  const WorkStartDate = new Date("2013-03-10T21:41:51.058Z");
   const handleOnayPress = () => {
     if (StartDate < WorkStartDate) {
       Alert.alert(
-        'Error',
-        'Permission start date cannot be before work start date!'
+        "Error",
+        "Permission start date cannot be before work start date!"
       );
       return;
     }
 
     if (EndDate < StartDate) {
-      Alert.alert('Error', 'Permission end date cannot be before start date!');
+      Alert.alert(
+        "Error",
+        "You can not end your day off before your start date!"
+      );
       return;
     }
     const today = new Date();
     if (StartDate < today) {
-      Alert.alert('Error', 'The earliest date you can choose:  ' + Date());
+      Alert.alert(
+        "Error",
+        "The earliest date you can choose is the day after!"
+      );
       return;
     }
+
     const timeDiff = Math.abs(EndDate - StartDate);
     const daysDifference = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
     if (!OneDay && daysDifference > 20) {
-      Alert.alert('Warning', 'Permission period cannot be more than 20 days');
+      Alert.alert("Warning", "Permission period cannot be more than 20 days");
       return;
     }
-
     axios
-      .post('https://time-off-tracker-production.up.railway.app/time-off', {
+      .post("https://time-off-tracker-production.up.railway.app/time-off", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -73,12 +79,20 @@ const PermissionRequestScreen = () => {
           console.log(response);
 
           if (response.status === 200) {
-            Alert.alert('', PremDisc);
+            Alert.alert("", PremDisc);
           }
         },
+
         (error) => {
           console.log(error);
-          alert('make sure that you entered everything correctly');
+          if (!cause || !StartDate || !EndDate) {
+            setError("Please fill out all fields.");
+            Alert.alert("Error", "Please fill out all fields.");
+          } else
+            Alert.alert(
+              "Error",
+              "Make sure that you entered everything correctly!"
+            );
         }
       );
   };
@@ -91,7 +105,7 @@ const PermissionRequestScreen = () => {
 
           <Text style={styles.label}>Permission cause:</Text>
           <TextInput
-            placeholder='Write the Permission cause...'
+            placeholder="Write the Permission cause..."
             onChangeText={(text) => setCause(text)}
             value={cause}
             style={styles.input}
@@ -121,8 +135,8 @@ const PermissionRequestScreen = () => {
             {showStartDatePicker && (
               <DateTimePicker
                 value={StartDate}
-                mode='date'
-                display='spinner'
+                mode="date"
+                display="spinner"
                 onChange={(event, selectedDate) => {
                   if (selectedDate !== undefined) {
                     handleStartDateChange(selectedDate);
@@ -147,8 +161,8 @@ const PermissionRequestScreen = () => {
             {showStartDatePicker && (
               <DateTimePicker
                 value={StartDate}
-                mode='date'
-                display='spinner'
+                mode="date"
+                display="spinner"
                 onChange={(event, selectedDate) => {
                   if (selectedDate !== undefined) {
                     setStartDate(selectedDate);
@@ -170,8 +184,8 @@ const PermissionRequestScreen = () => {
             {showEndDatePicker && (
               <DateTimePicker
                 value={EndDate}
-                mode='date'
-                display='spinner'
+                mode="date"
+                display="spinner"
                 onChange={(event, selectedDate) => {
                   if (selectedDate !== undefined) {
                     setEndDate(selectedDate);
@@ -194,22 +208,22 @@ const PermissionRequestScreen = () => {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-    backgroundColor: '#0A2647',
+    backgroundColor: "#0A2647",
   },
   container: {
     flex: 1,
     padding: 20,
-    color: 'white',
+    color: "white",
   },
   view: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   header: {
     fontSize: 24,
     marginBottom: 20,
-    color: 'white',
+    color: "white",
   },
   inputContainer: {
     marginBottom: 20,
@@ -231,7 +245,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 10,
     marginTop: 5,
@@ -246,9 +260,9 @@ const styles = StyleSheet.create({
   subtitle: {
     flex: 1,
     fontSize: 35,
-    color: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
     margin: 8,
     marginLeft: 50,
   },
@@ -265,18 +279,18 @@ const styles = StyleSheet.create({
   switchLabel: {
     fontSize: 16,
     marginRight: 10,
-    color: 'white',
-    alignItems: 'center',
-    textAlign: 'center',
+    color: "white",
+    alignItems: "center",
+    textAlign: "center",
   },
   button: {
-    backgroundColor: '#ffdb58',
+    backgroundColor: "#ffdb58",
     padding: 10,
-    alignItems: 'center',
-    color: '#0A2647',
+    alignItems: "center",
+    color: "#0A2647",
     borderRadius: 10,
     elevation: 5,
-    shadowColor: 'black',
+    shadowColor: "black",
     shadowOpacity: 0.5,
     shadowOffset: {
       width: 1,
@@ -291,16 +305,16 @@ const styles = StyleSheet.create({
     }),
   },
   SelectButton: {
-    backgroundColor: '#ffdb58',
-    alignItems: 'center',
+    backgroundColor: "#ffdb58",
+    alignItems: "center",
     padding: 5,
     width: 300,
     borderRadius: 10,
-    color: '#0A2647',
+    color: "#0A2647",
     margin: 5,
     marginLeft: 35,
     elevation: 5,
-    shadowColor: 'black',
+    shadowColor: "black",
     shadowOpacity: 0.5,
     shadowOffset: {
       width: 1,
@@ -315,7 +329,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: '#0A2647',
+    color: "#0A2647",
   },
 });
 export default PermissionRequestScreen;
