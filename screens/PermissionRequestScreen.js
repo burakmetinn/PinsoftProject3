@@ -11,6 +11,7 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { useSelector } from 'react-redux';
 
 const PermissionRequestScreen = () => {
   const [cause, setCause] = useState('');
@@ -26,9 +27,15 @@ const PermissionRequestScreen = () => {
     setStartDate(selectedDate);
     setEndDate(selectedDate);
   };
-  const cookies = new Cookies();
-  let manId = cookies.get('id');
-  let token = cookies.get('token');
+
+  const manId = useSelector((state) => state.data.managerId);
+  console.log(manId);
+
+  const login = useSelector((state) => state.data.login);
+  console.log(login);
+
+  const token = login.token;
+  console.log(token);
 
   const WorkStartDate = new Date('2013-03-10T21:41:51.058Z');
   const handleOnayPress = () => {

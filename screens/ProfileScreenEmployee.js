@@ -1,10 +1,47 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity ,TouchableWithoutFeedback ,StyleSheet, Modal } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  StyleSheet,
+  Modal,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { addUser } from '../app/dataSlice';
+import axios from 'axios';
 
-const ProfileScreenEmployee = ({navigation}) => {
+const ProfileScreenEmployee = ({ navigation }) => {
   const [isSheetVisible, setSheetVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState('Name 1');
+  const login = useSelector((state) => state.data.login);
+
+  let token = login.token;
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.data.user);
+  const firstName = user.firstName;
+  const lastName = user.lastName;
+  const email = user.email;
+  const role = user.role;
+  useEffect(() => {
+    axios
+      .get('https://time-off-tracker-production.up.railway.app/users', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(
+        (response) => {
+          dispatch(addUser(response.data));
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
@@ -12,61 +49,76 @@ const ProfileScreenEmployee = ({navigation}) => {
   };
 
   const handleLogout = () => {
-    navigation.navigate("LoginScreen");
-  }
+    token = '';
+    navigation.navigate('LoginScreen');
+  };
 
   return (
-    
     <View style={styles.container}>
-      
       <View style={styles.infoSection}>
-        <Ionicons name="person-circle" color="white" size={100} />
-        <Text style={styles.sampleName}>Firstname Lastname</Text>
+        <Ionicons name='person-circle' color='white' size={100} />
+        <Text style={styles.sampleName}>
+          {firstName} {lastName}
+        </Text>
       </View>
-      
+
+      <Text style={styles.sampleInfo}>Email Address : {email}</Text>
+
+      <Text style={styles.sampleInfo}>Role : {role}</Text>
+
       <View style={styles.optionsContainer}>
         <Text style={styles.sectionTitle}>Manager</Text>
         <TouchableOpacity
           style={styles.optionButton}
-          onPress={() => setSheetVisible(true)}>
-          <Ionicons name="person-circle" size={30}  color='white'/>    
+          onPress={() => setSheetVisible(true)}
+        >
+          <Ionicons name='person-circle' size={30} color='white' />
           <Text style={styles.managerText}>{selectedOption}</Text>
-          <Ionicons style={styles.managerIcon} name="chevron-forward" size={20}  color='gray'/> 
+          <Ionicons
+            style={styles.managerIcon}
+            name='chevron-forward'
+            size={20}
+            color='gray'
+          />
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={handleLogout}  style={styles.logOutContainer}>
-          <Ionicons name="log-out-outline" size={25} color="red" />
-          <Text style={styles.logOutText}>Log Out</Text>
+      <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
+        <Ionicons name='log-out-outline' size={25} color='red' />
+        <Text style={styles.logOutText}>Log Out</Text>
       </TouchableOpacity>
 
-      <Modal 
-        animationType="slide"
+      <Modal
+        animationType='slide'
         transparent={true}
         visible={isSheetVisible}
-        onRequestClose={() => setSheetVisible(false)}>
-          
-          <TouchableOpacity 
-            style={styles.container} 
-            activeOpacity={1} 
-            onPressOut={() => setSheetVisible(false)}
-          ></TouchableOpacity>
-       
+        onRequestClose={() => setSheetVisible(false)}
+      >
+        <TouchableOpacity
+          style={styles.container}
+          activeOpacity={1}
+          onPressOut={() => setSheetVisible(false)}
+        ></TouchableOpacity>
+
         <View style={styles.bottomSheet}>
           <TouchableOpacity
             style={styles.closeButton}
-            onPress={() => setSheetVisible(false)}>
-            <Ionicons name='reorder-two-outline'  size={25}/>
+            onPress={() => setSheetVisible(false)}
+          >
+            <Ionicons name='reorder-two-outline' size={25} />
           </TouchableOpacity>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[
               styles.sheetOption,
               selectedOption === 'Name 1' && styles.selectedOption,
             ]}
-            onPress={() => handleOptionSelect('Name 1')}>
+            onPress={() => handleOptionSelect('Name 1')}
+          >
             <Text>Name 1</Text>
-            {selectedOption === 'Name 1' && <Ionicons name='checkmark-sharp' color='green' size={15}/>}
+            {selectedOption === 'Name 1' && (
+              <Ionicons name='checkmark-sharp' color='green' size={15} />
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -74,9 +126,12 @@ const ProfileScreenEmployee = ({navigation}) => {
               styles.sheetOption,
               selectedOption === 'Name 2' && styles.selectedOption,
             ]}
-            onPress={() => handleOptionSelect('Name 2')}>
+            onPress={() => handleOptionSelect('Name 2')}
+          >
             <Text>Name 2</Text>
-            {selectedOption === 'Name 2' && <Ionicons name='checkmark-sharp' color='green' size={15}/>}
+            {selectedOption === 'Name 2' && (
+              <Ionicons name='checkmark-sharp' color='green' size={15} />
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -84,22 +139,27 @@ const ProfileScreenEmployee = ({navigation}) => {
               styles.sheetOption,
               selectedOption === 'Name 3' && styles.selectedOption,
             ]}
-            onPress={() => handleOptionSelect('Name 3')}>
+            onPress={() => handleOptionSelect('Name 3')}
+          >
             <Text>Name 3</Text>
-            {selectedOption === 'Name 3' && <Ionicons name='checkmark-sharp' color='green' size={15}/>}
+            {selectedOption === 'Name 3' && (
+              <Ionicons name='checkmark-sharp' color='green' size={15} />
+            )}
           </TouchableOpacity>
-          
+
           <TouchableOpacity
             style={[
               styles.sheetOption,
               selectedOption === 'Name 4' && styles.selectedOption,
             ]}
-            onPress={() => handleOptionSelect('Name 4')}>
+            onPress={() => handleOptionSelect('Name 4')}
+          >
             <Text>Name 4</Text>
-            {selectedOption === 'Name 4' && <Ionicons name='checkmark-sharp' color='green' size={15}/>}
+            {selectedOption === 'Name 4' && (
+              <Ionicons name='checkmark-sharp' color='green' size={15} />
+            )}
           </TouchableOpacity>
         </View>
-        
       </Modal>
     </View>
   );
@@ -118,12 +178,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 20,
     alignItems: 'center',
-   
   },
   sectionTitle: {
     fontSize: 20,
     marginBottom: 5,
-    color:"white"
+    color: 'white',
   },
   sampleName: {
     fontSize: 20,
@@ -131,7 +190,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     justifyContent: 'center',
     alignItems: 'center',
-    color:"white"
+    color: 'white',
+  },
+  sampleInfo: {
+    fontSize: 20,
+    paddingLeft: 10,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
   },
   optionsContainer: {
     marginTop: 30,
@@ -148,13 +215,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: 220,
     alignItems: 'center',
-    
   },
   managerText: {
     paddingRight: 90,
     paddingLeft: 10,
-    color:"white"
-
+    color: 'white',
   },
 
   bottomSheet: {
@@ -170,9 +235,8 @@ const styles = StyleSheet.create({
   closeButton: {
     alignSelf: 'center',
     marginBottom: 20,
-    
   },
-  
+
   sheetOption: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -181,7 +245,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#dbdbdb',
   },
-  
+
   logOutContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -198,4 +262,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreenEmployee
+export default ProfileScreenEmployee;
