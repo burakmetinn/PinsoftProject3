@@ -36,8 +36,8 @@ const ProfileScreenManager = ({ navigation }) => {
 
       <View style={styles.buttonContainer}>
         {role === "user" && (
-          <TouchableOpacity onPress={makeManager} style={styles.newM}>
-            <Text style={styles.new}>Make Me a Manager</Text>
+          <TouchableOpacity onPress={makeManager} style={styles.selectManagerButton}>
+            <Text style={styles.buttonText}>Select Manager</Text>
           </TouchableOpacity>
         )}
 
@@ -103,14 +103,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
   },
-  newM: {
+  selectManagerButton: {
     marginBottom: 10,
     paddingHorizontal: 20,
     paddingVertical: 10,
     backgroundColor: "#fff",
     borderRadius: 20,
   },
-  new: {
+  buttonText: {
     fontSize: 15,
     color: "black",
     fontWeight: "bold",
