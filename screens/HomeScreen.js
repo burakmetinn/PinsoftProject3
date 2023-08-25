@@ -119,6 +119,8 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         width: 850,
+        left:310
+
       },
     }),
   },
