@@ -3,33 +3,47 @@ import {
   View,
   Text,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   StyleSheet,
-  Modal,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const ProfileScreenManager = ({ navigation }) => {
   const [role, setRole] = useState("user");
 
+  const user = {
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+  };
+
   const makeManager = () => {
     setRole("manager");
   };
+
   const handleLogout = () => {
     navigation.navigate("LoginScreen");
   };
 
-  /*<View style={styles.newM}>
-  <TouchableOpacity onPress={makeManager}>
-  <Text style={styles.new}>Select New Manager</Text>
-</TouchableOpacity>
-</View>*/
   return (
     <View style={styles.container}>
       <View style={styles.infoSection}>
         <Ionicons name="person-circle" color="white" size={100} />
-        <Text style={styles.sampleName}>Firstname Lastname</Text>
+        <View style={styles.nameInfo}>
+          <Text style={styles.firstName}>{user.firstName}</Text>
+          <Text style={styles.lastName}>{user.lastName}</Text>
+        </View>
       </View>
+
+      <View style={styles.emailSection}>
+        <Ionicons name="mail-outline" size={25} color="gray" />
+        <Text style={styles.email}>{user.email}</Text>
+      </View>
+
+      {role === "user" && (
+        <TouchableOpacity onPress={makeManager} style={styles.newM}>
+          <Text style={styles.new}>Select New Manager</Text>
+        </TouchableOpacity>
+      )}
 
       <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
         <Ionicons name="log-out-outline" size={25} color="red" />
@@ -53,26 +67,35 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     alignItems: "center",
   },
-  sectionTitle: {
-    fontSize: 20,
-    marginBottom: 5,
+  nameInfo: {
+    marginLeft: 10,
   },
-  sampleName: {
-    fontSize: 20,
-    paddingLeft: 10,
+  firstName: {
+    fontSize: 24,
     fontWeight: "bold",
-    justifyContent: "center",
-    alignItems: "center",
     color: "white",
   },
-
+  lastName: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
+  },
+  emailSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 20,
+    marginBottom: 20,
+  },
+  email: {
+    fontSize: 18,
+    marginLeft: 10,
+    color: "gray",
+  },
   logOutContainer: {
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
     marginLeft: 30,
-    marginTop: 50,
-    width: 120,
   },
   logOutText: {
     marginLeft: 10,
