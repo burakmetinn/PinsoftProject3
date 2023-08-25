@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-community/cookies": "^5.0.1",
     "@react-native-community/datetimepicker": "^7.2.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-masked-view/masked-view": "^0.2.9",
@@ -17,6 +18,7 @@
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "@react-navigation/stack": "^6.3.17",
+    "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "expo": "~49.0.5",
     "expo-status-bar": "~1.6.0",
@@ -39,8 +41,6 @@
     "react-navigation-stack": "^2.10.4",
     "react-redux": "^8.1.2",
     "redux": "^4.2.1",
-    "sfcookies": "^1.0.2",
-    "universal-cookie": "^6.1.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
