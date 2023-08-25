@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const ProfileScreenManager = ({ navigation }) => {
@@ -39,16 +34,18 @@ const ProfileScreenManager = ({ navigation }) => {
         <Text style={styles.email}>{user.email}</Text>
       </View>
 
-      {role === "user" && (
-        <TouchableOpacity onPress={makeManager} style={styles.newM}>
-          <Text style={styles.new}>Select New Manager</Text>
-        </TouchableOpacity>
-      )}
+      <View style={styles.buttonContainer}>
+        {role === "user" && (
+          <TouchableOpacity onPress={makeManager} style={styles.newM}>
+            <Text style={styles.new}>Make Me a Manager</Text>
+          </TouchableOpacity>
+        )}
 
-      <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
-        <Ionicons name="log-out-outline" size={25} color="red" />
-        <Text style={styles.logOutText}>Log Out</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
+          <Ionicons name="log-out-outline" size={25} color="red" />
+          <Text style={styles.logOutText}>Log Out</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -61,7 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A2647",
   },
   infoSection: {
-    marginTop: 5,
+    marginTop: 30,
     marginBottom: 20,
     flexDirection: "row",
     marginLeft: 20,
@@ -91,11 +88,14 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: "gray",
   },
+  buttonContainer: {
+    marginTop: 20,
+    alignItems: "center",
+  },
   logOutContainer: {
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
-    marginLeft: 30,
   },
   logOutText: {
     marginLeft: 10,
@@ -104,19 +104,16 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   newM: {
-    top: 50,
-    left: 30,
     marginBottom: 10,
-    padding: 15,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     backgroundColor: "#fff",
     borderRadius: 20,
-    width: 182,
-    justifyContent: "center",
-    alignItems: "center",
   },
   new: {
     fontSize: 15,
     color: "black",
+    fontWeight: "bold",
   },
 });
 
