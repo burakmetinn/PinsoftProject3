@@ -69,19 +69,14 @@ const ProfileScreenManager = ({ navigation }) => {
         )}
 
         <View style={styles.optionsContainer}>
-          <Text style={styles.sectionTitle}>Select New Manager</Text>
           <TouchableOpacity
             style={styles.optionButton}
-            onPress={() => setSheetVisible(true)}
+            onPress={() => {
+              navigation.navigate("NewManager");
+            }}
           >
             <Ionicons name="person-circle" size={30} color="white" />
-            <Text style={styles.managerText}>{selectedOption}</Text>
-            <Ionicons
-              style={styles.managerIcon}
-              name="chevron-forward"
-              size={20}
-              color="gray"
-            />
+            <Text style={styles.sectionTitle}>Select New Manager</Text>
           </TouchableOpacity>
         </View>
 
@@ -89,80 +84,6 @@ const ProfileScreenManager = ({ navigation }) => {
           <Ionicons name="log-out-outline" size={25} color="red" />
           <Text style={styles.logOutText}>Log Out</Text>
         </TouchableOpacity>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={isSheetVisible}
-          onRequestClose={() => setSheetVisible(false)}
-        >
-          <TouchableOpacity
-            style={styles.container}
-            activeOpacity={1}
-            onPressOut={() => setSheetVisible(false)}
-          ></TouchableOpacity>
-
-          <View style={styles.bottomSheet}>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setSheetVisible(false)}
-            >
-              <Ionicons name="reorder-two-outline" size={25} />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.sheetOption,
-                selectedOption === "Name 1" && styles.selectedOption,
-              ]}
-              onPress={() => handleOptionSelect("Name 1")}
-            >
-              <Text>Name 1</Text>
-              {selectedOption === "Name 1" && (
-                <Ionicons name="checkmark-sharp" color="green" size={15} />
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.sheetOption,
-                selectedOption === "Name 2" && styles.selectedOption,
-              ]}
-              onPress={() => handleOptionSelect("Name 2")}
-            >
-              <Text>Name 2</Text>
-              {selectedOption === "Name 2" && (
-                <Ionicons name="checkmark-sharp" color="green" size={15} />
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.sheetOption,
-                selectedOption === "Name 3" && styles.selectedOption,
-              ]}
-              onPress={() => handleOptionSelect("Name 3")}
-            >
-              <Text>Name 3</Text>
-              {selectedOption === "Name 3" && (
-                <Ionicons name="checkmark-sharp" color="green" size={15} />
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.sheetOption,
-                selectedOption === "Name 4" && styles.selectedOption,
-              ]}
-              onPress={() => handleOptionSelect("Name 4")}
-            >
-              <Text>Name 4</Text>
-              {selectedOption === "Name 4" && (
-                <Ionicons name="checkmark-sharp" color="green" size={15} />
-              )}
-            </TouchableOpacity>
-          </View>
-        </Modal>
       </View>
     </View>
   );
@@ -266,15 +187,15 @@ const styles = StyleSheet.create({
     }),
   },
   optionButton: {
-    padding: 5,
-    paddingLeft: 10,
+    padding: 10,
     flexDirection: "row",
     borderWidth: 1,
     borderColor: "gray",
     borderRadius: 5,
     marginBottom: 10,
     marginTop: 10,
-    width: 220,
+    width: 240,
+    justifyContent: "space-between",
     alignItems: "center",
   },
   managerText: {
@@ -298,9 +219,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 18,
+    right: 10,
     color: "white",
-    marginBottom: 20,
   },
   sheetOption: {
     flexDirection: "row",
