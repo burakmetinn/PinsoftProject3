@@ -2,13 +2,7 @@ import { View, Text, Button, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Calendar } from "react-native-calendars";
-import DateTimePicker from "react-native-modal-datetime-picker";
 
-/*{web && {...Platform.select({
-      web: {
-        <DateTimePicker/>
-      },
-    }),}}*/
 const HomeScreen = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [events, setEvents] = useState([]);
@@ -78,7 +72,9 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 20,
     ...Platform.select({
-      web: {},
+      web: {
+        
+      },
     }),
   },
   heading: {
@@ -103,7 +99,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         width: 850,
-        left: 310,
+        left:310
       },
     }),
   },
@@ -123,7 +119,8 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         width: 850,
-        left: 310,
+        left:310
+
       },
     }),
   },
