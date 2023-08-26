@@ -6,88 +6,25 @@ import {
   Image,
   Alert,
   ScrollView,
-} from "react-native";
-import React, { useRef, useState } from "react";
-import { StyleSheet } from "react-native";
-import Feather from "react-native-vector-icons/Feather";
-import Entypo from "react-native-vector-icons/Entypo";
-import axios from "axios";
-import Cookies from "universal-cookie";
+} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addLogin } from '../app/dataSlice';
 
 const LoginScreen = ({ navigation }) => {
   const [hidePass, setHidePass] = useState(true);
   const [textInputEmail, setTextInputEmail] = useState("");
   const [textInputPwd, setTextInputPwd] = useState("");
-  const [token, setToken] = useState("");
-  // const [users, setUsers] = useState([
-  //   {
-  //     mail: 'cekicengiz01@gmail.com',
-  //     password: '123123',
-  //     statu: 'user',
-  //     admin: 'burak',
-  //     starting: '2023/12/12',
-  //     izinler: [
-  //       {
-  //         date: '11/08/2023',
-  //         dateend: '13/08/2023',
-  //         statu: 'onaylandı',
-  //       },
-  //       {
-  //         date: '15/08/2023',
-  //         dateend: '15/08/2023',
-  //         statu: 'onaylanmadı',
-  //       },
-  //       {
-  //         date: '16/08/2023',
-  //         dateend: '18/08/2023',
-  //         statu: 'bekliyor',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     mail: 'elif@gmail.com',
-  //     password: '123123',
-  //     statu: 'user',
-  //     admin: 'burak',
-  //     starting: '2023/12/12',
-  //   },
-  //   {
-  //     mail: 'burak@gmail.com',
-  //     password: '123123',
-  //     statu: 'admin', // Corrected property name here
-  //     users: 'utku, aylin, elif',
-  //   },
-  // ]);
 
-  // const checkTextInput = () => {
-  //   if (!textInputEmail.trim()) {
-  //     Alert.alert('Error', 'Please enter email.');
-  //   } else if (!textInputPwd.trim()) {
-  //     Alert.alert('Error', 'Please enter password.');
-  //   } else {
-  //     const user = users.find(
-  //       (u) => u.mail === textInputEmail && u.password === textInputPwd
-  //     );
-
-  //     if (user) {
-  //       if (user.statu === 'admin') {
-  //         navigation.navigate('TabsManager');
-  //       } else if (user.statu === 'user') {
-  //         navigation.navigate('TabsEmployee');
-  //       } else {
-  //         Alert.alert('Error', 'Invalid user status.');
-  //       }
-  //     } else {
-  //       Alert.alert('Error', 'Invalid email or password.');
-  //     }
-  //   }
-  // };
-
-  const cookies = new Cookies();
+  const dispatch = useDispatch();
 
   const loginHandler = () => {
     axios
-      .post("https://time-off-tracker-production.up.railway.app/auth/login", {
+      .post('https://time-off-tracker-production.up.railway.app/auth/login', {
         email: textInputEmail,
         password: textInputPwd,
       })
@@ -95,25 +32,8 @@ const LoginScreen = ({ navigation }) => {
       .then(
         (response) => {
           console.log(response);
-          setToken(response.data.token);
-          console.log(token);
+          dispatch(addLogin(response.data));
           console.log(response.data.token);
-
-          cookies.set(
-            "login",
-            JSON.stringify({
-              login: true,
-              role: response.data.role,
-            }),
-            { path: '/' }
-          );
-          cookies.set(
-            'token',
-
-            response.data.token,
-
-            { path: '/' }
-          );
 
           if (response.data.role === 'EMPLOYEE') {
             navigation.navigate('SelectAdminScreen');
@@ -121,14 +41,15 @@ const LoginScreen = ({ navigation }) => {
             navigation.navigate('TabsManager');
           }
         },
+
         (error) => {
           console.log(error);
           if (!textInputEmail.trim()) {
-            Alert.alert("Error", "Please enter email!");
+            Alert.alert('Error', 'Please enter email!');
           } else if (!textInputPwd.trim()) {
-            Alert.alert("Error", "Please enter password!");
+            Alert.alert('Error', 'Please enter password!');
           } else {
-            Alert.alert("Error", "Make sure you entered the right parameters!");
+            Alert.alert('Error', 'Make sure you entered the right parameters!');
           }
         }
       );
@@ -136,12 +57,12 @@ const LoginScreen = ({ navigation }) => {
 
   const pwd = useRef();
   return (
-    <ScrollView keyboardShouldPersistTaps="handled" style={styles.scroll}>
+    <ScrollView keyboardShouldPersistTaps='handled' style={styles.scroll}>
       <View style={styles.view}>
         <View>
           <Image
             style={styles.img}
-            source={require("../assets/headerLogo.png")}
+            source={require('../assets/headerLogo.png')}
           />
         </View>
         <View>
@@ -164,8 +85,8 @@ const LoginScreen = ({ navigation }) => {
               onChangeText={(value) => setTextInputEmail(value)}
             />
             <Feather
-              name="mail"
-              style={{ fontSize: 15, left: 195, bottom: 7, color: "#999999" }}
+              name='mail'
+              style={{ fontSize: 15, left: 195, bottom: 7, color: '#999999' }}
             />
           </View>
           <View style={styles.inputs}>
@@ -185,7 +106,7 @@ const LoginScreen = ({ navigation }) => {
             />
             <TouchableOpacity style={styles.lockButton}>
               <Entypo
-                name={hidePass ? "lock" : "lock-open"}
+                name={hidePass ? 'lock' : 'lock-open'}
                 style={styles.lockBtn}
                 onPress={() => {
                   setHidePass(!hidePass);
@@ -204,7 +125,7 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("SignUpScreen");
+            navigation.navigate('SignUpScreen');
           }}
         >
           <Text style={styles.btnText2}>Don't have an account? Sign Up.</Text>
@@ -217,19 +138,19 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    alignItems: "center",
-    backgroundColor: "white",
+    alignItems: 'center',
+    backgroundColor: 'white',
   },
   scroll: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   logo: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 30,
     width: 115,
-    color: "black",
+    color: 'black',
     marginTop: 200,
-    fontFamily: "Cochin-BoldItalic",
+    fontFamily: 'Cochin-BoldItalic',
   },
   img: {
     width: 300,
@@ -244,11 +165,11 @@ const styles = StyleSheet.create({
   },
   inputs: {
     width: 250,
-    backgroundColor: "#ebeff2",
+    backgroundColor: '#ebeff2',
     borderRadius: 20,
     height: 60,
     marginBottom: 20,
-    justifyContent: "center",
+    justifyContent: 'center',
     padding: 20,
 
     ...Platform.select({
@@ -269,12 +190,12 @@ const styles = StyleSheet.create({
 
   btn: {
     padding: 20,
-    backgroundColor: "#e1e5e8",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#e1e5e8',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 20,
     width: 247,
-    backgroundColor: "#0f396b",
+    backgroundColor: '#0f396b',
     ...Platform.select({
       web: {
         bottom: 50,
@@ -282,7 +203,7 @@ const styles = StyleSheet.create({
     }),
   },
   btnText: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
   },
   button: {
@@ -290,7 +211,7 @@ const styles = StyleSheet.create({
   },
   btnText2: {
     paddingTop: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     ...Platform.select({
       web: {
         bottom: 50,
@@ -301,7 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     left: 195,
     bottom: 7,
-    color: "#999999",
+    color: '#999999',
     width: 20,
     marginLeft: 0,
     padding: 0,
