@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import { useSelector } from "react-redux";
 
 // const users = [
 //   {
@@ -26,11 +27,19 @@ const SelecetAdminScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(false);
   const [managers, setManagers] = useState([]);
   const cookies = new Cookies();
+  const login = useSelector((state) => state.data.login);
+
+  const token = login.token;
 
   useEffect(() => {
     axios
       .get(
-        "https://time-off-tracker-production.up.railway.app/users/get-manager-users"
+        "https://time-off-tracker-production.up.railway.app/users/get-manager-users",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
 
       .then(
@@ -109,14 +118,14 @@ const SelecetAdminScreen = ({ navigation }) => {
           disabled={selected === false ? true === true : false}
           onPress={() => {
             cookies.set(
-              'id',
+              "id",
 
               selected.value,
 
-              { path: '/' }
+              { path: "/" }
             );
 
-            navigation.navigate('TabsEmployee');
+            navigation.navigate("TabsEmployee");
           }}
           hitSlop={{ left: 100, right: 100, top: 20, bottom: 20 }}
         >
