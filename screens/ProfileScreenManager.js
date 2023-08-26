@@ -235,6 +235,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
     top: 50,
+    ...Platform.select({
+      web: {
+        bottom: 50,
+        left:700
+      },
+    }),
   },
   logOutText: {
     marginLeft: 10,
@@ -247,6 +253,11 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginBottom: 20,
     right: 85,
+    ...Platform.select({
+      web: {
+        right: 650,
+      },
+    }),
   },
   optionButton: {
     padding: 5,
