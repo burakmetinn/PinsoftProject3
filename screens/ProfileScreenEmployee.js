@@ -185,6 +185,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flexDirection: "column",
     alignItems: "center",
+    ...Platform.select({
+      web: {
+        alignSelf: "flex-start",
+        flexDirection: "row",
+      },
+    }),
   },
   sectionTitle: {
     fontSize: 20,
@@ -289,7 +295,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         bottom: 50,
-        left:700
+        left: 700,
       },
     }),
   },
