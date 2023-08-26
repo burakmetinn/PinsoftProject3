@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import { useSelector } from 'react-redux';
 
 const PermissionRequestScreen = () => {
@@ -21,7 +20,7 @@ const PermissionRequestScreen = () => {
   const [PremInfo, setPremInfo] = useState('');
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
-  const [error, setError] = useState('');
+
   console.log(StartDate);
   console.log(EndDate);
   const handleStartDateChange = (selectedDate) => {
@@ -71,40 +70,40 @@ const PermissionRequestScreen = () => {
       return;
     }
 
-    setPremInfo(`
-    Cause : ${cause}
-    startDate: ${StartDate},
-    endDate: ${EndDate},
-    `);
+    setPremInfo({
+      Cause: cause,
+      startDate: StartDate.toDateString(),
+      endDate: EndDate.toDateString(),
+    });
 
-    axios
-      .post('https://time-off-tracker-production.up.railway.app/time-off', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        description: cause,
-        startDate: StartDate,
-        endDate: EndDate,
-        managerId: manId,
-      })
+    const requestData = {
+      description: cause,
+      startDate: StartDate,
+      endDate: EndDate,
+      managerId: manId,
+    };
 
-      .then(
-        (response) => {
-          console.log(response);
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      'POST',
+      'https://time-off-tracker-production.up.railway.app/time-off',
+      true
+    );
+    //"https://time-off-tracker-production.up.railway.app/time-off"
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
 
-          if (response.id) {
-            Alert.alert('Success', PremInfo);
-          }
-        },
-
-        (error) => {
-          console.log(error);
-          if (!cause || !StartDate || !EndDate) {
-            setError('Please fill out all fields.');
-            Alert.alert('Error', 'Please fill out all fields.');
-          }
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          Alert.alert('Request submitted successfully!', PremInfo);
+        } else {
+          alert('Request submission failed. Status: ' + xhr.status);
         }
-      );
+      }
+    };
+
+    xhr.send(JSON.stringify(requestData));
   };
 
   return (

@@ -3,43 +3,39 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
-
 const MyPermissionsScreenDetail = ({ route, navigation }) => {
   const { permission } = route.params;
-  
 
   const openProfileScreen = () => {
-    navigation.navigate("My Permissions Profile", {selectedRequester: permission.requester});
+    navigation.navigate('My Permissions Profile', {
+      selectedRequester: permission.requester,
+    });
   };
 
-  const handleApprove = () => {
-    
-  };
+  const handleApprove = () => {};
 
-  const handleDeny = () => {
-    
-  };
+  const handleDeny = () => {};
 
   return (
     <View style={styles.container}>
-      
       <View style={styles.detailContainer}>
-        <Text style={styles.detailTitle}>Date:</Text>
+        <Text style={styles.detailTitle}>Permission period:</Text>
         <Text style={styles.detailContent}>{permission.title}</Text>
       </View>
       <View style={styles.detailContainer}>
         <Text style={styles.detailTitle}>Requester:</Text>
-        <Text style={styles.requesterName} onPress={openProfileScreen}>{permission.requester}</Text>
+        <Text style={styles.requesterName} onPress={openProfileScreen}>
+          {permission.requester}
+        </Text>
       </View>
       <View style={styles.detailContainer}>
         <Text style={styles.detailTitle}>Reason:</Text>
-        <Text style={styles.detailContent}>"Medical Appointment"</Text>
+        <Text style={styles.detailContent}>{permission.cause}</Text>
       </View>
       <View style={styles.detailContainer}>
         <Text style={styles.detailTitle}>Status:</Text>
         <Text style={styles.status}>{permission.status}</Text>
       </View>
-      
     </View>
   );
 };
@@ -49,13 +45,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     padding: 30,
-    backgroundColor: '#0A2647',
-
+    backgroundColor: '#ffdb58',
   },
   title: {
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 20,
+    alignItems: 'center',
   },
   detailContainer: {
     marginBottom: 30,
@@ -65,22 +61,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 5,
     marginBottom: 7,
-    color:"white"
+    color: '#0A2647',
   },
   detailContent: {
-    fontSize: 16,
-    color:"white"
-
+    fontSize: 20,
+    color: '#0A2647',
   },
   status: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 20,
-    color:"white"
+    color: '#0A2647',
   },
   requesterName: {
-    fontSize: 16,
-    color: '#2968b3',
+    fontSize: 20,
+    color: '#0A2647',
   },
 });
 
-export default MyPermissionsScreenDetail
+export default MyPermissionsScreenDetail;

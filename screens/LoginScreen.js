@@ -31,7 +31,6 @@ const LoginScreen = ({ navigation }) => {
 
       .then(
         (response) => {
-          console.log(response);
           dispatch(addLogin(response.data));
           console.log(response.data.token);
 
