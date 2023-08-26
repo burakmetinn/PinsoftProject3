@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addManagerId } from '../app/dataSlice';
 
 const SelecetAdminScreen = ({ navigation }) => {
@@ -11,13 +11,20 @@ const SelecetAdminScreen = ({ navigation }) => {
   const [isFocus, setIsFocus] = useState(false);
   const [selected, setSelected] = useState(false);
   const [managers, setManagers] = useState([]);
+  const login = useSelector((state) => state.data.login);
 
+  const token = login.token;
   const dispatch = useDispatch();
 
   useEffect(() => {
     axios
       .get(
-        'https://time-off-tracker-production.up.railway.app/users/get-manager-users'
+        'https://time-off-tracker-production.up.railway.app/users/get-manager-users',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
 
       .then(
@@ -27,7 +34,6 @@ const SelecetAdminScreen = ({ navigation }) => {
             value: user.id,
           }));
           setManagers(transformedData);
-          
 
           console.log(managers);
         },
@@ -81,7 +87,6 @@ const SelecetAdminScreen = ({ navigation }) => {
             setValue(item.value);
             setIsFocus(false);
             setSelected(item);
-            
           }}
           renderLeftIcon={() => (
             <Ionicons

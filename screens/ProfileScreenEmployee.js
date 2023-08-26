@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { addUser } from '../app/dataSlice';
+import { addUser,addManagerId,addLogin } from '../app/dataSlice';
 import axios from 'axios';
 
 const ProfileScreenEmployee = ({ navigation }) => {
@@ -17,7 +17,7 @@ const ProfileScreenEmployee = ({ navigation }) => {
   const [selectedOption, setSelectedOption] = useState('Name 1');
   const login = useSelector((state) => state.data.login);
 
-  let token = login.token;
+  const token = login.token;
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.data.user);
@@ -49,7 +49,9 @@ const ProfileScreenEmployee = ({ navigation }) => {
   };
 
   const handleLogout = () => {
-    token = '';
+    dispatch(addLogin({}));
+    dispatch(addManagerId(''));
+    dispatch(addUser({}));
     navigation.navigate('LoginScreen');
   };
 
@@ -169,6 +171,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
+    alignItems:'center',
     paddingTop: 20,
     backgroundColor: '#0A2647',
   },
