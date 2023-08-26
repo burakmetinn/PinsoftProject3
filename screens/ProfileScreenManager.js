@@ -58,7 +58,7 @@ const ProfileScreenManager = ({ navigation }) => {
         <Text style={styles.email}>Email : {email}</Text>
       </View>
       <View style={styles.emailSection}>
-        <Text style={styles.email}>Rule : {role}</Text>
+        <Text style={styles.email}>Role : {role}</Text>
       </View>
 
       <View style={styles.buttonContainer}>

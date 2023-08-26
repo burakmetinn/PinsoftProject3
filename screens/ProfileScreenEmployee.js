@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,15 +6,15 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
   Modal,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useSelector, useDispatch } from 'react-redux';
-import { addUser,addManagerId,addLogin } from '../app/dataSlice';
-import axios from 'axios';
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useSelector, useDispatch } from "react-redux";
+import { addUser, addManagerId, addLogin } from "../app/dataSlice";
+import axios from "axios";
 
 const ProfileScreenEmployee = ({ navigation }) => {
   const [isSheetVisible, setSheetVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('Name 1');
+  const [selectedOption, setSelectedOption] = useState("Name 1");
   const login = useSelector((state) => state.data.login);
 
   const token = login.token;
@@ -27,7 +27,7 @@ const ProfileScreenEmployee = ({ navigation }) => {
   const role = user.role;
   useEffect(() => {
     axios
-      .get('https://time-off-tracker-production.up.railway.app/users', {
+      .get("https://time-off-tracker-production.up.railway.app/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,15 +50,20 @@ const ProfileScreenEmployee = ({ navigation }) => {
 
   const handleLogout = () => {
     dispatch(addLogin({}));
-    dispatch(addManagerId(''));
+    dispatch(addManagerId(""));
     dispatch(addUser({}));
-    navigation.navigate('LoginScreen');
+    navigation.navigate("LoginScreen");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.infoSection}>
-        <Ionicons name='person-circle' color='white' size={100} />
+        <Ionicons
+          name="person-circle"
+          style={styles.icon}
+          color="white"
+          size={100}
+        />
         <Text style={styles.sampleName}>
           {firstName} {lastName}
         </Text>
@@ -66,7 +71,7 @@ const ProfileScreenEmployee = ({ navigation }) => {
 
       <Text style={styles.sampleInfo}>Email Address : {email}</Text>
 
-      <Text style={styles.sampleInfo}>Role : {role}</Text>
+      <Text style={styles.sampleInfo2}>Role : {role}</Text>
 
       <View style={styles.optionsContainer}>
         <Text style={styles.sectionTitle}>Manager</Text>
@@ -74,24 +79,24 @@ const ProfileScreenEmployee = ({ navigation }) => {
           style={styles.optionButton}
           onPress={() => setSheetVisible(true)}
         >
-          <Ionicons name='person-circle' size={30} color='white' />
+          <Ionicons name="person-circle" size={30} color="white" />
           <Text style={styles.managerText}>{selectedOption}</Text>
           <Ionicons
             style={styles.managerIcon}
-            name='chevron-forward'
+            name="chevron-forward"
             size={20}
-            color='gray'
+            color="gray"
           />
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
-        <Ionicons name='log-out-outline' size={25} color='red' />
+        <Ionicons name="log-out-outline" size={25} color="red" />
         <Text style={styles.logOutText}>Log Out</Text>
       </TouchableOpacity>
 
       <Modal
-        animationType='slide'
+        animationType="slide"
         transparent={true}
         visible={isSheetVisible}
         onRequestClose={() => setSheetVisible(false)}
@@ -107,58 +112,58 @@ const ProfileScreenEmployee = ({ navigation }) => {
             style={styles.closeButton}
             onPress={() => setSheetVisible(false)}
           >
-            <Ionicons name='reorder-two-outline' size={25} />
+            <Ionicons name="reorder-two-outline" size={25} />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
               styles.sheetOption,
-              selectedOption === 'Name 1' && styles.selectedOption,
+              selectedOption === "Name 1" && styles.selectedOption,
             ]}
-            onPress={() => handleOptionSelect('Name 1')}
+            onPress={() => handleOptionSelect("Name 1")}
           >
             <Text>Name 1</Text>
-            {selectedOption === 'Name 1' && (
-              <Ionicons name='checkmark-sharp' color='green' size={15} />
+            {selectedOption === "Name 1" && (
+              <Ionicons name="checkmark-sharp" color="green" size={15} />
             )}
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
               styles.sheetOption,
-              selectedOption === 'Name 2' && styles.selectedOption,
+              selectedOption === "Name 2" && styles.selectedOption,
             ]}
-            onPress={() => handleOptionSelect('Name 2')}
+            onPress={() => handleOptionSelect("Name 2")}
           >
             <Text>Name 2</Text>
-            {selectedOption === 'Name 2' && (
-              <Ionicons name='checkmark-sharp' color='green' size={15} />
+            {selectedOption === "Name 2" && (
+              <Ionicons name="checkmark-sharp" color="green" size={15} />
             )}
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
               styles.sheetOption,
-              selectedOption === 'Name 3' && styles.selectedOption,
+              selectedOption === "Name 3" && styles.selectedOption,
             ]}
-            onPress={() => handleOptionSelect('Name 3')}
+            onPress={() => handleOptionSelect("Name 3")}
           >
             <Text>Name 3</Text>
-            {selectedOption === 'Name 3' && (
-              <Ionicons name='checkmark-sharp' color='green' size={15} />
+            {selectedOption === "Name 3" && (
+              <Ionicons name="checkmark-sharp" color="green" size={15} />
             )}
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
               styles.sheetOption,
-              selectedOption === 'Name 4' && styles.selectedOption,
+              selectedOption === "Name 4" && styles.selectedOption,
             ]}
-            onPress={() => handleOptionSelect('Name 4')}
+            onPress={() => handleOptionSelect("Name 4")}
           >
             <Text>Name 4</Text>
-            {selectedOption === 'Name 4' && (
-              <Ionicons name='checkmark-sharp' color='green' size={15} />
+            {selectedOption === "Name 4" && (
+              <Ionicons name="checkmark-sharp" color="green" size={15} />
             )}
           </TouchableOpacity>
         </View>
@@ -170,88 +175,102 @@ const ProfileScreenEmployee = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    alignItems:'center',
+    justifyContent: "flex-start",
+    alignItems: "center",
     paddingTop: 20,
-    backgroundColor: '#0A2647',
+    backgroundColor: "#0A2647",
   },
   infoSection: {
     marginTop: 5,
     marginBottom: 20,
-    flexDirection: 'row',
-    marginLeft: 20,
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   sectionTitle: {
     fontSize: 20,
     marginBottom: 5,
-    color: 'white',
+    color: "white",
+    top: 10,
+    marginBottom: 20,
   },
   sampleName: {
     fontSize: 20,
-    paddingLeft: 10,
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
+    top: 60,
+    right: 50,
+  },
+  icon: {
+    left: 50,
   },
   sampleInfo: {
-    fontSize: 20,
-    paddingLeft: 10,
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'white',
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "white",
+    right: 40,
+    marginTop: 50,
+    marginBottom: 30,
+    top: 20,
+  },
+  sampleInfo2: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "white",
+    right: 120,
+    marginBottom: 15,
+    top: 20,
   },
   optionsContainer: {
     marginTop: 30,
     marginLeft: 30,
+    marginBottom: 20,
+    right: 85,
   },
   optionButton: {
     padding: 5,
     paddingLeft: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 5,
     marginBottom: 10,
     marginTop: 10,
     width: 220,
-    alignItems: 'center',
+    alignItems: "center",
   },
   managerText: {
     paddingRight: 90,
     paddingLeft: 10,
-    color: 'white',
+    color: "white",
   },
 
   bottomSheet: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 12,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
   },
   closeButton: {
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 20,
   },
 
   sheetOption: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 18,
     borderBottomWidth: 1,
-    borderBottomColor: '#dbdbdb',
+    borderBottomColor: "#dbdbdb",
   },
 
   logOutContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 10,
     marginLeft: 30,
     marginTop: 50,
@@ -259,8 +278,8 @@ const styles = StyleSheet.create({
   },
   logOutText: {
     marginLeft: 10,
-    color: 'red',
-    fontWeight: 'bold',
+    color: "red",
+    fontWeight: "bold",
     fontSize: 15,
   },
 });
