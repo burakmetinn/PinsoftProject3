@@ -98,8 +98,10 @@ const SelecetAdminScreen = ({ navigation }) => {
           )}
         />
       </View>
-      <View style={styles.btn}>
-        <TouchableOpacity
+      
+      <TouchableOpacity
+          style={styles.btn}
+          activeOpacity={0.7}
           disabled={selected === false ? true === true : false}
           onPress={() => {
             dispatch(addManagerId(selected.value));
@@ -107,9 +109,9 @@ const SelecetAdminScreen = ({ navigation }) => {
           }}
           hitSlop={{ left: 100, right: 100, top: 20, bottom: 20 }}
         >
-          <Text style={styles.btnText}>Next</Text>
-        </TouchableOpacity>
-      </View>
+          <Text style={styles.btnText}>Continue</Text>
+      </TouchableOpacity>
+      
     </View>
   );
 };

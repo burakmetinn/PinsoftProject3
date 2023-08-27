@@ -12,8 +12,12 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { useSelector } from 'react-redux';
+import { useThemeContext } from "../ThemeContext";
+
 
 const PermissionRequestScreen = () => {
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
   const [cause, setCause] = useState('');
   const [OneDay, setOneDay] = useState(true);
   const [StartDate, setStartDate] = useState(new Date());
@@ -108,24 +112,25 @@ const PermissionRequestScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.scrollView}>
+    <ScrollView style={[styles.scrollView,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           {/* <Text style={styles.PremInfoText}>{PremInfo}</Text> */}
 
-          <Text style={styles.label}>Permission cause:</Text>
+          <Text style={[styles.label,  {color: textColor}]}>Permission Cause:</Text>
           <TextInput
-            placeholder='Write the Permission cause...'
+            placeholder='  Write the permission cause...'
+            placeholderTextColor={'gray'}
             onChangeText={(text) => setCause(text)}
             value={cause}
-            style={styles.input}
+            style={[styles.input,  {color: textColor}]}
           />
         </View>
 
         <View style={styles.inputContainer}>
           <View style={styles.switchContainer}>
-            <Text style={styles.switchLabel}>
-              Permission for one Day / few Days
+            <Text style={[styles.switchLabel,  {color: textColor}]}>
+              Permission for  one day / few days
             </Text>
             <Switch value={!OneDay} onValueChange={() => setOneDay(!OneDay)} />
           </View>
@@ -133,15 +138,15 @@ const PermissionRequestScreen = () => {
 
         {OneDay ? (
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Permission Date</Text>
+            <Text style={[styles.label,  {color: textColor}]}>Permission Date:</Text>
             <TouchableOpacity
               style={styles.SelectButton}
               onPress={() => setShowStartDatePicker(true)}
             >
-              <Text style={styles.buttonText}>Change selected Start date</Text>
+              <Text style={[styles.buttonText,  {color: textColor}]}>Change The Starting Date</Text>
             </TouchableOpacity>
 
-            <Text style={styles.subtitle}>{StartDate.toDateString()}</Text>
+            <Text style={[styles.subtitle,  {color: textColor}]}>{StartDate.toDateString()}</Text>
             {showStartDatePicker && (
               <DateTimePicker
                 value={StartDate}
@@ -158,15 +163,15 @@ const PermissionRequestScreen = () => {
           </View>
         ) : (
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Permission period date </Text>
+            <Text style={[styles.label,  {color: textColor}]}>Permission Period Date:</Text>
             <TouchableOpacity
               style={styles.SelectButton}
               onPress={() => setShowStartDatePicker(true)}
             >
-              <Text style={styles.buttonText}>Change selected Start date</Text>
+              <Text style={[styles.buttonText,  {color: textColor}]}>Change The Starting Date</Text>
             </TouchableOpacity>
 
-            <Text style={styles.subtitle}>{StartDate.toDateString()}</Text>
+            <Text style={[styles.subtitle,  {color: textColor}]}>{StartDate.toDateString()}</Text>
 
             {showStartDatePicker && (
               <DateTimePicker
@@ -186,10 +191,10 @@ const PermissionRequestScreen = () => {
               style={styles.SelectButton}
               onPress={() => setShowEndDatePicker(true)}
             >
-              <Text style={styles.buttonText}>Change selected End date</Text>
+              <Text style={[styles.buttonText,  {color: textColor}]}>Change The Ending Date</Text>
             </TouchableOpacity>
 
-            <Text style={styles.subtitle}>{EndDate.toDateString()}</Text>
+            <Text style={[styles.subtitle,  {color: textColor}]}>{EndDate.toDateString()}</Text>
 
             {showEndDatePicker && (
               <DateTimePicker
@@ -208,7 +213,7 @@ const PermissionRequestScreen = () => {
         )}
 
         <TouchableOpacity onPress={handleOnayPress} style={styles.button}>
-          <Text style={styles.buttonText}>Send Permission to approval </Text>
+          <Text style={styles.buttonText}>Send To Approval </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -218,12 +223,10 @@ const PermissionRequestScreen = () => {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-    backgroundColor: '#0A2647',
   },
   container: {
     flex: 1,
     padding: 20,
-    color: 'white',
   },
   view: {
     flex: 1,
@@ -245,7 +248,8 @@ const styles = StyleSheet.create({
     }),
   },
   label: {
-    fontSize: 25,
+    fontSize: 20,
+    fontWeight: 'bold',
     color: 'white',
     ...Platform.select({
       web: {
@@ -255,12 +259,10 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    backgroundColor: 'white',
+    borderColor: 'gray',
     borderRadius: 10,
     padding: 10,
     marginTop: 5,
-    color: '#0A2647',
-    textAlign: 'center',
     ...Platform.select({
       web: {
         width: 500,
@@ -269,12 +271,12 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     flex: 1,
-    fontSize: 35,
+    fontSize: 27,
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 8,
-    marginLeft: 50,
+    alignSelf: 'center',
   },
   switchContainer: {
     flexDirection: 'row',
@@ -294,12 +296,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    backgroundColor: '#ffdb58',
-    padding: 10,
+    backgroundColor: '#3dd459',
+    margin: 20,
+    padding: 15,
+    paddingHorizontal: 50,
     alignItems: 'center',
-    color: '#0A2647',
-    borderRadius: 10,
-    elevation: 5,
+    alignSelf: 'center',
+    borderRadius: 25,
+    elevation: 3,
     shadowColor: 'black',
     shadowOpacity: 0.5,
     shadowOffset: {
@@ -310,26 +314,19 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         width: 500,
-        marginLeft: 500,
+        
       },
     }),
   },
   SelectButton: {
-    backgroundColor: '#ffdb58',
+    backgroundColor: '#80808011',
     alignItems: 'center',
-    padding: 5,
-    width: 300,
+    padding: 10,
     borderRadius: 10,
-    color: '#0A2647',
-    margin: 5,
-    marginLeft: 35,
-    elevation: 5,
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    shadowOffset: {
-      width: 1,
-      height: 6,
-    },
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginTop: 10,
+    shadowOpacity: 0.2,
     shadowRadius: 30,
     ...Platform.select({
       web: {
@@ -339,7 +336,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: '#0A2647',
+    color: 'white',
   },
 });
 export default PermissionRequestScreen;

@@ -10,6 +10,7 @@ import {
   StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useThemeContext } from "../../ThemeContext";
 
 const MyPermissionsScreenList = () => {
   const navigation = useNavigation();
@@ -107,7 +108,8 @@ const MyPermissionsScreenList = () => {
     },
   ]);
 
-  const [selectedPermission, setSelectedPermission] = useState(null);
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
 
   const openPermissionDetails = (permission) => {
     navigation.navigate("My Permissions Detail", { permission });
@@ -116,7 +118,7 @@ const MyPermissionsScreenList = () => {
   const renderPermissionItem = ({ item }) => (
     <TouchableOpacity onPress={() => openPermissionDetails(item)}>
       <View style={styles.permissionItem}>
-        <Text style={styles.permissionTitle}>{item.title}</Text>
+        <Text style={[styles.permissionTitle,  {color: textColor}]}>{item.title}</Text>
         <Text style={getStatusStyle(item.status)}>
           {getStatusText(item.status)}
         </Text>
@@ -145,8 +147,8 @@ const MyPermissionsScreenList = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Permission Requests</Text>
+    <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
+      <Text style={[styles.header,  {color: textColor}]}>Permission Requests</Text>
       <FlatList
         showsHorizontalScrollIndicator={false}
         style={styles.flatList}
@@ -163,17 +165,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#0A2647",
   },
   header: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 30,
     color: "white",
+    alignSelf: 'center',
     ...Platform.select({
       web: {
-        marginLeft: 650,
-        marginTop: 50,
+        
       },
     }),
   },
@@ -184,13 +185,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 22,
-    paddingVertical: 14,
+    marginBottom: 30,
+    paddingVertical: 15,
     paddingHorizontal: 15,
-    borderWidth: 1,
+    borderWidth: 1.2,
     borderColor: "#bbb",
-    borderRadius: 8,
-    backgroundColor: "#f4f4f4",
+    borderRadius: 10,
   },
   permissionTitle: {
     fontSize: 16,

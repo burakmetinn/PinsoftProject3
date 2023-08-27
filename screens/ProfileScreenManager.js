@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Modal } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Modal, Switch } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addLogin, addUser } from "../app/dataSlice";
+import { useThemeContext } from "../ThemeContext";
 
 const ProfileScreenManager = ({ navigation }) => {
   const [isSheetVisible, setSheetVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Name 1");
   const login = useSelector((state) => state.data.login);
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
 
   const token = login.token;
   const dispatch = useDispatch();
@@ -40,23 +42,36 @@ const ProfileScreenManager = ({ navigation }) => {
     setRole("manager");
   };
 
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+    setSheetVisible(false);
+  };
+
   const handleLogout = () => {
     dispatch(addLogin({}));
     dispatch(addUser({}));
     navigation.navigate("LoginScreen");
   };
+  const textColor = isDarkModeOn ? 'white' : 'black';
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
       <View style={styles.infoSection}>
-        <Ionicons name="person-circle" color="white" size={100} />
-        <Text style={styles.sampleName}>
+        <Ionicons name="person-circle" color={textColor} size={100} />
+        <Text style={[styles.sampleName,  {color: textColor}]}>
           {email} {lastName}
         </Text>
       </View>
 
-      <Text style={styles.email}>Email Address : {email}</Text>
-      <Text style={styles.email2}>Role : {role}</Text>
+      <View style={styles.infoContainer}>
+      <Text style={[styles.sampleInfoTitle,  {color: textColor}]}>Email Address</Text>
+      <Text style={[styles.sampleInfo,  {color: textColor}]}>{email}</Text>
+      </View>
+
+      <View style={styles.infoContainer}>
+      <Text style={[styles.sampleInfoTitle,  {color: textColor}]}>Role</Text>
+      <Text style={[styles.sampleInfo,  {color: textColor}]}>{role}</Text>
+      </View>
 
       <View style={styles.buttonContainer}>
         {role === "user" && (
@@ -69,13 +84,13 @@ const ProfileScreenManager = ({ navigation }) => {
         )}
 
         <View style={styles.optionsContainer}>
-          <Text style={styles.sectionTitle}>Select New Manager</Text>
+          <Text style={[styles.optionsTitle,  {color: textColor}]}>Select New Manager</Text>
           <TouchableOpacity
             style={styles.optionButton}
             onPress={() => setSheetVisible(true)}
           >
-            <Ionicons name="person-circle" size={30} color="white" />
-            <Text style={styles.managerText}>{selectedOption}</Text>
+            <Ionicons name="person-circle" size={30} color="gray" />
+            <Text style={[styles.managerText,  {color: textColor}]}>{selectedOption}</Text>
             <Ionicons
               style={styles.managerIcon}
               name="chevron-forward"
@@ -85,10 +100,19 @@ const ProfileScreenManager = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
+        <View style={styles.darkMode}>
+      <Text style={{color:textColor, fontWeight:'bold', fontSize: 16}}>Dark Mode   </Text>
+      <Switch
+         value={isDarkModeOn}
+         onValueChange={toggleSwitch}
+        ></Switch>
+      </View>
+
         <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
           <Ionicons name="log-out-outline" size={25} color="red" />
           <Text style={styles.logOutText}>Log Out</Text>
         </TouchableOpacity>
+
 
         <Modal
           animationType="slide"
@@ -97,7 +121,7 @@ const ProfileScreenManager = ({ navigation }) => {
           onRequestClose={() => setSheetVisible(false)}
         >
           <TouchableOpacity
-            style={styles.container}
+            style={styles.containerBg}
             activeOpacity={1}
             onPressOut={() => setSheetVisible(false)}
           ></TouchableOpacity>
@@ -172,14 +196,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-    alignItems: "center",
-    paddingTop: 20,
+    paddingTop: 10,
     backgroundColor: "#0A2647",
   },
   infoSection: {
     marginTop: 5,
-    marginBottom: 10,
-    flexDirection: "column",
+    marginBottom: 25,
+    marginLeft: 20,
+    flexDirection: "row",
     alignItems: "center",
     ...Platform.select({
       web: {
@@ -188,77 +212,52 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  optionsTitle: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: 'white',
+  },
+
   sampleName: {
     fontSize: 20,
+    paddingLeft: 10,
     fontWeight: "bold",
     color: "white",
-    textAlign: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  nameInfo: {
-    marginLeft: 10,
-  },
-  firstName: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
-  },
-  lastName: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
-  },
-  emailSection: {
-    flexDirection: "row",
+  icon: {
+    flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: 15,
-    marginBottom: 20,
   },
-  email: {
-    fontSize: 15,
-    fontWeight: "bold",
+
+  sampleInfoTitle: {
+    fontSize: 17,
     color: "white",
     alignSelf: "flex-start",
     flexDirection: "row",
-    left: 12,
-    marginTop: 50,
+    fontWeight: 'bold',
   },
-  email2: {
+
+  sampleInfo: {
     fontSize: 15,
-    fontWeight: "bold",
     color: "white",
     alignSelf: "flex-start",
     flexDirection: "row",
-    left: 12,
+    marginBottom: 30,
+    top: 5,
+  },
+
+  infoContainer: {
+    marginLeft: 30,
     marginBottom: 15,
-    top: 20,
   },
-  buttonContainer: {
-    marginTop: 20,
-    alignItems: "center",
-  },
-  logOutContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 10,
-    top: 50,
-    ...Platform.select({
-      web: {
-        bottom: 50,
-        left: 700,
-      },
-    }),
-  },
-  logOutText: {
-    marginLeft: 10,
-    color: "red",
-    fontWeight: "bold",
-    fontSize: 15,
-  },
+  
   optionsContainer: {
-    marginTop: 30,
     marginLeft: 30,
     marginBottom: 20,
-    right: 85,
     ...Platform.select({
       web: {
         right: 650,
@@ -273,16 +272,24 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderRadius: 5,
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 5,
     width: 220,
     alignItems: "center",
   },
+
   managerText: {
     paddingRight: 90,
     paddingLeft: 10,
     color: "white",
   },
 
+  containerBg: {
+    flex: 1,
+    justifyContent: "flex-start",
+    paddingTop: 10,
+    
+  },
+  
   bottomSheet: {
     backgroundColor: "white",
     borderTopLeftRadius: 20,
@@ -297,11 +304,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 20,
   },
-  sectionTitle: {
-    fontSize: 20,
-    color: "white",
-    marginBottom: 20,
-  },
+
   sheetOption: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -311,18 +314,34 @@ const styles = StyleSheet.create({
     borderBottomColor: "#dbdbdb",
   },
 
-  selectManagerButton: {
-    marginBottom: 10,
-    paddingHorizontal: 20,
+  logOutContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 10,
-    backgroundColor: "#fff",
-    borderRadius: 20,
+    marginLeft: 30,
+    marginTop: 50,
+    width: 120,
+    ...Platform.select({
+      web: {
+        bottom: 50,
+        left: 700,
+      },
+    }),
   },
-  buttonText: {
-    fontSize: 15,
-    color: "black",
+  logOutText: {
+    marginLeft: 10,
+    color: "red",
     fontWeight: "bold",
+    fontSize: 15,
   },
+
+  darkMode:{
+    flexDirection: "row",
+    alignItems: 'center',
+    marginLeft: 30,
+  },
+
+  
 });
 
 export default ProfileScreenManager;
