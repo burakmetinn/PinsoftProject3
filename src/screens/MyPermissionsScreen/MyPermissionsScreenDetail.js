@@ -3,9 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
+import { useThemeContext } from '../../ThemeContext';
+
 import { useSelector } from 'react-redux';
 const MyPermissionsScreenDetail = ({ route, navigation }) => {
   const { permission } = route.params;
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
 
   const openProfileScreen = () => {
     navigation.navigate('My Permissions Profile', {
@@ -43,24 +47,39 @@ const MyPermissionsScreenDetail = ({ route, navigation }) => {
   const handleDeny = () => {};
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+      ]}
+    >
       <View style={styles.detailContainer}>
-        <Text style={styles.detailTitle}>Permission period:</Text>
-        <Text style={styles.detailContent}>{permission.title}</Text>
+        <Text style={[styles.detailTitle, { color: textColor }]}>
+          Permission period:
+        </Text>
+        <Text style={[styles.detailContent, { color: textColor }]}>
+          {permission.title}
+        </Text>
       </View>
       <View style={styles.detailContainer}>
-        <Text style={styles.detailTitle}>Requester:</Text>
+        <Text style={[styles.detailTitle, { color: textColor }]}>
+          Requester:
+        </Text>
         <Text style={styles.requesterName} onPress={openProfileScreen}>
           {permission.requester}
         </Text>
       </View>
       <View style={styles.detailContainer}>
-        <Text style={styles.detailTitle}>Reason:</Text>
-        <Text style={styles.detailContent}>{permission.cause}</Text>
+        <Text style={[styles.detailTitle, { color: textColor }]}>Reason:</Text>
+        <Text style={[styles.detailContent, { color: textColor }]}>
+          {permission.cause}
+        </Text>
       </View>
       <View style={styles.detailContainer}>
-        <Text style={styles.detailTitle}>Status:</Text>
-        <Text style={styles.status}>{permission.status}</Text>
+        <Text style={[styles.detailTitle, { color: textColor }]}>Status:</Text>
+        <Text style={[styles.status, { color: textColor }]}>
+          {permission.status}
+        </Text>
       </View>
       {permission.status !== 'PENDING' && (
         <TouchableOpacity style={styles.button} onPress={handleDelete}>
@@ -76,13 +95,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     padding: 30,
-    backgroundColor: '#ffdb58',
+    backgroundColor: '#0A2647',
   },
   title: {
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    alignItems: 'center',
   },
   detailContainer: {
     marginBottom: 30,
@@ -92,20 +110,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 5,
     marginBottom: 7,
-    color: '#0A2647',
+    color: 'white',
   },
   detailContent: {
-    fontSize: 20,
-    color: '#0A2647',
+    fontSize: 16,
+    color: 'white',
   },
   status: {
-    fontSize: 20,
+    fontSize: 16,
     marginBottom: 20,
-    color: '#0A2647',
+    color: 'white',
   },
   requesterName: {
-    fontSize: 20,
-    color: '#0A2647',
+    fontSize: 16,
+    color: '#2968b3',
   },
   buttonText: {
     color: 'white',

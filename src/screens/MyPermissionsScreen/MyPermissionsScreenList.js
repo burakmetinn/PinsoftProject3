@@ -73,7 +73,8 @@ const MyPermissionsScreenList = () => {
     setPermissions(transformedData);
   }, [refreshing, response]);
 
-  const [selectedPermission, setSelectedPermission] = useState(null);
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
 
   const openPermissionDetails = (permission) => {
     navigation.navigate('My Permissions Detail', { permission });
@@ -102,8 +103,13 @@ const MyPermissionsScreenList = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>All Requests</Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+      ]}
+    >
+      <Text style={[styles.header, { color: textColor }]}>All Requests</Text>
       <FlatList
         showsHorizontalScrollIndicator={false}
         style={styles.flatList}
@@ -127,60 +133,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#0A2647',
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
-    textAlign: 'center',
     marginBottom: 30,
     color: 'white',
+    alignSelf: 'center',
     ...Platform.select({
-      web: {
-        marginLeft: 650,
-        marginTop: 50,
-      },
+      web: {},
     }),
   },
   listContent: {
     marginTop: 0,
   },
   permissionItem: {
-    flex: 1,
-    flexWrap: 'wrap',
     flexDirection: 'row',
-    textAlign: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    height: 100,
-    marginBottom: 22,
-    paddingVertical: 14,
+    marginBottom: 30,
+    paddingVertical: 15,
     paddingHorizontal: 15,
-    borderWidth: 1,
+    borderWidth: 1.2,
     borderColor: '#bbb',
-    borderRadius: 8,
-    backgroundColor: '#ffdb58',
+    borderRadius: 10,
   },
   permissionTitle: {
-    fontSize: 20,
-  },
-  permissionDate: {
     fontSize: 16,
   },
   permissionStatusApproved: {
     color: 'green',
     fontWeight: 'bold',
-    fontSize: 20,
   },
   permissionStatusDenied: {
     color: '#bd2d2d',
     fontWeight: 'bold',
-    fontSize: 20,
   },
   permissionStatusPending: {
     color: 'gray',
     fontWeight: 'bold',
-    fontSize: 20,
   },
   flatList: {
     ...Platform.select({

@@ -19,6 +19,8 @@ const PermissionsPendingApprovalScreen = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
 
   const login = useSelector((state) => state.data.login);
   const token = login.token;
@@ -142,9 +144,15 @@ const PermissionsPendingApprovalScreen = () => {
       >
         <Text style={styles.cardTitle}>Permission Info</Text>
         <View style={styles.row}>
-          <Text style={styles.name}>Employee Name : {item.name}</Text>
-          <Text style={styles.date}>From : {item.permissionDate}</Text>
-          <Text style={styles.date}>To : {item.permissionEndDate}</Text>
+          <Text style={[styles.name, { color: textColor }]}>
+            Employee Name : {item.name}
+          </Text>
+          <Text style={[styles.date, { color: textColor }]}>
+            From : {item.permissionDate}
+          </Text>
+          <Text style={[styles.date, { color: textColor }]}>
+            To : {item.permissionEndDate}
+          </Text>
         </View>
         <Text style={styles.sub}>Click to see more</Text>
       </TouchableOpacity>
@@ -178,9 +186,16 @@ const PermissionsPendingApprovalScreen = () => {
   );
 
   return (
-    <View style={styles.view}>
+    <View
+      style={[
+        styles.view,
+        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+      ]}
+    >
       <View style={styles.header}>
-        <Text style={styles.title}>Pending requests</Text>
+        <Text style={[styles.title, { color: textColor }]}>
+          Pending requests
+        </Text>
       </View>
       <FlatList
         showsHorizontalScrollIndicator={false}
@@ -202,8 +217,8 @@ const PermissionsPendingApprovalScreen = () => {
 
 const styles = StyleSheet.create({
   view: {
-    backgroundColor: '#0A2647',
-    height: 1500,
+    flex: 1,
+    padding: 20,
     ...Platform.select({
       web: {
         alignItems: 'center',
@@ -212,18 +227,77 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
-    marginTop: 10,
     textAlign: 'center',
+    marginBottom: 30,
+  },
+  item: {
+    padding: 10,
+    marginTop: 20,
+    marginBottom: 5,
+    margin: 40,
+    height: 125,
+    borderRadius: 10,
+    backgroundColor: '#ffdb58',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  date: {
+    color: 'white',
+  },
+
+  detailPanel: {
+    padding: 10,
+    marginHorizontal: 10,
+    marginTop: 10,
+    borderRadius: 10,
+  },
+  detailText: {
+    fontSize: 16,
+    color: 'white',
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 10,
+  },
+  button: {
+    padding: 8,
+    borderRadius: 5,
+    borderWidth: 1.5,
+    borderColor: 'gray',
+  },
+  button2: {
+    padding: 8,
+    borderRadius: 5,
+    borderWidth: 1.5,
+    borderColor: 'gray',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  flatList: {
+    ...Platform.select({
+      web: {
+        width: 800,
+      },
+    }),
   },
   sub: {
     fontSize: 15,
@@ -237,75 +311,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: '#0A2647',
     textAlign: 'center',
-  },
-  item: {
-    padding: 10,
-    marginTop: 20,
-    marginBottom: 5,
-    margin: 40,
-    height: 125,
-    borderRadius: 10,
-    backgroundColor: '#ffdb58',
-  },
-  row: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#0A2647',
-  },
-  date: {
-    color: '#0A2647',
-  },
-
-  detailPanel: {
-    backgroundColor: '#ffdb58',
-    padding: 10,
-    marginHorizontal: 10,
-    marginTop: 10,
-    marginLeft: 40,
-    borderRadius: 10,
-    width: 330,
-  },
-  detailText: {
-    fontSize: 16,
-    color: '#0A2647',
-    marginBottom: 5,
-    textAlign: 'center',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 10,
-  },
-  button: {
-    backgroundColor: '#0A2647',
-    padding: 8,
-    borderRadius: 5,
-    borderWidth: 1.5,
-    borderColor: '#0A2647',
-  },
-  button2: {
-    backgroundColor: '#0A2647',
-    padding: 8,
-    borderRadius: 5,
-    borderWidth: 1.5,
-    borderColor: '#0A2647',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  flatList: {
-    marginTop: 10,
-    backgroundColor: '#0A2647',
-    ...Platform.select({
-      web: {
-        width: 800,
-      },
-    }),
   },
 });
 
