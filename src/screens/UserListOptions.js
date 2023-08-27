@@ -1,0 +1,271 @@
+import React, { useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {
+  Ionicons,
+  FontAwesome5,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useThemeContext } from '../../ThemeContext';
+
+const UserListOptions = ({ route, navigation }) => {
+  const { user, handleRefresh } = route.params;
+
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
+
+  const login = useSelector((state) => state.data.login);
+  const token = login.token;
+
+  const handleDelete = () => {
+    axios
+      .delete(
+        `https://time-off-tracker-production.up.railway.app/users/${user.value}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      .then(
+        (response) => {
+          if (response) {
+            console.log('Deleted');
+            Alert.alert('Done!', 'Deleted');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    handleRefresh();
+    navigation.navigate('UserList');
+  };
+  const handleMakeManager = () => {
+    axios
+      .put(
+        `https://time-off-tracker-production.up.railway.app/users/update/${user.value}`,
+        {
+          userRole: 'MANAGER',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      .then(
+        (response) => {
+          if (response) {
+            Alert.alert('Done!', 'He is a Manager Now');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    handleRefresh();
+    navigation.navigate('UserList');
+  };
+  const handleMakeAdmin = () => {
+    axios
+      .put(
+        `https://time-off-tracker-production.up.railway.app/users/update/${user.value}`,
+        {
+          userRole: 'ADMIN',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(
+        (response) => {
+          if (response) {
+            console.log('Deleted');
+          }
+          Alert.alert('Done!', 'He is an Admin Now');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    handleRefresh();
+    navigation.navigate('UserList');
+  };
+
+  return (
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+      ]}
+    >
+      <View
+        style={[
+          styles.container1,
+          { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+        ]}
+      >
+        <View style={styles.detailContainer}>
+          <Text style={[styles.detailTitle, { color: textColor }]}>
+            Name Surname:
+          </Text>
+          <Text style={[styles.detailContent, { color: textColor }]}>
+            {user.label}
+          </Text>
+        </View>
+        <View style={styles.detailContainer}>
+          <Text style={[styles.detailTitle, { color: textColor }]}>Email:</Text>
+          <Text style={[styles.requesterName, { color: textColor }]}>
+            {user.email}
+          </Text>
+        </View>
+        <View style={styles.detailContainer}>
+          <Text style={[styles.detailTitle, { color: textColor }]}>
+            Current Role:
+          </Text>
+          <Text style={[styles.detailContent, { color: textColor }]}>
+            {user.role}
+          </Text>
+        </View>
+      </View>
+      <View
+        style={[
+          styles.container2,
+          { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+        ]}
+      >
+        <TouchableOpacity style={styles.button} onPress={handleDelete}>
+          <Ionicons name='trash-outline' size={18} color='white' />
+          <Text style={[styles.buttonText, { color: 'white' }]}>
+            Delete User
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonMan} onPress={handleMakeManager}>
+          <FontAwesome5 name='crown' size={18} color='white' />
+          <Text style={[styles.buttonTextMan, { color: 'white' }]}>
+            Make Manager
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonAdm} onPress={handleMakeAdmin}>
+          <MaterialCommunityIcons name='police-badge' size={24} color='white' />
+          <Text style={[styles.buttonTextMan, { color: 'white' }]}>
+            Make Admin
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container2: {
+    flex: 1,
+    flexDirection: 'column',
+    paddingTop: 30,
+    padding: 10,
+    alignItems: 'flex-start',
+    justifyContent:'flex-start',
+  },
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    padding: 10,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 35,
+    fontWeight: 'bold',
+  },
+  detailContainer: {
+    marginBottom: 30,
+  },
+  detailTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginRight: 5,
+    marginBottom: 7,
+    color: 'white',
+  },
+  detailContent: {
+    fontSize: 20,
+    color: 'white',
+  },
+  status: {
+    fontSize: 20,
+    marginBottom: 20,
+    color: 'white',
+  },
+  requesterName: {
+    fontSize: 20,
+    color: 'black',
+  },
+  buttonText: {
+    color: 'black',
+    fontSize: 15,
+    fontWeight: 'bold',
+
+    justifyContent: 'center',
+  },
+  buttonTextMan: {
+    color: 'black',
+    fontSize: 15,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+  },
+  buttonTextAdm: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+  },
+  button: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    textAlign: 'center',
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: '#ff4647',
+    alignSelf: 'center',
+    width: 150,
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  buttonMan: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    textAlign: 'center',
+    padding: 12,
+    borderRadius: 10,
+    width: 150,
+    backgroundColor: '#ede804',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  buttonAdm: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    textAlign: 'center',
+    padding: 12,
+    borderRadius: 10,
+
+    width: 150,
+    backgroundColor: '#278dff',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+});
+
+export default UserListOptions;

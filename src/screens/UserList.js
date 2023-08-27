@@ -1,7 +1,7 @@
-import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import axios from 'axios';
+import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,22 +9,34 @@ import {
   TouchableOpacity,
   FlatList,
   Alert,
-} from "react-native";
-import { useSelector } from "react-redux";
-import { Ionicons } from "@expo/vector-icons";
-import { useThemeContext } from "../../ThemeContext";
+  RefreshControl,
+} from 'react-native';
+import { useSelector } from 'react-redux';
+import { Ionicons } from '@expo/vector-icons';
+import { useThemeContext } from '../../ThemeContext';
+import { useNavigation } from '@react-navigation/native';
 
-const UserList = ({navigation}) => {
+const UserList = () => {
   const [users, setUsers] = useState([]);
   const login = useSelector((state) => state.data.login);
-  const textColor = isDarkModeOn ? "white" : "black";
+  const textColor = isDarkModeOn ? 'white' : 'black';
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const navigation = useNavigation();
 
   const token = login.token;
+  const [refreshing, setRefreshing] = useState(false);
+
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 500);
+  };
 
   useEffect(() => {
     axios
-      .get("https://time-off-tracker-production.up.railway.app/users/get-all", {
+      .get('https://time-off-tracker-production.up.railway.app/users/get-all', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,23 +47,66 @@ const UserList = ({navigation}) => {
           const transformedData = response.data.map((user) => ({
             label: `${user.firstName} ${user.lastName}`,
             value: user.id,
+            role: user.role,
+            email: user.email,
           }));
           setUsers(transformedData);
-
-          console.log(users);
         },
         (error) => {
           console.log(error);
-          alert("Make sure you Selected Your manager");
+          alert('Make sure you Selected Your manager');
         }
       );
-  }, []);
-  // <Ionicons name="person-circle" size={25} />
+  }, [refreshing]);
+  const openUserDetails = (user) => {
+    navigation.navigate('user list options', { user , handleRefresh });
+  };
 
   const renderItem = ({ item }) => (
     <View>
-      <TouchableOpacity style={[styles.item, { borderColor: isDarkModeOn ? "white" : "black" }]}>
-        <Text style={[styles.text, { color: isDarkModeOn ? "white" : "black" }]}>{item.label}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          openUserDetails(item);
+        }}
+        style={[styles.item, { borderColor: isDarkModeOn ? 'white' : 'black' }]}
+      >
+        <View style={styles.arCont}>
+          <Text
+            style={[styles.text, { color: isDarkModeOn ? 'white' : 'black' }]}
+          >
+            Name Surname :
+          </Text>
+          <Text
+            style={[styles.textSm, { color: isDarkModeOn ? 'white' : 'black' }]}
+          >
+            {item.label}
+          </Text>
+        </View>
+        <View style={styles.arCont}>
+          <Text
+            style={[styles.text, { color: isDarkModeOn ? 'white' : 'black' }]}
+          >
+            Role :
+          </Text>
+          <Text
+            style={[styles.textSm, { color: isDarkModeOn ? 'white' : 'black' }]}
+          >
+            {item.role}
+          </Text>
+        </View>
+
+        <View style={styles.arCont}>
+          <Text
+            style={[styles.text, { color: isDarkModeOn ? 'white' : 'black' }]}
+          >
+            Email Address :
+          </Text>
+          <Text
+            style={[styles.textSm, { color: isDarkModeOn ? 'white' : 'black' }]}
+          >
+            {item.email}
+          </Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -60,14 +115,15 @@ const UserList = ({navigation}) => {
     <View
       style={[
         styles.container,
-        { backgroundColor: isDarkModeOn ? "#171d2b" : "#f2f2f2" },
+        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
       ]}
     >
       <View style={styles.header}>
         <Text
-          style={[styles.title, { color: isDarkModeOn ? "white" : "black" }]}
+          style={[styles.title, { color: isDarkModeOn ? 'white' : 'black' }]}
         >
-          Select the user that you want to assign as manager
+          Company employer List {'\n'}
+          choose an employee to see the options
         </Text>
       </View>
       <FlatList
@@ -75,7 +131,14 @@ const UserList = ({navigation}) => {
         style={styles.flatList}
         data={users}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.value}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor='white'
+          />
+        }
       />
     </View>
   );
@@ -83,55 +146,72 @@ const UserList = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: 10,
     paddingBottom: 30,
-    backgroundColor: "#0A2647",
+    backgroundColor: '#0A2647',
     ...Platform.select({
       web: {
-        alignItems:'center'
+        alignItems: 'center',
       },
     }),
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 20,
   },
   item: {
-    padding: 10,
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
     marginTop: 20,
     marginBottom: 5,
-    margin: 80,
-    height: 50,
+    margin: 50,
+    height: 80,
+    width: 300,
     borderRadius: 10,
     borderWidth: 1.5,
-    fontWeight: "bold",
+    fontWeight: 'bold',
+  },
+  arCont: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'scroll',
   },
   text: {
+    fontSize: 17,
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  textSm: {
     fontSize: 15,
-    top: 5,
-    color: "white",
-    textAlign: "center",
-    fontWeight: "bold",
+    color: 'white',
+    textAlign: 'center',
   },
   title: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 20,
     paddingHorizontal: 10,
-    textAlign: "center",
+    textAlign: 'center',
   },
   darkMode: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginLeft: 30,
   },
   flatList: {
     ...Platform.select({
       web: {
-        width:800
+        width: 800,
       },
     }),
   },

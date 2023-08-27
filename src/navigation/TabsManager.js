@@ -13,7 +13,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StyleSheet } from 'react-native';
 import { useThemeContext } from '../../ThemeContext';
-import NewManager from '../screens/NewManager';
+import UserListOptions from '../screens/UserListOptions';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +42,31 @@ const MyPermissionsScreenStack = () => {
         name='My Permissions Profile'
         component={MyPermissionsScreenProfile}
         options={{ title: 'Profile', headerTintColor: 'black' }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const UserListStack = () => {
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
+  return (
+    <Stack.Navigator headerTintColor={isDarkModeOn ? 'white' : 'black'}>
+      <Stack.Screen
+        name='UserList'
+        component={UserList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='user list options'
+        component={UserListOptions}
+        options={{
+          title: 'Options',
+          headerTintColor: textColor,
+          headerStyle: {
+            backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2',
+          },
+        }}
       />
     </Stack.Navigator>
   );
@@ -99,16 +124,12 @@ const TabsManager = () => {
       />
       <Tab.Screen
         name='User List'
-        component={UserList}
+        component={UserListStack}
         options={{
           headerShown: false,
           tabBarLabel: '',
           tabBarIcon: ({ color }) => (
-            <Ionicons
-              name='people-outline'
-              color={color}
-              size={26}
-            />
+            <Ionicons name='people-outline' color={color} size={26} />
           ),
         }}
       />

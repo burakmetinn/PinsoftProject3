@@ -155,7 +155,7 @@ const ProfileScreenEmployee = ({ navigation }) => {
         onPress={() => {
           setIsModalVisible(!isModalVisible);
         }}
-        style={[styles.btn1]}
+        style={styles.btn1}
       >
         <Text style={styles.btnText}>Change PassWord</Text>
       </TouchableOpacity>
@@ -232,7 +232,7 @@ const ProfileScreenEmployee = ({ navigation }) => {
               onPress={checkTextInput}
               hitSlop={{ left: 100, right: 100, top: 20, bottom: 20 }}
             >
-              <Text style={styles.btnText}>Confirm</Text>
+              <Text style={styles.btnText1}>Confirm</Text>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -408,16 +408,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#0f396b',
   },
   btn1: {
-    padding: 20,
+    padding: 15,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#278dff',
     borderRadius: 20,
-    marginLeft: 75,
+    marginLeft: 108,
     marginTop: 20,
-    width: 247,
-    backgroundColor: '#0f396b',
+    width: 200,
   },
   btnText: {
+    color: '#278dff',
+    fontSize: 20,
+  },
+  btnText1: {
     color: 'white',
     fontSize: 16,
   },

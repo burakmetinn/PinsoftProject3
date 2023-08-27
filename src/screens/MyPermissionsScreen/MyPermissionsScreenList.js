@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   permissionStatusApproved: {
-    color: "green",
+    color: "#1cdd00",
     fontWeight: "bold",
     fontSize: 16,
   },
