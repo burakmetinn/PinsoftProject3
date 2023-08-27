@@ -12,17 +12,19 @@ import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StyleSheet } from 'react-native';
+import { useThemeContext } from "../ThemeContext";
 
 
 
 const TabsEmployee = () => {
   const Tab = createMaterialBottomTabNavigator();
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
 
   return (
     <Tab.Navigator
-      activeColor='#205295'
-      inactiveColor='#0A2647'
-      barStyle={styles.tab}
+    activeColor='#205295'
+    inactiveColor={isDarkModeOn?'gray':'#0A2647'}
+    barStyle={[styles.tab,  {backgroundColor: isDarkModeOn? '#171d2b' :'white'}]}
     >
       <Tab.Screen
         name='Home'

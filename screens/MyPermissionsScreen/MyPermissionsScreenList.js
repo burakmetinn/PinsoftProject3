@@ -10,9 +10,9 @@ import {
   StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useThemeContext } from "../ThemeContext";
+import { useThemeContext } from "../../ThemeContext";
 
-const MyPermissionsScreenEmployee = () => {
+const MyPermissionsScreenList = () => {
   const navigation = useNavigation();
 
   const [permissions, setPermissions] = useState([
@@ -46,13 +46,77 @@ const MyPermissionsScreenEmployee = () => {
       status: "Approved",
       requester: "Firstname5 Lastname5",
     },
+    {
+      id: "6",
+      title: "09/09/2023",
+      status: "Approved",
+      requester: "Firstname6 Lastname6",
+    },
+    {
+      id: "7",
+      title: "11/09/2023",
+      status: "Denied",
+      requester: "Firstname7 Lastname7",
+    },
+    {
+      id: "8",
+      title: "18/09/2023",
+      status: "Pending",
+      requester: "Firstname8 Lastname8",
+    },
+    {
+      id: "9",
+      title: "26/09/2023",
+      status: "Pending",
+      requester: "Firstname9 Lastname9",
+    },
+    {
+      id: "10",
+      title: "30/09/2023",
+      status: "Pending",
+      requester: "Firstname10 Lastname10",
+    },
+    {
+      id: "11",
+      title: "09/10/2023",
+      status: "Pending",
+      requester: "Firstname11 Lastname11",
+    },
+    {
+      id: "12",
+      title: "11/10/2023",
+      status: "Pending",
+      requester: "Firstname12 Lastname12",
+    },
+    {
+      id: "13",
+      title: "18/10/2023",
+      status: "Pending",
+      requester: "Firstname13 Lastname13",
+    },
+    {
+      id: "14",
+      title: "26/10/2023",
+      status: "Pending",
+      requester: "Firstname14 Lastname14",
+    },
+    {
+      id: "15",
+      title: "30/10/2023",
+      status: "Pending",
+      requester: "Firstname15 Lastname15",
+    },
   ]);
 
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
   const textColor = isDarkModeOn ? 'white' : 'black';
 
+  const openPermissionDetails = (permission) => {
+    navigation.navigate("My Permissions Detail", { permission });
+  };
+
   const renderPermissionItem = ({ item }) => (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => openPermissionDetails(item)}>
       <View style={styles.permissionItem}>
         <Text style={[styles.permissionTitle,  {color: textColor}]}>{item.title}</Text>
         <Text style={getStatusStyle(item.status)}>
@@ -84,8 +148,9 @@ const MyPermissionsScreenEmployee = () => {
 
   return (
     <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
-      <Text style={[styles.header,  {color: textColor}]}>My Permission Requests</Text>
+      <Text style={[styles.header,  {color: textColor}]}>Permission Requests</Text>
       <FlatList
+        showsHorizontalScrollIndicator={false}
         style={styles.flatList}
         data={permissions}
         renderItem={renderPermissionItem}
@@ -107,9 +172,9 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     color: "white",
     alignSelf: 'center',
-
     ...Platform.select({
       web: {
+        
       },
     }),
   },
@@ -146,10 +211,10 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         width: 800,
-        left: 330,
+        left: 350,
       },
     }),
   },
 });
 
-export default MyPermissionsScreenEmployee;
+export default MyPermissionsScreenList;
