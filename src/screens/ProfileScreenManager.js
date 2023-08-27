@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Modal, Switch } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Modal,
+  Switch,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -52,25 +59,32 @@ const ProfileScreenManager = ({ navigation }) => {
     dispatch(addUser({}));
     navigation.navigate("LoginScreen");
   };
-  const textColor = isDarkModeOn ? 'white' : 'black';
+  const textColor = isDarkModeOn ? "white" : "black";
 
   return (
-    <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkModeOn ? "#171d2b" : "#f2f2f2" },
+      ]}
+    >
       <View style={styles.infoSection}>
         <Ionicons name="person-circle" color={textColor} size={100} />
-        <Text style={[styles.sampleName,  {color: textColor}]}>
+        <Text style={[styles.sampleName, { color: textColor }]}>
           {email} {lastName}
         </Text>
       </View>
 
       <View style={styles.infoContainer}>
-      <Text style={[styles.sampleInfoTitle,  {color: textColor}]}>Email Address</Text>
-      <Text style={[styles.sampleInfo,  {color: textColor}]}>{email}</Text>
+        <Text style={[styles.sampleInfoTitle, { color: textColor }]}>
+          Email Address
+        </Text>
+        <Text style={[styles.sampleInfo, { color: textColor }]}>{email}</Text>
       </View>
 
       <View style={styles.infoContainer}>
-      <Text style={[styles.sampleInfoTitle,  {color: textColor}]}>Role</Text>
-      <Text style={[styles.sampleInfo,  {color: textColor}]}>{role}</Text>
+        <Text style={[styles.sampleInfoTitle, { color: textColor }]}>Role</Text>
+        <Text style={[styles.sampleInfo, { color: textColor }]}>{role}</Text>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -84,111 +98,34 @@ const ProfileScreenManager = ({ navigation }) => {
         )}
 
         <View style={styles.optionsContainer}>
-          <Text style={[styles.optionsTitle,  {color: textColor}]}>Select New Manager</Text>
           <TouchableOpacity
             style={styles.optionButton}
             onPress={() => {
               navigation.navigate("NewManager");
             }}
           >
-            <Ionicons name="person-circle" size={30} color="gray" />
-            <Text style={[styles.managerText,  {color: textColor}]}>{selectedOption}</Text>
             <Ionicons
-              style={styles.managerIcon}
-              name="chevron-forward"
-              size={20}
-              color="gray"
+              name="person-circle"
+              size={30}
+              style={{ color: textColor }}
             />
+            <Text style={[styles.optionsTitle, { color: textColor }]}>
+              Select New Manager
+            </Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.darkMode}>
-      <Text style={{color:textColor, fontWeight:'bold', fontSize: 16}}>Dark Mode   </Text>
-      <Switch
-         value={isDarkModeOn}
-         onValueChange={toggleSwitch}
-        ></Switch>
-      </View>
+          <Text style={{ color: textColor, fontWeight: "bold", fontSize: 16 }}>
+            Dark Mode{" "}
+          </Text>
+          <Switch value={isDarkModeOn} onValueChange={toggleSwitch}></Switch>
+        </View>
 
         <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
           <Ionicons name="log-out-outline" size={25} color="red" />
           <Text style={styles.logOutText}>Log Out</Text>
         </TouchableOpacity>
-
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={isSheetVisible}
-          onRequestClose={() => setSheetVisible(false)}
-        >
-          <TouchableOpacity
-            style={styles.containerBg}
-            activeOpacity={1}
-            onPressOut={() => setSheetVisible(false)}
-          ></TouchableOpacity>
-
-          <View style={styles.bottomSheet}>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setSheetVisible(false)}
-            >
-              <Ionicons name="reorder-two-outline" size={25} />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.sheetOption,
-                selectedOption === "Name 1" && styles.selectedOption,
-              ]}
-              onPress={() => handleOptionSelect("Name 1")}
-            >
-              <Text>Name 1</Text>
-              {selectedOption === "Name 1" && (
-                <Ionicons name="checkmark-sharp" color="green" size={15} />
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.sheetOption,
-                selectedOption === "Name 2" && styles.selectedOption,
-              ]}
-              onPress={() => handleOptionSelect("Name 2")}
-            >
-              <Text>Name 2</Text>
-              {selectedOption === "Name 2" && (
-                <Ionicons name="checkmark-sharp" color="green" size={15} />
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.sheetOption,
-                selectedOption === "Name 3" && styles.selectedOption,
-              ]}
-              onPress={() => handleOptionSelect("Name 3")}
-            >
-              <Text>Name 3</Text>
-              {selectedOption === "Name 3" && (
-                <Ionicons name="checkmark-sharp" color="green" size={15} />
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.sheetOption,
-                selectedOption === "Name 4" && styles.selectedOption,
-              ]}
-              onPress={() => handleOptionSelect("Name 4")}
-            >
-              <Text>Name 4</Text>
-              {selectedOption === "Name 4" && (
-                <Ionicons name="checkmark-sharp" color="green" size={15} />
-              )}
-            </TouchableOpacity>
-          </View>
-        </Modal>
       </View>
     </View>
   );
@@ -216,9 +153,9 @@ const styles = StyleSheet.create({
   },
   optionsTitle: {
     fontSize: 17,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
-    color: 'white',
+    color: "white",
   },
 
   sampleName: {
@@ -226,8 +163,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontWeight: "bold",
     color: "white",
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   icon: {
     flexDirection: "column",
@@ -240,7 +177,7 @@ const styles = StyleSheet.create({
     color: "white",
     alignSelf: "flex-start",
     flexDirection: "row",
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 
   sampleInfo: {
@@ -256,7 +193,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginBottom: 15,
   },
-  
+
   optionsContainer: {
     marginLeft: 30,
     marginBottom: 20,
@@ -288,9 +225,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     paddingTop: 10,
-    
   },
-  
+
   bottomSheet: {
     backgroundColor: "white",
     borderTopLeftRadius: 20,
@@ -335,13 +271,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 
-  darkMode:{
+  darkMode: {
     flexDirection: "row",
-    alignItems: 'center',
+    alignItems: "center",
     marginLeft: 30,
   },
-
-  
 });
 
 export default ProfileScreenManager;
