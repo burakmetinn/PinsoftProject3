@@ -19,7 +19,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import SelectAdminScreen from "../screens/SelectAdminScreen";
 import { useThemeContext } from "../../ThemeContext";
-import NewManager from "../screens/NewManager";
+
 
 const Stacks = () => {
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
@@ -134,16 +134,7 @@ const Stacks = () => {
           headerLeft: null,
         }}
       />
-      <Stack.Screen
-        name="NewManager"
-        component={NewManager}
-        options={{
-          headerTitle: "",
-          headerBackTitle: "Back",
-          headerTintColor: "black",
-          headerShadowVisible: false,
-        }}
-      />
+      
     </Stack.Navigator>
   );
 };

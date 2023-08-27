@@ -97,23 +97,6 @@ const ProfileScreenManager = ({ navigation }) => {
           </TouchableOpacity>
         )}
 
-        <View style={styles.optionsContainer}>
-          <TouchableOpacity
-            style={styles.optionButton}
-            onPress={() => {
-              navigation.navigate("NewManager");
-            }}
-          >
-            <Ionicons
-              name="person-circle"
-              size={30}
-              style={{ color: textColor }}
-            />
-            <Text style={[styles.optionsTitle, { color: textColor }]}>
-              Select New Manager
-            </Text>
-          </TouchableOpacity>
-        </View>
 
         <View style={styles.darkMode}>
           <Text style={{ color: textColor, fontWeight: "bold", fontSize: 16 }}>

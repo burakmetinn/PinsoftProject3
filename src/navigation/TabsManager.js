@@ -6,6 +6,7 @@ import PermissionsPendingApprovalScreen from '../screens/PermissionsPendingAppro
 import MyPermissionsScreenList from '../screens/MyPermissionsScreen/MyPermissionsScreenList';
 import MyPermissionsScreenDetail from '../screens/MyPermissionsScreen/MyPermissionsScreenDetail';
 import MyPermissionsScreenProfile from '../screens/MyPermissionsScreen/MyPermissionsScreenProfile';
+import UserList from '../screens/UserList';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -40,17 +41,6 @@ const MyPermissionsScreenStack = () => {
         name='My Permissions Profile'
         component={MyPermissionsScreenProfile}
         options={{ title: 'Profile', headerTintColor: 'black' }}
-      />
-      <Stack.Screen
-        name='New Manager'
-        component={NewManager}
-        options={{
-          title: 'Profile',
-          headerTintColor: textColor,
-          headerStyle: {
-            backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2',
-          },
-        }}
       />
     </Stack.Navigator>
   );
@@ -100,6 +90,21 @@ const TabsManager = () => {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name='format-list-checkbox'
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name='User List'
+        component={UserList}
+        options={{
+          headerShown: false,
+          tabBarLabel: '',
+          tabBarIcon: ({ color }) => (
+            <Ionicons
+              name='people-outline'
               color={color}
               size={26}
             />
