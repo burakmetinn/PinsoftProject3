@@ -2,10 +2,13 @@ import { View, Text, Button, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { useThemeContext } from "../ThemeContext";
 
 const HomeScreen = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [events, setEvents] = useState([]);
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
 
   const handleDateSelection = (date) => {
     const dummyEvents = [
@@ -35,8 +38,8 @@ const HomeScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.heading}>Choose Your Date</Text>
+    <ScrollView style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
+      <Text style={[styles.heading,  {color: textColor}]}>Choose Your Date</Text>
 
       <Calendar
         onDayPress={(day) => handleDateSelection(day.dateString)}

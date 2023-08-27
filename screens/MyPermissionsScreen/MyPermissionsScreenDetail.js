@@ -2,10 +2,13 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { useThemeContext } from '../../ThemeContext';
 
 
 const MyPermissionsScreenDetail = ({ route, navigation }) => {
   const { permission } = route.params;
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
   
 
   const openProfileScreen = () => {
@@ -21,23 +24,23 @@ const MyPermissionsScreenDetail = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
       
       <View style={styles.detailContainer}>
-        <Text style={styles.detailTitle}>Date:</Text>
-        <Text style={styles.detailContent}>{permission.title}</Text>
+        <Text style={[styles.detailTitle,  {color: textColor}]}>Date:</Text>
+        <Text style={[styles.detailContent,  {color: textColor}]}>{permission.title}</Text>
       </View>
       <View style={styles.detailContainer}>
-        <Text style={styles.detailTitle}>Requester:</Text>
+        <Text style={[styles.detailTitle,  {color: textColor}]}>Requester:</Text>
         <Text style={styles.requesterName} onPress={openProfileScreen}>{permission.requester}</Text>
       </View>
       <View style={styles.detailContainer}>
-        <Text style={styles.detailTitle}>Reason:</Text>
-        <Text style={styles.detailContent}>"Medical Appointment"</Text>
+        <Text style={[styles.detailTitle,  {color: textColor}]}>Reason:</Text>
+        <Text style={[styles.detailContent,  {color: textColor}]}>"Medical Appointment"</Text>
       </View>
       <View style={styles.detailContainer}>
-        <Text style={styles.detailTitle}>Status:</Text>
-        <Text style={styles.status}>{permission.status}</Text>
+        <Text style={[styles.detailTitle,  {color: textColor}]}>Status:</Text>
+        <Text style={[styles.status,  {color: textColor}]}>{permission.status}</Text>
       </View>
       
     </View>

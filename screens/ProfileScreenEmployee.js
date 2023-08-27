@@ -5,14 +5,16 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   StyleSheet,
-  Modal,
+  Modal, Switch
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { addUser, addManagerId, addLogin } from "../app/dataSlice";
 import axios from "axios";
+import { useThemeContext } from "../ThemeContext";
 
 const ProfileScreenEmployee = ({ navigation }) => {
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
   const [isSheetVisible, setSheetVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Name 1");
   const login = useSelector((state) => state.data.login);
@@ -55,32 +57,40 @@ const ProfileScreenEmployee = ({ navigation }) => {
     navigation.navigate("LoginScreen");
   };
 
+  const textColor = isDarkModeOn ? 'white' : 'black';
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
       <View style={styles.infoSection}>
         <Ionicons
           name="person-circle"
           style={styles.icon}
-          color="white"
+          color={textColor}
           size={100}
         />
-        <Text style={styles.sampleName}>
+        <Text style={[styles.sampleName,  {color: textColor}]}>
           {firstName} {lastName}
         </Text>
       </View>
 
-      <Text style={styles.sampleInfo}>Email Address : {email}</Text>
+      <View style={styles.infoContainer}>
+      <Text style={[styles.sampleInfoTitle,  {color: textColor}]}>Email Address</Text>
+      <Text style={[styles.sampleInfo,  {color: textColor}]}>{email}</Text>
+      </View>
 
-      <Text style={styles.sampleInfo2}>Role : {role}</Text>
+      <View style={styles.infoContainer}>
+      <Text style={[styles.sampleInfoTitle,  {color: textColor}]}>Role</Text>
+      <Text style={[styles.sampleInfo,  {color: textColor}]}>{role}</Text>
+      </View>
 
       <View style={styles.optionsContainer}>
-        <Text style={styles.sectionTitle}>Manager</Text>
+        <Text style={[styles.optionsTitle,  {color: textColor}]}>Manager</Text>
         <TouchableOpacity
           style={styles.optionButton}
           onPress={() => setSheetVisible(true)}
         >
-          <Ionicons name="person-circle" size={30} color="white" />
-          <Text style={styles.managerText}>{selectedOption}</Text>
+          <Ionicons name="person-circle" size={30} color="gray" />
+          <Text style={[styles.managerText,  {color: textColor}]}>{selectedOption}</Text>
           <Ionicons
             style={styles.managerIcon}
             name="chevron-forward"
@@ -88,6 +98,14 @@ const ProfileScreenEmployee = ({ navigation }) => {
             color="gray"
           />
         </TouchableOpacity>
+      </View>
+
+      <View style={styles.darkMode}>
+      <Text style={{color:textColor, fontWeight:'bold', fontSize: 16}}>Dark Mode   </Text>
+      <Switch
+         value={isDarkModeOn}
+         onValueChange={toggleSwitch}
+        ></Switch>
       </View>
 
       <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
@@ -102,7 +120,7 @@ const ProfileScreenEmployee = ({ navigation }) => {
         onRequestClose={() => setSheetVisible(false)}
       >
         <TouchableOpacity
-          style={styles.container}
+          style={styles.containerBg}
           activeOpacity={1}
           onPressOut={() => setSheetVisible(false)}
         ></TouchableOpacity>
@@ -176,14 +194,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-    alignItems: "center",
-    paddingTop: 20,
+    paddingTop: 10,
     backgroundColor: "#0A2647",
   },
   infoSection: {
     marginTop: 5,
-    marginBottom: 10,
-    flexDirection: "column",
+    marginBottom: 25,
+    marginLeft: 20,
+    flexDirection: "row",
     alignItems: "center",
     ...Platform.select({
       web: {
@@ -192,51 +210,52 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  sectionTitle: {
-    fontSize: 20,
+  optionsTitle: {
+    fontSize: 17,
+    fontWeight: 'bold',
     marginBottom: 5,
     color: "white",
-    top: 10,
-    marginBottom: 20,
   },
+
   sampleName: {
     fontSize: 20,
+    paddingLeft: 10,
     fontWeight: "bold",
     color: "white",
-    textAlign: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   icon: {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 5,
   },
+
+  sampleInfoTitle: {
+    fontSize: 17,
+    color: "white",
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    fontWeight: 'bold',
+  },
+
   sampleInfo: {
     fontSize: 15,
-    fontWeight: "bold",
     color: "white",
     alignSelf: "flex-start",
     flexDirection: "row",
-    left: 12,
-    marginTop: 50,
     marginBottom: 30,
-    top: 20,
+    top: 5,
   },
-  sampleInfo2: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: "white",
-    alignSelf: "flex-start",
-    flexDirection: "row",
-    left: 12,
+
+  infoContainer: {
+    marginLeft: 30,
     marginBottom: 15,
-    top: 20,
   },
+  
   optionsContainer: {
-    marginTop: 30,
     marginLeft: 30,
     marginBottom: 20,
-    right: 85,
     ...Platform.select({
       web: {
         right: 650,
@@ -251,16 +270,24 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderRadius: 5,
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 5,
     width: 220,
     alignItems: "center",
   },
+
   managerText: {
     paddingRight: 90,
     paddingLeft: 10,
     color: "white",
   },
 
+  containerBg: {
+    flex: 1,
+    justifyContent: "flex-start",
+    paddingTop: 10,
+    
+  },
+  
   bottomSheet: {
     backgroundColor: "white",
     borderTopLeftRadius: 20,
@@ -305,6 +332,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
   },
+
+  darkMode:{
+    flexDirection: "row",
+    alignItems: 'center',
+    marginLeft: 30,
+  },
+
+  
 });
 
 export default ProfileScreenEmployee;

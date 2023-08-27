@@ -115,14 +115,16 @@ const LoginScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.btn}>
-          <TouchableOpacity
+       
+        <TouchableOpacity
+            style={styles.btn}
+            activeOpacity={0.7}
             onPress={loginHandler}
             hitSlop={{ left: 100, right: 100, top: 20, bottom: 20 }}
           >
             <Text style={styles.btnText}>Log In</Text>
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
+        
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('SignUpScreen');

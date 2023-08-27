@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity ,TouchableWithoutFeedback ,StyleSheet, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useThemeContext } from '../../ThemeContext';
 
 const MyPermissionsScreenProfile = ({route}) => {
   const [isSheetVisible, setSheetVisible] = useState(false);
@@ -8,26 +9,29 @@ const MyPermissionsScreenProfile = ({route}) => {
 
   const { selectedRequester } = route.params;
 
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
+
+
 
 
   return (
     
-    <View style={styles.container}>
+    <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
       
       <View style={styles.infoSection}>
-        <Ionicons name="person-circle"  size={100} />
-        <Text style={styles.sampleName}>{selectedRequester}</Text>
+        <Ionicons name="person-circle"  size={100} color={textColor} />
+        <Text style={[styles.sampleName,  {color: textColor}]}>{selectedRequester}</Text>
       </View>
       
       <View style={styles.optionsContainer}>
-        <Text style={styles.sectionTitle}>Manager</Text>
-        <TouchableOpacity
-          style={styles.optionButton}
-          onPress={() => setSheetVisible(true)}>
+        <Text style={[styles.optionsTitle,  {color: textColor}]}>Manager</Text>
+        <View
+          style={styles.optionButton}>
           <Ionicons name="person-circle" size={30}  color='gray'/>    
-          <Text style={styles.managerText}>Name 1</Text>
+          <Text style={[styles.managerText,  {color: textColor}]}>Name 1</Text>
           
-        </TouchableOpacity>
+        </View>
       </View>
 
       
@@ -49,7 +53,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
    
   },
-  sectionTitle: {
+  optionsTitle: {
     fontSize: 20,
     marginBottom: 5,
   },

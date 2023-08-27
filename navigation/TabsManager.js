@@ -11,12 +11,18 @@ import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StyleSheet } from 'react-native';
+import { useThemeContext } from "../ThemeContext";
 
 const Stack = createStackNavigator();
 
+
 const MyPermissionsScreenStack = () => {
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      headerTintColor={isDarkModeOn?'white':'black'}
+      >
       <Stack.Screen
         name='My Permissions List'
         component={MyPermissionsScreenList}
@@ -25,12 +31,14 @@ const MyPermissionsScreenStack = () => {
       <Stack.Screen
         name='My Permissions Detail'
         component={MyPermissionsScreenDetail}
-        options={{ title: 'Permission Details', headerTintColor: 'black' }}
+        options={{ title: 'Profile', headerTintColor:textColor , headerStyle: 
+        {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'} }}
       />
       <Stack.Screen
         name='My Permissions Profile'
         component={MyPermissionsScreenProfile}
-        options={{ title: 'Profile', headerTintColor: 'black' }}
+        options={{ title: 'Profile', headerTintColor:textColor , headerStyle: 
+        {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'} }}
       />
     </Stack.Navigator>
   );
@@ -38,12 +46,13 @@ const MyPermissionsScreenStack = () => {
 
 const TabsManager = () => {
   const Tab = createMaterialBottomTabNavigator();
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
 
   return (
     <Tab.Navigator
       activeColor='#205295'
-      inactiveColor='#0A2647'
-      barStyle={styles.tab}
+      inactiveColor={isDarkModeOn?'gray':'#0A2647'}
+      barStyle={[styles.tab,  {backgroundColor: isDarkModeOn? '#171d2b' :'white'}]}
     >
       <Tab.Screen
         name='Home'

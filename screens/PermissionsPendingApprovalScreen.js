@@ -11,6 +11,7 @@ import {
 
 import React, { useState,useEffect } from "react";
 import axios from "axios";
+import { useThemeContext } from "../ThemeContext";
 
 
 
@@ -80,6 +81,8 @@ const PermissionsPendingApprovalScreen = () => {
 
   const [selectedId, setSelectedId] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
 
   const handleRefresh = () => {
     setRefreshing(true);
@@ -94,26 +97,26 @@ const PermissionsPendingApprovalScreen = () => {
       style={styles.item}
     >
       <View style={styles.row}>
-        <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.date}>{item.permissionDate}</Text>
+        <Text style={[styles.name,  {color: textColor}]}>{item.name}</Text>
+        <Text style={[styles.date,  {color: textColor}]}>{item.permissionDate}</Text>
       </View>
       {selectedId === item.id && (
         <View style={styles.detailPanel}>
           <Text
-            style={styles.detailText}
+            style={[styles.detailText,  {color: textColor}]}
           >{`Reason: ${item.reasonForPermission}`}</Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               onPress={() => Alert.alert("Reject", "Permission Rejected")}
               style={styles.button2}
             >
-              <Text style={styles.buttonText}>To Reject</Text>
+              <Text style={[styles.buttonText,  {color: textColor}]}>To Reject</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => Alert.alert("Approve", "Permission Approved")}
               style={styles.button}
             >
-              <Text style={styles.buttonText}>To Approve</Text>
+              <Text style={[styles.buttonText,  {color: textColor}]}>To Approve</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -122,9 +125,9 @@ const PermissionsPendingApprovalScreen = () => {
   );
 
   return (
-    <View style={styles.view}>
+    <View style={[styles.view,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
       <View style={styles.header}>
-        <Text style={styles.title}>Approving Pending</Text>
+        <Text style={[styles.title,  {color: textColor}]}>Approving Pending</Text>
       </View>
       <FlatList
         showsHorizontalScrollIndicator={false}
@@ -147,7 +150,7 @@ const PermissionsPendingApprovalScreen = () => {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: "#0A2647",
+    padding:20,
     ...Platform.select({
       web: {
         alignItems: "center",
@@ -156,26 +159,22 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
     alignItems: "center",
+    justifyContent: 'center',
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     color: "white",
     textAlign: "center",
+    marginBottom: 30,
   },
   item: {
-    padding: 10,
-    marginTop: 30,
-    marginBottom: 5,
-    margin: 40,
+    padding: 15,
+    marginBottom: 30,
     borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: "#ccc",
+    borderWidth: 1.2,
+    borderColor: "#bbb",
   },
   row: {
     flexDirection: "row",
@@ -191,7 +190,6 @@ const styles = StyleSheet.create({
   },
 
   detailPanel: {
-    backgroundColor: "#0A2647",
     padding: 10,
     marginHorizontal: 10,
     marginTop: 10,
@@ -209,18 +207,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   button: {
-    backgroundColor: "#0A2647",
     padding: 8,
     borderRadius: 5,
     borderWidth: 1.5,
-    borderColor: "white",
+    borderColor: "gray",
   },
   button2: {
-    backgroundColor: "#0A2647",
     padding: 8,
     borderRadius: 5,
     borderWidth: 1.5,
-    borderColor: "white",
+    borderColor: "gray",
   },
   buttonText: {
     color: "white",
