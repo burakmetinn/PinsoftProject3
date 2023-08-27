@@ -83,7 +83,8 @@ const MyPermissionsScreenDetail = ({ route, navigation }) => {
       </View>
       {permission.status !== 'PENDING' && (
         <TouchableOpacity style={styles.button} onPress={handleDelete}>
-          <Text style={styles.buttonText}>Delete Request</Text>
+          <Ionicons name="trash-outline"  size={18} color='#bd2d2d' />
+          <Text style={styles.buttonText}>  Delete Request</Text>
         </TouchableOpacity>
       )}
     </View>
@@ -95,7 +96,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     padding: 30,
-    backgroundColor: '#0A2647',
   },
   title: {
     fontSize: 24,
@@ -106,42 +106,38 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   detailTitle: {
-    fontSize: 23,
+    fontSize: 20,
     fontWeight: 'bold',
     marginRight: 5,
     marginBottom: 7,
     color: 'white',
   },
   detailContent: {
-    fontSize: 20,
+    fontSize: 16,
     color: 'white',
   },
   status: {
-    fontSize: 20,
+    fontSize: 16,
     marginBottom: 20,
     color: 'white',
   },
   requesterName: {
-    fontSize: 20,
-    color: '#20007f',
+    fontSize: 16,
+    color: '#2968b3',
   },
   buttonText: {
-    color: 'white',
+    color: '#bd2d2d',
     fontSize: 16,
+    fontWeight: 'bold',
+    justifyContent: 'center'
   },
   button: {
-    backgroundColor: '#0A2647',
-    padding: 8,
-    borderRadius: 5,
-    width: 127,
-    elevation: 3,
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    shadowOffset: {
-      width: 1,
-      height: 6,
-    },
-    shadowRadius: 30,
+    padding: 12,
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#bd2d2d',
+    alignSelf: 'center',
+    flexDirection: 'row',
   },
 });
 
