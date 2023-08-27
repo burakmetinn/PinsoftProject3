@@ -84,20 +84,13 @@ const ProfileScreenManager = ({ navigation }) => {
         )}
 
         <View style={styles.optionsContainer}>
-<<<<<<< HEAD:screens/ProfileScreenManager.js
-=======
           <Text style={[styles.optionsTitle,  {color: textColor}]}>Select New Manager</Text>
->>>>>>> 7f91fccc19c7594db551982c62881c1edd11e765:src/screens/ProfileScreenManager.js
           <TouchableOpacity
             style={styles.optionButton}
             onPress={() => {
               navigation.navigate("NewManager");
             }}
           >
-<<<<<<< HEAD:screens/ProfileScreenManager.js
-            <Ionicons name="person-circle" size={30} color="white" />
-            <Text style={styles.sectionTitle}>Select New Manager</Text>
-=======
             <Ionicons name="person-circle" size={30} color="gray" />
             <Text style={[styles.managerText,  {color: textColor}]}>{selectedOption}</Text>
             <Ionicons
@@ -106,7 +99,6 @@ const ProfileScreenManager = ({ navigation }) => {
               size={20}
               color="gray"
             />
->>>>>>> 7f91fccc19c7594db551982c62881c1edd11e765:src/screens/ProfileScreenManager.js
           </TouchableOpacity>
         </View>
 
@@ -122,8 +114,6 @@ const ProfileScreenManager = ({ navigation }) => {
           <Ionicons name="log-out-outline" size={25} color="red" />
           <Text style={styles.logOutText}>Log Out</Text>
         </TouchableOpacity>
-<<<<<<< HEAD:screens/ProfileScreenManager.js
-=======
 
 
         <Modal
@@ -199,7 +189,6 @@ const ProfileScreenManager = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </Modal>
->>>>>>> 7f91fccc19c7594db551982c62881c1edd11e765:src/screens/ProfileScreenManager.js
       </View>
     </View>
   );
@@ -284,14 +273,8 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderRadius: 5,
     marginBottom: 10,
-<<<<<<< HEAD:screens/ProfileScreenManager.js
-    marginTop: 10,
-    width: 240,
-    justifyContent: "space-between",
-=======
     marginTop: 5,
     width: 220,
->>>>>>> 7f91fccc19c7594db551982c62881c1edd11e765:src/screens/ProfileScreenManager.js
     alignItems: "center",
   },
 
@@ -322,15 +305,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 20,
   },
-<<<<<<< HEAD:screens/ProfileScreenManager.js
-  sectionTitle: {
-    fontSize: 18,
-    right: 10,
-    color: "white",
-  },
-=======
-
->>>>>>> 7f91fccc19c7594db551982c62881c1edd11e765:src/screens/ProfileScreenManager.js
   sheetOption: {
     flexDirection: "row",
     justifyContent: "space-between",
