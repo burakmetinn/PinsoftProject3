@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   },
   optionsTitle: {
     fontSize: 17,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
     color: 'white',
   },
@@ -381,6 +381,12 @@ const styles = StyleSheet.create({
     color: 'red',
     fontWeight: 'bold',
     fontSize: 15,
+    left: 195,
+    bottom: 7,
+    color: '#999999',
+    width: 20,
+    marginLeft: 0,
+    padding: 0,
   },
 
   darkMode: {

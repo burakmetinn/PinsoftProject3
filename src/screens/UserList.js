@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import { useThemeContext } from "../../ThemeContext";
 
-const NewManager = ({navigation}) => {
+const UserList = ({navigation}) => {
   const [users, setUsers] = useState([]);
   const login = useSelector((state) => state.data.login);
   const textColor = isDarkModeOn ? "white" : "black";
@@ -50,8 +50,8 @@ const NewManager = ({navigation}) => {
 
   const renderItem = ({ item }) => (
     <View>
-      <TouchableOpacity style={styles.item}>
-        <Text style={styles.text}>{item.label}</Text>
+      <TouchableOpacity style={[styles.item, { borderColor: isDarkModeOn ? "white" : "black" }]}>
+        <Text style={[styles.text, { color: isDarkModeOn ? "white" : "black" }]}>{item.label}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -65,9 +65,9 @@ const NewManager = ({navigation}) => {
     >
       <View style={styles.header}>
         <Text
-          style={[styles.title, { color: isDarkModeOn ? "wihte" : "black" }]}
+          style={[styles.title, { color: isDarkModeOn ? "white" : "black" }]}
         >
-          Selecet New Manager
+          Select the user that you want to assign as manager
         </Text>
       </View>
       <FlatList
@@ -85,7 +85,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     paddingTop: 10,
+    paddingBottom: 30,
     backgroundColor: "#0A2647",
+    ...Platform.select({
+      web: {
+        alignItems:'center'
+      },
+    }),
   },
   header: {
     flexDirection: "row",
@@ -101,8 +107,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     borderWidth: 1.5,
-    borderColor: "white",
-    backgroundColor: "#0F3154",
     fontWeight: "bold",
   },
   text: {
@@ -113,9 +117,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   title: {
-    fontSize: 23,
+    fontSize: 18,
     fontWeight: "bold",
     marginBottom: 20,
+    paddingHorizontal: 10,
     textAlign: "center",
   },
   darkMode: {
@@ -123,6 +128,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 30,
   },
+  flatList: {
+    ...Platform.select({
+      web: {
+        width:800
+      },
+    }),
+  },
 });
 
-export default NewManager;
+export default UserList;

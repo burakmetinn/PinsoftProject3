@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,12 +9,12 @@ import {
   SafeAreaView,
   StatusBar,
   RefreshControl,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import { addPermList } from '../../app/dataSlice';
-import { useThemeContext } from '../../../ThemeContext';
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { addPermList } from "../../app/dataSlice";
+import { useThemeContext } from "../../../ThemeContext";
 
 const MyPermissionsScreenList = () => {
   const navigation = useNavigation();
@@ -39,7 +39,7 @@ const MyPermissionsScreenList = () => {
 
   useEffect(() => {
     axios
-      .get('https://time-off-tracker-production.up.railway.app/time-off', {
+      .get("https://time-off-tracker-production.up.railway.app/time-off", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,7 +50,7 @@ const MyPermissionsScreenList = () => {
           dispatch(addPermList(response.data));
 
           if (response) {
-            console.log('Succses');
+            console.log("Succses");
           }
         },
         (error) => {
@@ -75,18 +75,22 @@ const MyPermissionsScreenList = () => {
   }, [refreshing, response]);
 
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
-  const textColor = isDarkModeOn ? 'white' : 'black';
+  const textColor = isDarkModeOn ? "white" : "black";
 
   const openPermissionDetails = (permission) => {
-    navigation.navigate('My Permissions Detail', { permission });
+    navigation.navigate("My Permissions Detail", { permission });
   };
 
   const renderPermissionItem = ({ item }) => (
     <TouchableOpacity onPress={() => openPermissionDetails(item)}>
       <View style={styles.permissionItem}>
-        <Text style={[styles.permissionTitle, { color: textColor }]}>{item.requester}</Text>
+        <Text style={[styles.permissionTitle, { color: textColor }]}>
+          {item.requester}
+        </Text>
 
-        <Text style={[styles.permissionDate, { color: textColor }]}>{item.title}</Text>
+        <Text style={[styles.permissionDate, { color: textColor }]}>
+          {item.title}
+        </Text>
 
         <Text style={getStatusStyle(item.status)}>{item.status}</Text>
       </View>
@@ -94,9 +98,9 @@ const MyPermissionsScreenList = () => {
   );
 
   const getStatusStyle = (status) => {
-    if (status === 'APPROVED') {
+    if (status === "APPROVED") {
       return styles.permissionStatusApproved;
-    } else if (status === 'REJECTED') {
+    } else if (status === "REJECTED") {
       return styles.permissionStatusDenied;
     } else {
       return styles.permissionStatusPending;
@@ -107,7 +111,7 @@ const MyPermissionsScreenList = () => {
     <View
       style={[
         styles.container,
-        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+        { backgroundColor: isDarkModeOn ? "#171d2b" : "#f2f2f2" },
       ]}
     >
       <Text style={[styles.header, { color: textColor }]}>All Requests</Text>
@@ -122,7 +126,7 @@ const MyPermissionsScreenList = () => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor='white'
+            tintColor="white"
           />
         }
       />
@@ -134,14 +138,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#0A2647',
+    backgroundColor: "#0A2647",
+    ...Platform.select({
+      web: {
+        alignItems: "center",
+      },
+    }),
   },
   header: {
     fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 30,
-    color: 'white',
+    color: "white",
     ...Platform.select({
       web: {
         marginTop: 0,
@@ -149,23 +158,23 @@ const styles = StyleSheet.create({
     }),
   },
   permissionItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     flex: 1,
-    flexWrap: 'wrap',
-    textAlign: 'center',
+    flexWrap: "wrap",
+    textAlign: "center",
     marginBottom: 22,
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 1.2,
-    borderColor: '#bbb',
+    borderColor: "#bbb",
     borderRadius: 10,
   },
   permissionTitle: {
     fontSize: 17,
-    fontWeight: 'bold',
-    marginBottom: 5
+    fontWeight: "bold",
+    marginBottom: 5,
   },
 
   permissionDate: {
@@ -173,25 +182,24 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   permissionStatusApproved: {
-    color: 'green',
-    fontWeight: 'bold',
+    color: "green",
+    fontWeight: "bold",
     fontSize: 16,
   },
   permissionStatusDenied: {
-    color: '#bd2d2d',
-    fontWeight: 'bold',
+    color: "#bd2d2d",
+    fontWeight: "bold",
     fontSize: 16,
   },
   permissionStatusPending: {
-    color: 'gray',
-    fontWeight: 'bold',
+    color: "gray",
+    fontWeight: "bold",
     fontSize: 16,
   },
   flatList: {
     ...Platform.select({
       web: {
-        width: 1000,
-        left:160
+        width:800
       },
     }),
   },

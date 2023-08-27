@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,11 +9,11 @@ import {
   SafeAreaView,
   StatusBar,
   RefreshControl,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useThemeContext } from '../../ThemeContext';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useThemeContext } from "../../ThemeContext";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const MyPermissionsScreenEmployee = () => {
   const navigation = useNavigation();
@@ -35,7 +35,7 @@ const MyPermissionsScreenEmployee = () => {
   useEffect(() => {
     axios
       .get(
-        'https://time-off-tracker-production.up.railway.app/time-off/get-my-time-off',
+        "https://time-off-tracker-production.up.railway.app/time-off/get-my-time-off",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -48,8 +48,8 @@ const MyPermissionsScreenEmployee = () => {
           const transformedData = response.data.map((prem) => {
             const StartDate = new Date(prem.startDate);
             const EndDate = new Date(prem.endDate);
-            const formattedStartDate = StartDate.toISOString().split('T')[0];
-            const formattedEndDate = EndDate.toISOString().split('T')[0];
+            const formattedStartDate = StartDate.toISOString().split("T")[0];
+            const formattedEndDate = EndDate.toISOString().split("T")[0];
             return {
               id: prem.id,
               requester: `${prem.employee.firstName} ${prem.employee.lastName}`,
@@ -62,7 +62,7 @@ const MyPermissionsScreenEmployee = () => {
           setPermissions(transformedData);
 
           if (response) {
-            console.log('Succses');
+            console.log("Succses");
           }
         },
         (error) => {
@@ -72,7 +72,7 @@ const MyPermissionsScreenEmployee = () => {
   }, [refreshing]);
 
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
-  const textColor = isDarkModeOn ? 'white' : 'black';
+  const textColor = isDarkModeOn ? "white" : "black";
 
   const renderPermissionItem = ({ item }) => (
     <TouchableOpacity>
@@ -89,9 +89,9 @@ const MyPermissionsScreenEmployee = () => {
   );
 
   const getStatusStyle = (status) => {
-    if (status === 'APPROVED') {
+    if (status === "APPROVED") {
       return styles.permissionStatusApproved;
-    } else if (status === 'REJECTED') {
+    } else if (status === "REJECTED") {
       return styles.permissionStatusDenied;
     } else {
       return styles.permissionStatusPending;
@@ -102,7 +102,7 @@ const MyPermissionsScreenEmployee = () => {
     <View
       style={[
         styles.container,
-        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+        { backgroundColor: isDarkModeOn ? "#171d2b" : "#f2f2f2" },
       ]}
     >
       <Text style={[styles.header, { color: textColor }]}>
@@ -118,7 +118,7 @@ const MyPermissionsScreenEmployee = () => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor='white'
+            tintColor="white"
           />
         }
       />
@@ -130,13 +130,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    ...Platform.select({
+      web: {
+        alignItems: "center",
+      },
+    }),
   },
   header: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 30,
-    color: 'white',
-    alignSelf: 'center',
+    color: "white",
+    alignSelf: "center",
 
     ...Platform.select({
       web: {},
@@ -146,36 +151,35 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   permissionItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 30,
     paddingVertical: 15,
     paddingHorizontal: 15,
     borderWidth: 1.2,
-    borderColor: '#bbb',
+    borderColor: "#bbb",
     borderRadius: 10,
   },
   permissionTitle: {
     fontSize: 16,
   },
   permissionStatusApproved: {
-    color: 'green',
-    fontWeight: 'bold',
+    color: "green",
+    fontWeight: "bold",
   },
   permissionStatusDenied: {
-    color: '#bd2d2d',
-    fontWeight: 'bold',
+    color: "#bd2d2d",
+    fontWeight: "bold",
   },
   permissionStatusPending: {
-    color: 'gray',
-    fontWeight: 'bold',
+    color: "gray",
+    fontWeight: "bold",
   },
   flatList: {
     ...Platform.select({
       web: {
         width: 800,
-        left: 330,
       },
     }),
   },

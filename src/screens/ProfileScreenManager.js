@@ -370,10 +370,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     width: 120,
     ...Platform.select({
-      web: {
-        bottom: 50,
-        left: 700,
-      },
+      web: {},
     }),
   },
   logOutText: {
@@ -415,8 +412,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-    marginLeft:75,
-    marginTop:20,
+    marginLeft: 75,
+    marginTop: 20,
     width: 247,
     backgroundColor: '#0f396b',
   },

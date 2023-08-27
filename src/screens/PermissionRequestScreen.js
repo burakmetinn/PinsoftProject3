@@ -167,7 +167,7 @@ const PermissionRequestScreen = () => {
               <DateTimePicker
                 value={StartDate}
                 mode='date'
-                display='spinner'
+                display='calendar'
                 onChange={(event, selectedDate) => {
                   if (selectedDate !== undefined) {
                     handleStartDateChange(selectedDate);
@@ -199,7 +199,7 @@ const PermissionRequestScreen = () => {
               <DateTimePicker
                 value={StartDate}
                 mode='date'
-                display='spinner'
+                display='calendar'
                 onChange={(event, selectedDate) => {
                   if (selectedDate !== undefined) {
                     setStartDate(selectedDate);
@@ -226,7 +226,7 @@ const PermissionRequestScreen = () => {
               <DateTimePicker
                 value={EndDate}
                 mode='date'
-                display='spinner'
+                display='calendar'
                 onChange={(event, selectedDate) => {
                   if (selectedDate !== undefined) {
                     setEndDate(selectedDate);

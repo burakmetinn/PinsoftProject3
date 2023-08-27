@@ -224,7 +224,6 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         alignItems: 'center',
-        alignItems: 'center',
       },
     }),
   },
