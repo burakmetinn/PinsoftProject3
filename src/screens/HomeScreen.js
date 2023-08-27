@@ -91,7 +91,7 @@ const HomeScreen = () => {
       ]}
     >
       <Text style={[styles.heading, { color: textColor }]}>
-        Permission calender
+        Permission Calendar
       </Text>
 
       <Calendar
