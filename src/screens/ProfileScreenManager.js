@@ -260,8 +260,8 @@ const styles = StyleSheet.create({
     width: 120,
     ...Platform.select({
       web: {
-        bottom: 50,
-        left: 700,
+        bottom: 480,
+        left: 1380,
       },
     }),
   },
