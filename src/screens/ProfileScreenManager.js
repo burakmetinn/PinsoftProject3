@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
   optionsTitle: {
     fontSize: 17,
     fontWeight: "bold",
-    marginBottom: 5,
     color: "white",
+    left: 3,
   },
 
   sampleName: {
