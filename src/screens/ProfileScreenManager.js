@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
+=======
+import React, { useState, useEffect } from "react";
+>>>>>>> demet
 import {
   View,
   Text,
@@ -6,12 +10,21 @@ import {
   StyleSheet,
   Modal,
   Switch,
+<<<<<<< HEAD
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { addLogin, addUser } from '../app/dataSlice';
 import { useThemeContext } from '../../ThemeContext';
+=======
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { addLogin, addUser } from "../app/dataSlice";
+import { useThemeContext } from "../../ThemeContext";
+>>>>>>> demet
 
 const ProfileScreenManager = ({ navigation }) => {
   const [isSheetVisible, setSheetVisible] = useState(false);
@@ -59,12 +72,13 @@ const ProfileScreenManager = ({ navigation }) => {
     dispatch(addUser({}));
     navigation.navigate('LoginScreen');
   };
-  const textColor = isDarkModeOn ? 'white' : 'black';
+  const textColor = isDarkModeOn ? "white" : "black";
 
   return (
     <View
       style={[
         styles.container,
+<<<<<<< HEAD
         { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
       ]}
     >
@@ -72,6 +86,15 @@ const ProfileScreenManager = ({ navigation }) => {
         <Ionicons name='person-circle' color={textColor} size={100} />
         <Text style={[styles.sampleName, { color: textColor }]}>
           {firstName} {lastName}
+=======
+        { backgroundColor: isDarkModeOn ? "#171d2b" : "#f2f2f2" },
+      ]}
+    >
+      <View style={styles.infoSection}>
+        <Ionicons name="person-circle" color={textColor} size={100} />
+        <Text style={[styles.sampleName, { color: textColor }]}>
+          {email} {lastName}
+>>>>>>> demet
         </Text>
       </View>
 
@@ -97,6 +120,7 @@ const ProfileScreenManager = ({ navigation }) => {
           </TouchableOpacity>
         )}
 
+<<<<<<< HEAD
         <View style={styles.darkMode}>
           <Text style={{ color: textColor, fontWeight: 'bold', fontSize: 16 }}>
             Dark Mode{' '}
@@ -104,10 +128,38 @@ const ProfileScreenManager = ({ navigation }) => {
           <Switch value={isDarkModeOn} onValueChange={toggleSwitch}></Switch>
         </View>
 
+=======
+        <View style={styles.optionsContainer}>
+          <TouchableOpacity
+            style={styles.optionButton}
+            onPress={() => {
+              navigation.navigate("NewManager");
+            }}
+          >
+            <Ionicons
+              name="person-circle"
+              size={30}
+              style={{ color: textColor }}
+            />
+            <Text style={[styles.optionsTitle, { color: textColor }]}>
+              Select New Manager
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.darkMode}>
+          <Text style={{ color: textColor, fontWeight: "bold", fontSize: 16 }}>
+            Dark Mode{" "}
+          </Text>
+          <Switch value={isDarkModeOn} onValueChange={toggleSwitch}></Switch>
+        </View>
+
+>>>>>>> demet
         <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
           <Ionicons name='log-out-outline' size={25} color='red' />
           <Text style={styles.logOutText}>Log Out</Text>
         </TouchableOpacity>
+<<<<<<< HEAD
 
         <Modal
           animationType='slide'
@@ -182,6 +234,8 @@ const ProfileScreenManager = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </Modal>
+=======
+>>>>>>> demet
       </View>
     </View>
   );
@@ -209,18 +263,25 @@ const styles = StyleSheet.create({
   },
   optionsTitle: {
     fontSize: 17,
-    fontWeight: 'bold',
-    marginBottom: 5,
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
+    left: 3,
   },
 
   sampleName: {
     fontSize: 20,
     paddingLeft: 10,
+<<<<<<< HEAD
     fontWeight: 'bold',
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
+=======
+    fontWeight: "bold",
+    color: "white",
+    justifyContent: "center",
+    alignItems: "center",
+>>>>>>> demet
   },
   icon: {
     flexDirection: 'column',
@@ -230,10 +291,17 @@ const styles = StyleSheet.create({
 
   sampleInfoTitle: {
     fontSize: 17,
+<<<<<<< HEAD
     color: 'white',
     alignSelf: 'flex-start',
     flexDirection: 'row',
     fontWeight: 'bold',
+=======
+    color: "white",
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    fontWeight: "bold",
+>>>>>>> demet
   },
 
   sampleInfo: {
@@ -267,7 +335,10 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderRadius: 5,
     marginBottom: 10,
+<<<<<<< HEAD
     justifyContent: "space-between",
+=======
+>>>>>>> demet
     marginTop: 5,
     width: 220,
     alignItems: "center",
@@ -299,6 +370,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 20,
   },
+<<<<<<< HEAD
 
   sectionTitle: {
     fontSize: 18,
@@ -308,6 +380,8 @@ const styles = StyleSheet.create({
 
 
 
+=======
+>>>>>>> demet
   sheetOption: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -339,8 +413,13 @@ const styles = StyleSheet.create({
   },
 
   darkMode: {
+<<<<<<< HEAD
     flexDirection: 'row',
     alignItems: 'center',
+=======
+    flexDirection: "row",
+    alignItems: "center",
+>>>>>>> demet
     marginLeft: 30,
   },
 });
