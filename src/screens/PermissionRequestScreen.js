@@ -11,8 +11,7 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { useThemeContext } from "../../ThemeContext";
-
+import { useThemeContext } from '../../ThemeContext';
 
 const PermissionRequestScreen = () => {
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
@@ -80,6 +79,12 @@ const PermissionRequestScreen = () => {
       endDate: EndDate.toDateString(),
     });
 
+    const message = `
+    Cause: ${cause}
+    Start Date: ${StartDate.toDateString()}
+    End Date: ${EndDate.toDateString()}
+  `;
+
     const requestData = {
       description: cause,
       startDate: StartDate,
@@ -93,14 +98,13 @@ const PermissionRequestScreen = () => {
       'https://time-off-tracker-production.up.railway.app/time-off',
       true
     );
-    //"https://time-off-tracker-production.up.railway.app/time-off"
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Bearer ' + token);
 
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
-          Alert.alert('Request submitted successfully!', PremInfo);
+          Alert.alert('Request submitted successfully!', message);
         } else {
           alert('Request submission failed. Status: ' + xhr.status);
         }
@@ -111,25 +115,32 @@ const PermissionRequestScreen = () => {
   };
 
   return (
-    <ScrollView style={[styles.scrollView,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
+    <ScrollView
+      style={[
+        styles.scrollView,
+        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+      ]}
+    >
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           {/* <Text style={styles.PremInfoText}>{PremInfo}</Text> */}
 
-          <Text style={[styles.label,  {color: textColor}]}>Permission Cause:</Text>
+          <Text style={[styles.label, { color: textColor }]}>
+            Permission Cause:
+          </Text>
           <TextInput
             placeholder='  Write the permission cause...'
             placeholderTextColor={'gray'}
             onChangeText={(text) => setCause(text)}
             value={cause}
-            style={[styles.input,  {color: textColor}]}
+            style={[styles.input, { color: textColor }]}
           />
         </View>
 
         <View style={styles.inputContainer}>
           <View style={styles.switchContainer}>
-            <Text style={[styles.switchLabel,  {color: textColor}]}>
-              Permission for  one day / few days
+            <Text style={[styles.switchLabel, { color: textColor }]}>
+              Permission for one day / few days
             </Text>
             <Switch value={!OneDay} onValueChange={() => setOneDay(!OneDay)} />
           </View>
@@ -137,15 +148,21 @@ const PermissionRequestScreen = () => {
 
         {OneDay ? (
           <View style={styles.inputContainer}>
-            <Text style={[styles.label,  {color: textColor}]}>Permission Date:</Text>
+            <Text style={[styles.label, { color: textColor }]}>
+              Permission Date:
+            </Text>
             <TouchableOpacity
               style={styles.SelectButton}
               onPress={() => setShowStartDatePicker(true)}
             >
-              <Text style={[styles.buttonText,  {color: textColor}]}>Change The Starting Date</Text>
+              <Text style={[styles.buttonText, { color: textColor }]}>
+                Change The Starting Date
+              </Text>
             </TouchableOpacity>
 
-            <Text style={[styles.subtitle,  {color: textColor}]}>{StartDate.toDateString()}</Text>
+            <Text style={[styles.subtitle, { color: textColor }]}>
+              {StartDate.toDateString()}
+            </Text>
             {showStartDatePicker && (
               <DateTimePicker
                 value={StartDate}
@@ -162,15 +179,21 @@ const PermissionRequestScreen = () => {
           </View>
         ) : (
           <View style={styles.inputContainer}>
-            <Text style={[styles.label,  {color: textColor}]}>Permission Period Date:</Text>
+            <Text style={[styles.label, { color: textColor }]}>
+              Permission Period Date:
+            </Text>
             <TouchableOpacity
               style={styles.SelectButton}
               onPress={() => setShowStartDatePicker(true)}
             >
-              <Text style={[styles.buttonText,  {color: textColor}]}>Change The Starting Date</Text>
+              <Text style={[styles.buttonText, { color: textColor }]}>
+                Change The Starting Date
+              </Text>
             </TouchableOpacity>
 
-            <Text style={[styles.subtitle,  {color: textColor}]}>{StartDate.toDateString()}</Text>
+            <Text style={[styles.subtitle, { color: textColor }]}>
+              {StartDate.toDateString()}
+            </Text>
 
             {showStartDatePicker && (
               <DateTimePicker
@@ -190,10 +213,14 @@ const PermissionRequestScreen = () => {
               style={styles.SelectButton}
               onPress={() => setShowEndDatePicker(true)}
             >
-              <Text style={[styles.buttonText,  {color: textColor}]}>Change The Ending Date</Text>
+              <Text style={[styles.buttonText, { color: textColor }]}>
+                Change The Ending Date
+              </Text>
             </TouchableOpacity>
 
-            <Text style={[styles.subtitle,  {color: textColor}]}>{EndDate.toDateString()}</Text>
+            <Text style={[styles.subtitle, { color: textColor }]}>
+              {EndDate.toDateString()}
+            </Text>
 
             {showEndDatePicker && (
               <DateTimePicker
@@ -313,7 +340,6 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         width: 500,
-        
       },
     }),
   },

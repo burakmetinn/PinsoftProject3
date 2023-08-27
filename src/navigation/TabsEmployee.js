@@ -13,6 +13,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StyleSheet } from 'react-native';
 import { useThemeContext } from "../../ThemeContext";
+import HomeScreenEmployee from '../screens/HomeScreenEmployee';
 
 
 
@@ -28,7 +29,7 @@ const TabsEmployee = () => {
     >
       <Tab.Screen
         name='Home'
-        component={HomeScreen}
+        component={HomeScreenEmployee}
         options={{
           headerShown: false,
           tabBarLabel: '',
