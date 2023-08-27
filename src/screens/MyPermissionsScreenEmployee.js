@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,45 +8,68 @@ import {
   Modal,
   SafeAreaView,
   StatusBar,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useThemeContext } from "../../ThemeContext";
+  RefreshControl,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useThemeContext } from '../../ThemeContext';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const MyPermissionsScreenEmployee = () => {
   const navigation = useNavigation();
 
-  const [permissions, setPermissions] = useState([
-    {
-      id: "1",
-      title: "09/08/2023",
-      status: "Approved",
-      requester: "Firstname1 Lastname1",
-    },
-    {
-      id: "2",
-      title: "11/08/2023",
-      status: "Denied",
-      requester: "Firstname2 Lastname2",
-    },
-    {
-      id: "3",
-      title: "18/08/2023",
-      status: "Pending",
-      requester: "Firstname3 Lastname3",
-    },
-    {
-      id: "4",
-      title: "26/08/2023",
-      status: "Pending",
-      requester: "Firstname4 Lastname4",
-    },
-    {
-      id: "5",
-      title: "30/08/2023",
-      status: "Approved",
-      requester: "Firstname5 Lastname5",
-    },
-  ]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1500);
+  };
+
+  const [permissions, setPermissions] = useState([]);
+
+  const login = useSelector((state) => state.data.login);
+  const token = login.token;
+
+  useEffect(() => {
+    axios
+      .get(
+        'https://time-off-tracker-production.up.railway.app/time-off/get-my-time-off',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      .then(
+        (response) => {
+          const transformedData = response.data.map((prem) => {
+            const StartDate = new Date(prem.startDate);
+            const EndDate = new Date(prem.endDate);
+            const formattedStartDate = StartDate.toISOString().split('T')[0];
+            const formattedEndDate = EndDate.toISOString().split('T')[0];
+            return {
+              id: prem.id,
+              requester: `${prem.employee.firstName} ${prem.employee.lastName}`,
+              title: formattedStartDate,
+              endDate: formattedEndDate,
+              permission: prem.description,
+              status: prem.timeOffType,
+            };
+          });
+          setPermissions(transformedData);
+
+          if (response) {
+            console.log('Succses');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, [refreshing]);
 
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
   const textColor = isDarkModeOn ? 'white' : 'black';
@@ -54,43 +77,50 @@ const MyPermissionsScreenEmployee = () => {
   const renderPermissionItem = ({ item }) => (
     <TouchableOpacity>
       <View style={styles.permissionItem}>
-        <Text style={[styles.permissionTitle,  {color: textColor}]}>{item.title}</Text>
-        <Text style={getStatusStyle(item.status)}>
-          {getStatusText(item.status)}
+        <Text style={[styles.permissionTitle, { color: textColor }]}>
+          {item.title}
         </Text>
+        <Text style={[styles.permissionTitle, { color: textColor }]}>
+          {item.permission}
+        </Text>
+        <Text style={getStatusStyle(item.status)}>{item.status}</Text>
       </View>
     </TouchableOpacity>
   );
 
   const getStatusStyle = (status) => {
-    if (status === "Approved") {
+    if (status === 'APPROVED') {
       return styles.permissionStatusApproved;
-    } else if (status === "Denied") {
+    } else if (status === 'REJECTED') {
       return styles.permissionStatusDenied;
     } else {
       return styles.permissionStatusPending;
     }
   };
 
-  const getStatusText = (status) => {
-    if (status === "Approved") {
-      return "Approved";
-    } else if (status === "Denied") {
-      return "Denied";
-    } else {
-      return "Pending...";
-    }
-  };
-
   return (
-    <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
-      <Text style={[styles.header,  {color: textColor}]}>My Permission Requests</Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+      ]}
+    >
+      <Text style={[styles.header, { color: textColor }]}>
+        My Permission Requests
+      </Text>
       <FlatList
         style={styles.flatList}
         data={permissions}
         renderItem={renderPermissionItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor='white'
+          />
+        }
       />
     </View>
   );
@@ -103,44 +133,43 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 30,
-    color: "white",
+    color: 'white',
     alignSelf: 'center',
 
     ...Platform.select({
-      web: {
-      },
+      web: {},
     }),
   },
   listContent: {
     marginTop: 0,
   },
   permissionItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 30,
     paddingVertical: 15,
     paddingHorizontal: 15,
     borderWidth: 1.2,
-    borderColor: "#bbb",
+    borderColor: '#bbb',
     borderRadius: 10,
   },
   permissionTitle: {
     fontSize: 16,
   },
   permissionStatusApproved: {
-    color: "green",
-    fontWeight: "bold",
+    color: 'green',
+    fontWeight: 'bold',
   },
   permissionStatusDenied: {
-    color: "#bd2d2d",
-    fontWeight: "bold",
+    color: '#bd2d2d',
+    fontWeight: 'bold',
   },
   permissionStatusPending: {
-    color: "gray",
-    fontWeight: "bold",
+    color: 'gray',
+    fontWeight: 'bold',
   },
   flatList: {
     ...Platform.select({

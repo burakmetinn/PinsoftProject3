@@ -7,11 +7,19 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+<<<<<<< HEAD
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useThemeContext } from "../../ThemeContext";
+=======
+} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useThemeContext } from '../../ThemeContext';
+>>>>>>> 94bd2b639c251cc60194e185c6da14e963caa16a
 
 const PermissionRequestScreen = () => {
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
@@ -77,6 +85,12 @@ const PermissionRequestScreen = () => {
       endDate: EndDate.toDateString(),
     });
 
+    const message = `
+    Cause: ${cause}
+    Start Date: ${StartDate.toDateString()}
+    End Date: ${EndDate.toDateString()}
+  `;
+
     const requestData = {
       description: cause,
       startDate: StartDate,
@@ -90,14 +104,23 @@ const PermissionRequestScreen = () => {
       "https://time-off-tracker-production.up.railway.app/time-off",
       true
     );
+<<<<<<< HEAD
     //"https://time-off-tracker-production.up.railway.app/time-off"
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader("Authorization", "Bearer " + token);
+=======
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+>>>>>>> 94bd2b639c251cc60194e185c6da14e963caa16a
 
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
+<<<<<<< HEAD
           Alert.alert("Request submitted successfully!", PremInfo);
+=======
+          Alert.alert('Request submitted successfully!', message);
+>>>>>>> 94bd2b639c251cc60194e185c6da14e963caa16a
         } else {
           alert("Request submission failed. Status: " + xhr.status);
         }
@@ -111,7 +134,11 @@ const PermissionRequestScreen = () => {
     <ScrollView
       style={[
         styles.scrollView,
+<<<<<<< HEAD
         { backgroundColor: isDarkModeOn ? "#171d2b" : "#f2f2f2" },
+=======
+        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+>>>>>>> 94bd2b639c251cc60194e185c6da14e963caa16a
       ]}
     >
       <View style={styles.container}>
@@ -153,6 +180,12 @@ const PermissionRequestScreen = () => {
               </Text>
             </TouchableOpacity>
 
+<<<<<<< HEAD
+=======
+            <Text style={[styles.subtitle, { color: textColor }]}>
+              {StartDate.toDateString()}
+            </Text>
+>>>>>>> 94bd2b639c251cc60194e185c6da14e963caa16a
             {showStartDatePicker && (
               <DateTimePicker
                 style={styles.date}
@@ -182,6 +215,13 @@ const PermissionRequestScreen = () => {
               </Text>
             </TouchableOpacity>
 
+<<<<<<< HEAD
+=======
+            <Text style={[styles.subtitle, { color: textColor }]}>
+              {StartDate.toDateString()}
+            </Text>
+
+>>>>>>> 94bd2b639c251cc60194e185c6da14e963caa16a
             {showStartDatePicker && (
               <DateTimePicker
                 style={styles.date}
@@ -206,6 +246,13 @@ const PermissionRequestScreen = () => {
               </Text>
             </TouchableOpacity>
 
+<<<<<<< HEAD
+=======
+            <Text style={[styles.subtitle, { color: textColor }]}>
+              {EndDate.toDateString()}
+            </Text>
+
+>>>>>>> 94bd2b639c251cc60194e185c6da14e963caa16a
             {showEndDatePicker && (
               <DateTimePicker
                 style={styles.date}
