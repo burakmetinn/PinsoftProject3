@@ -1,5 +1,5 @@
-import { View, Text, Button } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, Button, Dimensions } from "react-native";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -7,25 +7,25 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { useThemeContext } from '../../ThemeContext';
+} from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { useThemeContext } from "../../ThemeContext";
+import { Calendar } from "react-native-calendars";
 
 const PermissionRequestScreen = () => {
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
-  const textColor = isDarkModeOn ? 'white' : 'black';
-  const [cause, setCause] = useState('');
+  const textColor = isDarkModeOn ? "white" : "black";
+  const [cause, setCause] = useState("");
   const [OneDay, setOneDay] = useState(true);
   const [StartDate, setStartDate] = useState(new Date());
   const [EndDate, setEndDate] = useState(new Date());
-  const [PremInfo, setPremInfo] = useState('');
+  const [PremInfo, setPremInfo] = useState("");
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+  const windowWidth = Dimensions.get("window").width;
 
-  console.log(StartDate);
-  console.log(EndDate);
   const handleStartDateChange = (selectedDate) => {
     setStartDate(selectedDate);
     setEndDate(selectedDate);
@@ -39,28 +39,28 @@ const PermissionRequestScreen = () => {
   const token = login.token;
   console.log(token);
 
-  const WorkStartDate = new Date('2013-03-10T21:41:51.058Z');
+  const WorkStartDate = new Date("2013-03-10T21:41:51.058Z");
   const handleOnayPress = () => {
     if (StartDate < WorkStartDate) {
       Alert.alert(
-        'Error',
-        'Permission start date cannot be before work start date!'
+        "Error",
+        "Permission start date cannot be before work start date!"
       );
       return;
     }
 
     if (EndDate < StartDate) {
       Alert.alert(
-        'Error',
-        'You can not end your day off before your start date!'
+        "Error",
+        "You can not end your day off before your start date!"
       );
       return;
     }
     const today = new Date();
     if (StartDate < today) {
       Alert.alert(
-        'Error',
-        'The earliest date you can choose is the day after!'
+        "Error",
+        "The earliest date you can choose is the day after!"
       );
       return;
     }
@@ -69,7 +69,7 @@ const PermissionRequestScreen = () => {
     const daysDifference = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
     if (!OneDay && daysDifference > 20) {
-      Alert.alert('Warning', 'Permission period cannot be more than 20 days');
+      Alert.alert("Warning", "Permission period cannot be more than 20 days");
       return;
     }
 
@@ -94,19 +94,19 @@ const PermissionRequestScreen = () => {
 
     const xhr = new XMLHttpRequest();
     xhr.open(
-      'POST',
-      'https://time-off-tracker-production.up.railway.app/time-off',
+      "POST",
+      "https://time-off-tracker-production.up.railway.app/time-off",
       true
     );
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer " + token);
 
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
-          Alert.alert('Request submitted successfully!', message);
+          Alert.alert("Request submitted successfully!", message);
         } else {
-          alert('Request submission failed. Status: ' + xhr.status);
+          alert("Request submission failed. Status: " + xhr.status);
         }
       }
     };
@@ -118,7 +118,7 @@ const PermissionRequestScreen = () => {
     <ScrollView
       style={[
         styles.scrollView,
-        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+        { backgroundColor: isDarkModeOn ? "#171d2b" : "#f2f2f2" },
       ]}
     >
       <View style={styles.container}>
@@ -129,8 +129,8 @@ const PermissionRequestScreen = () => {
             Permission Cause:
           </Text>
           <TextInput
-            placeholder='  Write the permission cause...'
-            placeholderTextColor={'gray'}
+            placeholder="  Write the permission cause..."
+            placeholderTextColor={"gray"}
             onChangeText={(text) => setCause(text)}
             value={cause}
             style={[styles.input, { color: textColor }]}
@@ -164,17 +164,28 @@ const PermissionRequestScreen = () => {
               {StartDate.toDateString()}
             </Text>
             {showStartDatePicker && (
-              <DateTimePicker
-                value={StartDate}
-                mode='date'
-                display='calendar'
-                onChange={(event, selectedDate) => {
-                  if (selectedDate !== undefined) {
-                    handleStartDateChange(selectedDate);
-                    setShowStartDatePicker(false);
-                  }
-                }}
-              />
+              <>
+                {windowWidth < 425 ? (
+                  <DateTimePicker
+                    value={StartDate}
+                    mode="date"
+                    display="calendar"
+                    onChange={(event, selectedDate) => {
+                      if (selectedDate !== undefined) {
+                        handleStartDateChange(selectedDate);
+                        setShowStartDatePicker(false);
+                      }
+                    }}
+                  />
+                ) : (
+                  <Calendar
+                    onDayPress={(day) => {
+                      handleStartDateChange(new Date(day.timestamp));
+                      setShowStartDatePicker(false);
+                    }}
+                  />
+                )}
+              </>
             )}
           </View>
         ) : (
@@ -196,17 +207,28 @@ const PermissionRequestScreen = () => {
             </Text>
 
             {showStartDatePicker && (
-              <DateTimePicker
-                value={StartDate}
-                mode='date'
-                display='calendar'
-                onChange={(event, selectedDate) => {
-                  if (selectedDate !== undefined) {
-                    setStartDate(selectedDate);
-                    setShowStartDatePicker(false);
-                  }
-                }}
-              />
+              <>
+                {windowWidth < 425 ? (
+                  <DateTimePicker
+                    value={StartDate}
+                    mode="date"
+                    display="calendar"
+                    onChange={(event, selectedDate) => {
+                      if (selectedDate !== undefined) {
+                        setStartDate(selectedDate);
+                        setShowStartDatePicker(false);
+                      }
+                    }}
+                  />
+                ) : (
+                  <Calendar
+                    onDayPress={(day) => {
+                      setStartDate(new Date(day.timestamp));
+                      setShowStartDatePicker(false);
+                    }}
+                  />
+                )}
+              </>
             )}
 
             <TouchableOpacity
@@ -222,18 +244,29 @@ const PermissionRequestScreen = () => {
               {EndDate.toDateString()}
             </Text>
 
-            {showEndDatePicker && (
-              <DateTimePicker
-                value={EndDate}
-                mode='date'
-                display='calendar'
-                onChange={(event, selectedDate) => {
-                  if (selectedDate !== undefined) {
-                    setEndDate(selectedDate);
-                    setShowEndDatePicker(false);
-                  }
-                }}
-              />
+            {showStartDatePicker && (
+              <>
+                {windowWidth < 425 ? (
+                  <DateTimePicker
+                    value={StartDate}
+                    mode="date"
+                    display="calendar"
+                    onChange={(event, selectedDate) => {
+                      if (selectedDate !== undefined) {
+                        setEndDate(selectedDate);
+                        setShowEndDatePicker(false);
+                      }
+                    }}
+                  />
+                ) : (
+                  <Calendar
+                    onDayPress={(day) => {
+                      setEndDate(new Date(day.timestamp));
+                      setShowEndDatePicker(false);
+                    }}
+                  />
+                )}
+              </>
             )}
           </View>
         )}
@@ -256,27 +289,27 @@ const styles = StyleSheet.create({
   },
   view: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   header: {
     fontSize: 24,
     marginBottom: 20,
-    color: 'white',
+    color: "white",
   },
   inputContainer: {
     marginBottom: 20,
-    color: 'white',
+    color: "white",
     ...Platform.select({
       web: {
-        alignItems: 'center',
+        alignItems: "center",
       },
     }),
   },
   label: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
     ...Platform.select({
       web: {
         margin: 10,
@@ -285,7 +318,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 10,
     padding: 10,
     marginTop: 5,
@@ -298,16 +331,16 @@ const styles = StyleSheet.create({
   subtitle: {
     flex: 1,
     fontSize: 27,
-    color: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
     margin: 8,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    color: 'white',
+    flexDirection: "row",
+    alignItems: "center",
+    color: "white",
     ...Platform.select({
       web: {
         margin: 10,
@@ -317,20 +350,20 @@ const styles = StyleSheet.create({
   switchLabel: {
     fontSize: 16,
     marginRight: 10,
-    color: 'white',
-    alignItems: 'center',
-    textAlign: 'center',
+    color: "white",
+    alignItems: "center",
+    textAlign: "center",
   },
   button: {
-    backgroundColor: '#3dd459',
+    backgroundColor: "#3dd459",
     margin: 20,
     padding: 15,
     paddingHorizontal: 50,
-    alignItems: 'center',
-    alignSelf: 'center',
+    alignItems: "center",
+    alignSelf: "center",
     borderRadius: 25,
     elevation: 3,
-    shadowColor: 'black',
+    shadowColor: "black",
     shadowOpacity: 0.5,
     shadowOffset: {
       width: 1,
@@ -344,11 +377,11 @@ const styles = StyleSheet.create({
     }),
   },
   SelectButton: {
-    backgroundColor: '#80808011',
-    alignItems: 'center',
+    backgroundColor: "#80808011",
+    alignItems: "center",
     padding: 10,
     borderRadius: 10,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     marginTop: 10,
     shadowOpacity: 0.2,
@@ -361,7 +394,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: 'white',
+    color: "white",
   },
 });
 export default PermissionRequestScreen;
