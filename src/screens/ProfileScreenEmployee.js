@@ -83,23 +83,6 @@ const ProfileScreenEmployee = ({ navigation }) => {
       <Text style={[styles.sampleInfo,  {color: textColor}]}>{role}</Text>
       </View>
 
-      <View style={styles.optionsContainer}>
-        <Text style={[styles.optionsTitle,  {color: textColor}]}>Manager</Text>
-        <TouchableOpacity
-          style={styles.optionButton}
-          onPress={() => setSheetVisible(true)}
-        >
-          <Ionicons name="person-circle" size={30} color="gray" />
-          <Text style={[styles.managerText,  {color: textColor}]}>{selectedOption}</Text>
-          <Ionicons
-            style={styles.managerIcon}
-            name="chevron-forward"
-            size={20}
-            color="gray"
-          />
-        </TouchableOpacity>
-      </View>
-
       <View style={styles.darkMode}>
       <Text style={{color:textColor, fontWeight:'bold', fontSize: 16}}>Dark Mode   </Text>
       <Switch

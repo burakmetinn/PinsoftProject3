@@ -75,7 +75,7 @@ const MyPermissionsScreenList = () => {
   }, [refreshing, response]);
 
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
-  const textColor = isDarkModeOn ? 'white' : 'black';
+  const textColor = isDarkModeOn ? 'white' : '#0A2647';
 
   const openPermissionDetails = (permission) => {
     navigation.navigate('My Permissions Detail', { permission });
@@ -134,6 +134,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#0A2647',
   },
   header: {
@@ -156,37 +158,45 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     flexWrap: 'wrap',
+    width: 350,
     textAlign: 'center',
     height: 100,
     marginBottom: 22,
     paddingVertical: 14,
     paddingHorizontal: 15,
-    borderWidth: 1,
-    borderColor: '#bbb',
     borderRadius: 8,
-    backgroundColor: '#f4f4f4',
+    backgroundColor: '#0A2647',
+    elevation: 3,
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
+    shadowOffset: {
+      width: 1,
+      height: 6,
+    },
+    shadowRadius: 30,
   },
   permissionTitle: {
     fontSize: 20,
+    color: 'white',
+    textAlign: 'center',
   },
   permissionDate: {
     fontSize: 16,
+    color: 'white',
   },
   permissionStatusApproved: {
-    color: 'green',
+    color: '#17e86d',
     fontWeight: 'bold',
     fontSize: 20,
   },
   permissionStatusDenied: {
-    color: '#bd2d2d',
+    color: '#ff000c',
     fontWeight: 'bold',
-
     fontSize: 20,
   },
   permissionStatusPending: {
-    color: 'gray',
+    color: '#9da2a4',
     fontWeight: 'bold',
-
     fontSize: 20,
   },
   flatList: {

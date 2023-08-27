@@ -106,24 +106,24 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   detailTitle: {
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: 'bold',
     marginRight: 5,
     marginBottom: 7,
     color: 'white',
   },
   detailContent: {
-    fontSize: 16,
+    fontSize: 20,
     color: 'white',
   },
   status: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 20,
     color: 'white',
   },
   requesterName: {
-    fontSize: 16,
-    color: '#2968b3',
+    fontSize: 20,
+    color: '#20007f',
   },
   buttonText: {
     color: 'white',
@@ -133,9 +133,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#0A2647',
     padding: 8,
     borderRadius: 5,
-    borderWidth: 1.5,
-    borderColor: '#0A2647',
     width: 127,
+    elevation: 3,
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
+    shadowOffset: {
+      width: 1,
+      height: 6,
+    },
+    shadowRadius: 30,
   },
 });
 

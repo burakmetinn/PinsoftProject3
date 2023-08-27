@@ -21,7 +21,7 @@ const PermissionsPendingApprovalScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
-  const textColor = isDarkModeOn ? 'white' : 'black';
+  const textColor = isDarkModeOn ? 'white' : '#0A2647';
 
   const login = useSelector((state) => state.data.login);
   const token = login.token;
@@ -145,13 +145,13 @@ const PermissionsPendingApprovalScreen = () => {
       >
         <Text style={styles.cardTitle}>Permission Info</Text>
         <View style={styles.row}>
-          <Text style={[styles.name, { color: textColor }]}>
+          <Text style={[styles.name, { color: 'white' }]}>
             Employee Name : {item.name}
           </Text>
-          <Text style={[styles.date, { color: textColor }]}>
+          <Text style={[styles.date, { color: 'white' }]}>
             From : {item.permissionDate}
           </Text>
-          <Text style={[styles.date, { color: textColor }]}>
+          <Text style={[styles.date, { color: 'white' }]}>
             To : {item.permissionEndDate}
           </Text>
         </View>
@@ -219,11 +219,10 @@ const PermissionsPendingApprovalScreen = () => {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: '#0A2647',
+
     backgroundColor: '#0A2647',
     ...Platform.select({
       web: {
-        alignItems: 'center',
         alignItems: 'center',
       },
     }),
@@ -231,12 +230,10 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
+
     marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
-    alignItems: 'center',
     alignItems: 'center',
   },
   title: {
@@ -244,39 +241,40 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
-    fontWeight: 'bold',
-    color: 'white',
+
     marginTop: 10,
-    textAlign: 'center',
   },
   sub: {
     fontSize: 15,
     fontWeight: 'bold',
-    color: 'grey',
+    color: '#a6a6a6',
     textAlign: 'right',
   },
   cardTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: '#0A2647',
+    color: 'white',
     textAlign: 'center',
   },
   item: {
     padding: 10,
-    marginTop: 30,
     marginTop: 20,
     marginBottom: 5,
     margin: 40,
     height: 125,
     borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: '#ccc',
-    backgroundColor: '#ffdb58',
+    backgroundColor: '#0A2647',
+    elevation: 3,
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
+    shadowOffset: {
+      width: 1,
+      height: 6,
+    },
+    shadowRadius: 30,
   },
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -284,17 +282,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
-    fontWeight: 'bold',
-    color: '#0A2647',
   },
   date: {
     color: 'white',
-    color: '#0A2647',
   },
 
   detailPanel: {
     backgroundColor: '#0A2647',
-    backgroundColor: '#ffdb58',
     padding: 10,
     marginHorizontal: 10,
     marginTop: 10,
@@ -305,39 +299,37 @@ const styles = StyleSheet.create({
   detailText: {
     fontSize: 16,
     color: 'white',
-    color: '#0A2647',
     marginBottom: 5,
-    textAlign: 'center',
     textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+
     marginTop: 10,
   },
   button: {
-    backgroundColor: '#0A2647',
-    backgroundColor: '#0A2647',
+    backgroundColor: 'white',
     padding: 8,
+    textAlign: 'center',
     borderRadius: 5,
     borderWidth: 1.5,
-    borderColor: 'white',
+    width: 80,
     borderColor: '#0A2647',
   },
   button2: {
-    backgroundColor: '#0A2647',
-    backgroundColor: '#0A2647',
+    textAlign: 'center',
+    backgroundColor: 'white',
     padding: 8,
+    width: 80,
     borderRadius: 5,
     borderWidth: 1.5,
-    borderColor: 'white',
     borderColor: '#0A2647',
   },
   buttonText: {
-    color: 'white',
-    color: 'white',
+    textAlign: 'center',
+    color: '#0A2647',
+
     fontSize: 16,
   },
   flatList: {
