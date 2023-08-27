@@ -87,6 +87,11 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 30,
     backgroundColor: "#0A2647",
+    ...Platform.select({
+      web: {
+        alignItems:'center'
+      },
+    }),
   },
   header: {
     flexDirection: "row",
@@ -122,6 +127,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginLeft: 30,
+  },
+  flatList: {
+    ...Platform.select({
+      web: {
+        width:800
+      },
+    }),
   },
 });
 

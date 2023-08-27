@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   StyleSheet,
-  Modal, Switch
+  Modal,
+  Switch,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
@@ -57,10 +58,15 @@ const ProfileScreenEmployee = ({ navigation }) => {
     navigation.navigate("LoginScreen");
   };
 
-  const textColor = isDarkModeOn ? 'white' : 'black';
+  const textColor = isDarkModeOn ? "white" : "black";
 
   return (
-    <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkModeOn ? "#171d2b" : "#f2f2f2" },
+      ]}
+    >
       <View style={styles.infoSection}>
         <Ionicons
           name="person-circle"
@@ -68,27 +74,28 @@ const ProfileScreenEmployee = ({ navigation }) => {
           color={textColor}
           size={100}
         />
-        <Text style={[styles.sampleName,  {color: textColor}]}>
+        <Text style={[styles.sampleName, { color: textColor }]}>
           {firstName} {lastName}
         </Text>
       </View>
 
       <View style={styles.infoContainer}>
-      <Text style={[styles.sampleInfoTitle,  {color: textColor}]}>Email Address</Text>
-      <Text style={[styles.sampleInfo,  {color: textColor}]}>{email}</Text>
+        <Text style={[styles.sampleInfoTitle, { color: textColor }]}>
+          Email Address
+        </Text>
+        <Text style={[styles.sampleInfo, { color: textColor }]}>{email}</Text>
       </View>
 
       <View style={styles.infoContainer}>
-      <Text style={[styles.sampleInfoTitle,  {color: textColor}]}>Role</Text>
-      <Text style={[styles.sampleInfo,  {color: textColor}]}>{role}</Text>
+        <Text style={[styles.sampleInfoTitle, { color: textColor }]}>Role</Text>
+        <Text style={[styles.sampleInfo, { color: textColor }]}>{role}</Text>
       </View>
 
       <View style={styles.darkMode}>
-      <Text style={{color:textColor, fontWeight:'bold', fontSize: 16}}>Dark Mode   </Text>
-      <Switch
-         value={isDarkModeOn}
-         onValueChange={toggleSwitch}
-        ></Switch>
+        <Text style={{ color: textColor, fontWeight: "bold", fontSize: 16 }}>
+          Dark Mode{" "}
+        </Text>
+        <Switch value={isDarkModeOn} onValueChange={toggleSwitch}></Switch>
       </View>
 
       <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
@@ -195,7 +202,7 @@ const styles = StyleSheet.create({
   },
   optionsTitle: {
     fontSize: 17,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
     color: "white",
   },
@@ -205,8 +212,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontWeight: "bold",
     color: "white",
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   icon: {
     flexDirection: "column",
@@ -219,7 +226,7 @@ const styles = StyleSheet.create({
     color: "white",
     alignSelf: "flex-start",
     flexDirection: "row",
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 
   sampleInfo: {
@@ -235,7 +242,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginBottom: 15,
   },
-  
+
   optionsContainer: {
     marginLeft: 30,
     marginBottom: 20,
@@ -268,9 +275,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     paddingTop: 10,
-    
   },
-  
+
   bottomSheet: {
     backgroundColor: "white",
     borderTopLeftRadius: 20,
@@ -302,12 +308,6 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginTop: 50,
     width: 120,
-    ...Platform.select({
-      web: {
-        bottom: 400,
-        left: 1380,
-      },
-    }),
   },
   logOutText: {
     marginLeft: 10,
@@ -316,13 +316,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 
-  darkMode:{
+  darkMode: {
     flexDirection: "row",
-    alignItems: 'center',
+    alignItems: "center",
     marginLeft: 30,
   },
-
-  
 });
 
 export default ProfileScreenEmployee;
