@@ -21,7 +21,7 @@ const PermissionsPendingApprovalScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
-  const textColor = isDarkModeOn ? 'white' : '#0A2647';
+  const textColor = isDarkModeOn ? 'white' : 'black';
 
   const login = useSelector((state) => state.data.login);
   const token = login.token;
@@ -143,32 +143,31 @@ const PermissionsPendingApprovalScreen = () => {
         }}
         style={styles.item}
       >
-        <Text style={styles.cardTitle}>Permission Info</Text>
         <View style={styles.row}>
-          <Text style={[styles.name, { color: 'white' }]}>
-            Employee Name : {item.name}
+          <Text style={[styles.name, { color: textColor }]}>
+           {item.name}
           </Text>
-          <Text style={[styles.date, { color: 'white' }]}>
+          <Text style={[styles.date, { color: textColor }]}>
             From : {item.permissionDate}
           </Text>
-          <Text style={[styles.date, { color: 'white' }]}>
+          <Text style={[styles.date, { color: textColor }]}>
             To : {item.permissionEndDate}
           </Text>
         </View>
-        <Text style={styles.sub}>Click to see more</Text>
-      </TouchableOpacity>
+        <Text style={styles.sub}>{selectedId===item.id&&!showDetails?'':'Click to see more'}</Text>
+      
 
       {selectedId === item.id && !showDetails && (
         <View style={styles.detailPanel}>
           <Text
-            style={styles.detailText}
+            style={[styles.detailText, { color: textColor }]}
           >{`Reason: ${item.reasonForPermission}`}</Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               onPress={() => Alert.alert('Reject', 'Permission Rejected')}
               style={styles.button2}
             >
-              <Text style={styles.buttonText} onPress={handleReject}>
+              <Text style={styles.buttonTextReject} onPress={handleReject}>
                 Reject
               </Text>
             </TouchableOpacity>
@@ -176,13 +175,14 @@ const PermissionsPendingApprovalScreen = () => {
               onPress={() => Alert.alert('Approve', 'Permission Approved')}
               style={styles.button}
             >
-              <Text style={styles.buttonText} onPress={handleApprove}>
+              <Text style={styles.buttonTextApprove} onPress={handleApprove}>
                 Approve
               </Text>
             </TouchableOpacity>
           </View>
         </View>
       )}
+      </TouchableOpacity>
     </TouchableOpacity>
   );
 
@@ -219,10 +219,11 @@ const PermissionsPendingApprovalScreen = () => {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-
+    backgroundColor: '#0A2647',
     backgroundColor: '#0A2647',
     ...Platform.select({
       web: {
+        alignItems: 'center',
         alignItems: 'center',
       },
     }),
@@ -230,10 +231,12 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'center',
-
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
+    alignItems: 'center',
     alignItems: 'center',
   },
   title: {
@@ -241,97 +244,91 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
-
+    fontWeight: 'bold',
+    color: 'white',
     marginTop: 10,
+    textAlign: 'center',
   },
   sub: {
     fontSize: 15,
     fontWeight: 'bold',
-    color: '#a6a6a6',
+    color: 'grey',
     textAlign: 'right',
   },
   cardTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: 'white',
+    color: '#0A2647',
     textAlign: 'center',
   },
   item: {
-    padding: 10,
+    padding: 12,
+    paddingHorizontal: 15,
+    marginTop: 30,
     marginTop: 20,
     marginBottom: 5,
-    margin: 40,
-    height: 125,
+    margin: 20,
     borderRadius: 10,
-    backgroundColor: '#0A2647',
-    elevation: 3,
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    shadowOffset: {
-      width: 1,
-      height: 6,
-    },
-    shadowRadius: 30,
+    borderWidth: 1.2,
+    borderColor: '#bbb',
   },
   row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
   name: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'bold',
     color: 'white',
-  },
-  date: {
-    color: 'white',
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
 
-  detailPanel: {
-    backgroundColor: '#0A2647',
+  detailPanel: { 
     padding: 10,
-    marginHorizontal: 10,
+    alignSelf: 'center',
     marginTop: 10,
-    marginLeft: 40,
     borderRadius: 10,
-    width: 330,
+    width: 300,
   },
   detailText: {
     fontSize: 16,
     color: 'white',
     marginBottom: 5,
     textAlign: 'center',
+    textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     marginTop: 10,
   },
   button: {
-    backgroundColor: 'white',
     padding: 8,
-    textAlign: 'center',
     borderRadius: 5,
     borderWidth: 1.5,
-    width: 80,
-    borderColor: '#0A2647',
+    borderColor: 'green',
   },
   button2: {
-    textAlign: 'center',
-    backgroundColor: 'white',
     padding: 8,
-    width: 80,
     borderRadius: 5,
     borderWidth: 1.5,
-    borderColor: '#0A2647',
+    borderColor: '#bd2d2d',
   },
-  buttonText: {
-    textAlign: 'center',
-    color: '#0A2647',
-
+  buttonTextReject: {
+    color: '#bd2d2d',
     fontSize: 16,
   },
+  buttonTextApprove: {
+    color: 'green',
+    fontSize: 16,
+  },
+
   flatList: {
     marginTop: 10,
     ...Platform.select({

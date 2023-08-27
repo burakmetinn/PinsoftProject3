@@ -62,7 +62,7 @@ const MyPermissionsScreenList = () => {
   useEffect(() => {
     const transformedData = response.map((perm) => ({
       id: perm.id,
-      title: `from ${new Date(perm.startDate).toDateString()} To ${new Date(
+      title: `From ${new Date(perm.startDate).toDateString()}   To ${new Date(
         perm.endDate
       ).toDateString()}`,
       status: perm.timeOffType,
@@ -75,7 +75,7 @@ const MyPermissionsScreenList = () => {
   }, [refreshing, response]);
 
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
-  const textColor = isDarkModeOn ? 'white' : '#0A2647';
+  const textColor = isDarkModeOn ? 'white' : 'black';
 
   const openPermissionDetails = (permission) => {
     navigation.navigate('My Permissions Detail', { permission });
@@ -84,9 +84,9 @@ const MyPermissionsScreenList = () => {
   const renderPermissionItem = ({ item }) => (
     <TouchableOpacity onPress={() => openPermissionDetails(item)}>
       <View style={styles.permissionItem}>
-        <Text style={styles.permissionTitle}>{item.requester}</Text>
+        <Text style={[styles.permissionTitle, { color: textColor }]}>{item.requester}</Text>
 
-        <Text style={styles.permissionDate}>{item.title}</Text>
+        <Text style={[styles.permissionDate, { color: textColor }]}>{item.title}</Text>
 
         <Text style={getStatusStyle(item.status)}>{item.status}</Text>
       </View>
@@ -134,8 +134,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#0A2647',
   },
   header: {
@@ -158,46 +156,38 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     flexWrap: 'wrap',
-    width: 350,
     textAlign: 'center',
-    height: 100,
     marginBottom: 22,
-    paddingVertical: 14,
+    paddingVertical: 10,
     paddingHorizontal: 15,
-    borderRadius: 8,
-    backgroundColor: '#0A2647',
-    elevation: 3,
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    shadowOffset: {
-      width: 1,
-      height: 6,
-    },
-    shadowRadius: 30,
+    borderWidth: 1.2,
+    borderColor: '#bbb',
+    borderRadius: 10,
   },
   permissionTitle: {
-    fontSize: 20,
-    color: 'white',
-    textAlign: 'center',
+    fontSize: 17,
+    fontWeight: 'bold',
+    marginBottom: 5
   },
+
   permissionDate: {
-    fontSize: 16,
-    color: 'white',
+    fontSize: 15,
+    marginBottom: 10,
   },
   permissionStatusApproved: {
-    color: '#17e86d',
+    color: 'green',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 16,
   },
   permissionStatusDenied: {
-    color: '#ff000c',
+    color: '#bd2d2d',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 16,
   },
   permissionStatusPending: {
-    color: '#9da2a4',
+    color: 'gray',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 16,
   },
   flatList: {
     ...Platform.select({
