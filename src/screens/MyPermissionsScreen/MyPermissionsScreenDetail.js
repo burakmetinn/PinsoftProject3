@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 const MyPermissionsScreenDetail = ({ route, navigation }) => {
   const { permission } = route.params;
 
@@ -12,7 +13,32 @@ const MyPermissionsScreenDetail = ({ route, navigation }) => {
     });
   };
 
-  const handleApprove = () => {};
+  const login = useSelector((state) => state.data.login);
+  const token = login.token;
+
+  const handleDelete = () => {
+    axios
+      .delete(
+        `https://time-off-tracker-production.up.railway.app/time-off/${permission.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      .then(
+        (response) => {
+          if (response) {
+            console.log('Deleted');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    navigation.navigate('MyPermissionsScreenList');
+  };
 
   const handleDeny = () => {};
 
@@ -36,6 +62,9 @@ const MyPermissionsScreenDetail = ({ route, navigation }) => {
         <Text style={styles.detailTitle}>Status:</Text>
         <Text style={styles.status}>{permission.status}</Text>
       </View>
+      <TouchableOpacity style={styles.button} onPress={handleDelete}>
+        <Text style={styles.buttonText}>Delete Request</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -75,6 +104,18 @@ const styles = StyleSheet.create({
   requesterName: {
     fontSize: 20,
     color: '#0A2647',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  button: {
+    backgroundColor: '#0A2647',
+    padding: 8,
+    borderRadius: 5,
+    borderWidth: 1.5,
+    borderColor: '#0A2647',
+    width: 127,
   },
 });
 

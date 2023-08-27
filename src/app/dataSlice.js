@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const initialState = {
   login: {},

@@ -1,12 +1,13 @@
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "../screens/LoginScreen";
-import SignUpScreen from "../screens/SignUp";
-import HomeScreen from "../screens/HomeScreen";
-import TabsManager from "./TabsManager";
-import TabsEmployee from "./TabsEmployee";
-import ProfileScreen from "../screens/ProfileScreenEmployee";
-import { HeaderBackButton } from "@react-navigation/elements";
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from '../screens/LoginScreen';
+import SignUpScreen from '../screens/SignUp';
+import HomeScreen from '../screens/HomeScreen';
+import TabsManager from './TabsManager';
+import TabsEmployee from './TabsEmployee';
+import ProfileScreen from '../screens/ProfileScreenEmployee';
+import { HeaderBackButton } from '@react-navigation/elements';
+import MyPermissionsScreenList from '../screens/MyPermissionsScreen/MyPermissionsScreenList';
 import {
   Image,
   TouchableOpacity,
@@ -14,22 +15,22 @@ import {
   StyleSheet,
   Platform,
   Alert,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import SelectAdminScreen from "../screens/SelectAdminScreen";
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import SelectAdminScreen from '../screens/SelectAdminScreen';
 
 const Stacks = () => {
   const headerManager = (
     <View style={styles.header}>
       <Image
         style={styles.logo}
-        source={require("../assets/headerLogoManager.png")}
+        source={require('../assets/headerLogoManager.png')}
       />
     </View>
   );
   const headerEmployee = (
     <View style={styles.header}>
-      <Image style={styles.logo} source={require("../assets/headerLogo.png")} />
+      <Image style={styles.logo} source={require('../assets/headerLogo.png')} />
     </View>
   );
 
@@ -38,22 +39,22 @@ const Stacks = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="LoginScreen"
+        name='LoginScreen'
         component={LoginScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="SignUpScreen"
+        name='SignUpScreen'
         component={SignUpScreen}
         options={{
-          headerTitle: "",
-          headerBackTitle: "Log In",
-          headerTintColor: "black",
+          headerTitle: '',
+          headerBackTitle: 'Log In',
+          headerTintColor: 'black',
           headerShadowVisible: false,
         }}
       />
       <Stack.Screen
-        name="TabsManager"
+        name='TabsManager'
         component={TabsManager}
         options={{
           header: () => headerManager,
@@ -61,7 +62,7 @@ const Stacks = () => {
         }}
       />
       <Stack.Screen
-        name="TabsEmployee"
+        name='TabsEmployee'
         component={TabsEmployee}
         options={{
           header: () => headerEmployee,
@@ -69,12 +70,20 @@ const Stacks = () => {
         }}
       />
       <Stack.Screen
-        name="SelectAdminScreen"
+        name='MyPermissionsScreenList'
+        component={MyPermissionsScreenList}
+        options={{
+          header: () => headerEmployee,
+          headerLeft: null,
+        }}
+      />
+      <Stack.Screen
+        name='SelectAdminScreen'
         component={SelectAdminScreen}
         options={{
-          headerShown: false
+          headerShown: false,
           //headerTitle: "",
-         // headerBackTitle: "Back",
+          // headerBackTitle: "Back",
           //headerTintColor: "black",
           //headerShadowVisible: false,
           /* headerLeft: (props) => (
@@ -92,7 +101,7 @@ const Stacks = () => {
         }}
       />
       <Stack.Screen
-        name="Stacks"
+        name='Stacks'
         component={Stacks}
         options={{
           header: () => headerEmployee,
@@ -105,8 +114,8 @@ const Stacks = () => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: "row",
-    justifyContent: Platform.OS === "web" ? "flex-start" : "center",
+    flexDirection: 'row',
+    justifyContent: Platform.OS === 'web' ? 'flex-start' : 'center',
     ...Platform.select({
       web: {
         height: 60,

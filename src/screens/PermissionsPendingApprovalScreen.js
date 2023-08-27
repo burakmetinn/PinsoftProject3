@@ -11,12 +11,14 @@ import {
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addPermList } from '../app/dataSlice';
 
 const PermissionsPendingApprovalScreen = () => {
   const [rawData, setRawData] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const login = useSelector((state) => state.data.login);
   const token = login.token;
@@ -25,89 +27,116 @@ const PermissionsPendingApprovalScreen = () => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-    }, 500);
+    }, 1500);
   };
 
-  const permission = useSelector((state) => state.data.permissionsDATA);
+  const dispatch = useDispatch();
   useEffect(() => {
-    const transformedData = permission.map((perm) => ({
-      id: perm.id,
-      status: perm.timeOffType,
-      name: `${perm.employee.firstName}  ${perm.employee.lastName}`,
-      permissionDate: `${new Date(perm.startDate).toDateString()}`,
-      permissionEndDate: `${new Date(perm.endDate).toDateString()}`,
-      reasonForPermission: perm.description,
-    }));
+    axios
+      .get('https://time-off-tracker-production.up.railway.app/time-off', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      .then(
+        (response) => {
+          dispatch(addPermList(response.data));
+
+          if (response) {
+            console.log('Succses');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, [refreshing, permission]);
+
+  const permission = useSelector((state) => state.data.permissionsDATA);
+
+  useEffect(() => {
+    const transformedData = permission
+      .filter((perm) => perm.timeOffType === 'PENDING')
+      .map((perm) => ({
+        id: perm.id,
+        status: perm.timeOffType,
+        name: `${perm.employee.firstName} ${perm.employee.lastName}`,
+        permissionDate: `${new Date(perm.startDate).toDateString()}`,
+        permissionEndDate: `${new Date(perm.endDate).toDateString()}`,
+        reasonForPermission: perm.description,
+      }));
 
     setRawData(transformedData);
     console.log(selectedId);
-  }, []);
+  }, [refreshing, permission]);
 
   const handleReject = () => {
-    axios
-      .put(
-        `https://time-off-tracker-production.up.railway.app/time-off/update/${selectedId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      'PUT',
+      `https://time-off-tracker-production.up.railway.app/time-off/update/${selectedId}`
+    );
 
-          timeOffType: 'REJECTED',
-        }
-      )
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    xhr.setRequestHeader('Content-Type', 'application/json');
 
-      .then(
-        (response) => {
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
           console.log(response);
-
-          if (response) {
-            console.log('REJECTED');
-          } else if (!response) {
-            console.log('error try again');
-          }
-        },
-
-        (error) => {
-          console.log(error);
+          console.log('REJECTED');
+        } else {
+          console.log('Error. Please try again.');
         }
-      );
+      }
+    };
+
+    const requestData = JSON.stringify({
+      timeOffType: 'REJECTED',
+    });
+
+    xhr.send(requestData);
+    handleRefresh();
   };
 
   const handleApprove = () => {
-    axios
-      .put(
-        `https://time-off-tracker-production.up.railway.app/time-off/update/${selectedId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          timeOffType: 'APPROVED',
-        }
-      )
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      'PUT',
+      `https://time-off-tracker-production.up.railway.app/time-off/update/${selectedId}`
+    );
 
-      .then(
-        (response) => {
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
           console.log(response);
-
-          if (response) {
-            console.log('Approved');
-          } else if (!response) {
-            console.log('error try again');
-          }
-        },
-
-        (error) => {
-          console.log(error);
+          console.log('Approved');
+        } else {
+          console.log('Error. Please try again.');
         }
-      );
+      }
+    };
+
+    const requestData = JSON.stringify({
+      timeOffType: 'APPROVED',
+    });
+
+    xhr.send(requestData);
+    handleRefresh();
   };
 
   const renderItem = ({ item }) => (
     <TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          setSelectedId(selectedId === item.id ? null : item.id);
-          console.log(selectedId);
+          setSelectedId(item.id);
+          setShowDetails(!showDetails);
         }}
         style={styles.item}
       >
@@ -120,7 +149,7 @@ const PermissionsPendingApprovalScreen = () => {
         <Text style={styles.sub}>Click to see more</Text>
       </TouchableOpacity>
 
-      {selectedId === item.id && (
+      {selectedId === item.id && !showDetails && (
         <View style={styles.detailPanel}>
           <Text
             style={styles.detailText}
@@ -174,6 +203,7 @@ const PermissionsPendingApprovalScreen = () => {
 const styles = StyleSheet.create({
   view: {
     backgroundColor: '#0A2647',
+    height: 1500,
     ...Platform.select({
       web: {
         alignItems: 'center',
@@ -192,7 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
-    marginTop:10,
+    marginTop: 10,
     textAlign: 'center',
   },
   sub: {
@@ -269,7 +299,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   flatList: {
-    marginTop:10,
+    marginTop: 10,
+    backgroundColor: '#0A2647',
     ...Platform.select({
       web: {
         width: 800,

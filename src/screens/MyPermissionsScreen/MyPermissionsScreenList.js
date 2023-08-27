@@ -8,9 +8,12 @@ import {
   Modal,
   SafeAreaView,
   StatusBar,
+  RefreshControl,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { addPermList } from '../../app/dataSlice';
 
 const MyPermissionsScreenList = () => {
   const navigation = useNavigation();
@@ -18,8 +21,42 @@ const MyPermissionsScreenList = () => {
   const response = useSelector((state) => state.data.permissionsDATA);
 
   const [permissions, setPermissions] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  console.log(response);
+  const handleRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 500);
+  };
+
+  const login = useSelector((state) => state.data.login);
+
+  const dispatch = useDispatch();
+
+  const token = login.token;
+
+  useEffect(() => {
+    axios
+      .get('https://time-off-tracker-production.up.railway.app/time-off', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      .then(
+        (response) => {
+          dispatch(addPermList(response.data));
+
+          if (response) {
+            console.log('Succses');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, [refreshing]);
 
   useEffect(() => {
     const transformedData = response.map((perm) => ({
@@ -34,7 +71,7 @@ const MyPermissionsScreenList = () => {
     }));
 
     setPermissions(transformedData);
-  }, []);
+  }, [refreshing, response]);
 
   const [selectedPermission, setSelectedPermission] = useState(null);
 
@@ -49,30 +86,18 @@ const MyPermissionsScreenList = () => {
 
         <Text style={styles.permissionDate}>{item.title}</Text>
 
-        <Text style={getStatusStyle(item.status)}>
-          {getStatusText(item.status)}
-        </Text>
+        <Text style={getStatusStyle(item.status)}>{item.status}</Text>
       </View>
     </TouchableOpacity>
   );
 
   const getStatusStyle = (status) => {
-    if (status === 'Approved') {
+    if (status === 'APPROVED') {
       return styles.permissionStatusApproved;
-    } else if (status === 'Denied') {
+    } else if (status === 'REJECTED') {
       return styles.permissionStatusDenied;
     } else {
       return styles.permissionStatusPending;
-    }
-  };
-
-  const getStatusText = (status) => {
-    if (status === 'Approved') {
-      return 'Approved';
-    } else if (status === 'Denied') {
-      return 'Denied';
-    } else {
-      return 'Pending...';
     }
   };
 
@@ -86,6 +111,13 @@ const MyPermissionsScreenList = () => {
         renderItem={renderPermissionItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor='white'
+          />
+        }
       />
     </View>
   );
