@@ -262,14 +262,15 @@ const styles = StyleSheet.create({
   optionButton: {
     padding: 5,
     paddingLeft: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 5,
     marginBottom: 10,
+    justifyContent: "space-between",
     marginTop: 5,
     width: 220,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   managerText: {
@@ -298,6 +299,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 20,
   },
+
+  sectionTitle: {
+    fontSize: 18,
+    right: 10,
+    color: "white",
+  },
+
+
 
   sheetOption: {
     flexDirection: 'row',
