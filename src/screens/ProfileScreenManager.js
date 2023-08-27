@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addLogin, addUser } from "../app/dataSlice";
-import { useThemeContext } from "../ThemeContext";
+import { useThemeContext } from "../../ThemeContext";
 
 const ProfileScreenManager = ({ navigation }) => {
   const [isSheetVisible, setSheetVisible] = useState(false);

@@ -18,31 +18,44 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SelectAdminScreen from '../screens/SelectAdminScreen';
-import { useThemeContext } from "../ThemeContext";
+import { useThemeContext } from '../../ThemeContext';
 
 const Stacks = () => {
- 
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
   const textColor = isDarkModeOn ? 'white' : 'black';
 
   const headerManager = (
-    <View style={[styles.header,  {backgroundColor: isDarkModeOn? '#171d2b' :'white'}]}>
+    <View
+      style={[
+        styles.header,
+        { backgroundColor: isDarkModeOn ? '#171d2b' : 'white' },
+      ]}
+    >
       <Image
         style={styles.logo}
         source={
           isDarkModeOn
-            ? require("../assets/headerLogoManagerWhite.png") : require("../assets/headerLogoManager.png")
+            ? require('../assets/headerLogoManagerWhite.png')
+            : require('../assets/headerLogoManager.png')
         }
       />
     </View>
   );
   const headerEmployee = (
-    <View style={[styles.header,  {backgroundColor: isDarkModeOn? '#171d2b' :'white'}]}>
-      <Image style={styles.logo} 
-      source={
+    <View
+      style={[
+        styles.header,
+        { backgroundColor: isDarkModeOn ? '#171d2b' : 'white' },
+      ]}
+    >
+      <Image
+        style={styles.logo}
+        source={
           isDarkModeOn
-            ? require("../assets/headerLogoWhite.png") : require("../assets/headerLogo.png")
-        } />
+            ? require('../assets/headerLogoWhite.png')
+            : require('../assets/headerLogo.png')
+        }
+      />
     </View>
   );
 

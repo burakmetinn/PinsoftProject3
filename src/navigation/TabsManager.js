@@ -11,7 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StyleSheet } from 'react-native';
-import { useThemeContext } from "../ThemeContext";
+import { useThemeContext } from "../../ThemeContext";
 
 const Stack = createStackNavigator();
 

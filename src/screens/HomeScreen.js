@@ -2,7 +2,7 @@ import { View, Text, Button, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Calendar } from "react-native-calendars";
-import { useThemeContext } from "../ThemeContext";
+import { useThemeContext } from "../../ThemeContext";
 
 const HomeScreen = () => {
   const [selectedDate, setSelectedDate] = useState(null);

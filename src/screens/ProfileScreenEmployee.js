@@ -11,7 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { addUser, addManagerId, addLogin } from "../app/dataSlice";
 import axios from "axios";
-import { useThemeContext } from "../ThemeContext";
+import { useThemeContext } from "../../ThemeContext";
 
 const ProfileScreenEmployee = ({ navigation }) => {
   const { isDarkModeOn, toggleSwitch } = useThemeContext();

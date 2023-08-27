@@ -10,7 +10,7 @@ import {
   StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useThemeContext } from "../ThemeContext";
+import { useThemeContext } from "../../ThemeContext";
 
 const MyPermissionsScreenEmployee = () => {
   const navigation = useNavigation();
