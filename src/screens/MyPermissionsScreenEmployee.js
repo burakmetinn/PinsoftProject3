@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    alignItems:"center"
   },
   header: {
     fontSize: 24,
@@ -175,7 +176,6 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         width: 800,
-        left: 330,
       },
     }),
   },

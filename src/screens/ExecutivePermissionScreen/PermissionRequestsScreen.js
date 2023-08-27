@@ -124,6 +124,11 @@ function PermissionRequestsScreen() {
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: 'rgba(0,0,0,0.5)',
+            ...Platform.select({
+              web: {
+                width: 60,
+              },
+            }),
           }}
           onPress={handleCloseModal}
         >
@@ -171,6 +176,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#0A2647',
+    alignItems:"center"
+
   },
   title: {
     fontSize: 24,
