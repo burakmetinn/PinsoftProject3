@@ -13,6 +13,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StyleSheet } from 'react-native';
 import { useThemeContext } from '../../ThemeContext';
+import NewManager from '../screens/NewManager';
 
 const Stack = createStackNavigator();
 

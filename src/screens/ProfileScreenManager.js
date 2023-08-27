@@ -1,26 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   StyleSheet,
   Modal,
   Switch,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { addLogin, addUser } from "../app/dataSlice";
-import { useThemeContext } from "../../ThemeContext";
+  TextInput,
+  Alert,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { addUser, addManagerId, addLogin } from '../app/dataSlice';
+import axios from 'axios';
+import { useThemeContext } from '../../ThemeContext';
+import Entypo from 'react-native-vector-icons/Entypo';
 
-const ProfileScreenManager = ({ navigation }) => {
-  const [isSheetVisible, setSheetVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Name 1");
-  const login = useSelector((state) => state.data.login);
+const ProfileScreenEmployee = ({ navigation }) => {
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const [textInputPwd, setTextInputPwd] = useState('');
+  const [textInputNPwd, setTextInputNPwd] = useState('');
+  const [hidePass, setHidePass] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const login = useSelector((state) => state.data.login);
 
   const token = login.token;
   const dispatch = useDispatch();
+
+  const pwd = useRef();
+  const pwd2 = useRef();
+
+  const checkTextInput = () => {
+    if (!textInputPwd.trim()) {
+      Alert.alert('Error', 'Please enter password.');
+      return;
+    }
+    if (!textInputNPwd.trim()) {
+      Alert.alert('Error', 'Please enter password.');
+      return;
+    }
+    if (textInputPwd !== textInputNPwd) {
+      changePasswordHandler();
+    } else {
+      Alert.alert('Error', 'Passwords should not be the same!');
+    }
+  };
 
   const user = useSelector((state) => state.data.user);
   const firstName = user.firstName;
@@ -29,7 +54,7 @@ const ProfileScreenManager = ({ navigation }) => {
   const role = user.role;
   useEffect(() => {
     axios
-      .get("https://time-off-tracker-production.up.railway.app/users", {
+      .get('https://time-off-tracker-production.up.railway.app/users', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,33 +70,65 @@ const ProfileScreenManager = ({ navigation }) => {
       );
   }, []);
 
-  const makeManager = () => {
-    setRole("manager");
-  };
+  const changePasswordHandler = () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      'POST',
+      'https://time-off-tracker-production.up.railway.app/users/password-changes',
+      true
+    );
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`);
 
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    setSheetVisible(false);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          console.log(xhr.responseText); // Response from the server
+          Alert.alert('Done!', 'Your Password Changed Successfully');
+        } else {
+          console.log(xhr.statusText); // Status text in case of error
+          Alert.alert('Failed!', 'Try Again');
+        }
+      }
+    };
+
+    const requestData = JSON.stringify({
+      oldPassword: textInputPwd,
+      newPassword: textInputNPwd,
+    });
+
+    xhr.send(requestData);
   };
 
   const handleLogout = () => {
     dispatch(addLogin({}));
+    dispatch(addManagerId(''));
     dispatch(addUser({}));
-    navigation.navigate("LoginScreen");
+    navigation.navigate('LoginScreen');
   };
-  const textColor = isDarkModeOn ? "white" : "black";
+
+  const textColor = isDarkModeOn ? 'white' : 'black';
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <View
       style={[
         styles.container,
-        { backgroundColor: isDarkModeOn ? "#171d2b" : "#f2f2f2" },
+        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
       ]}
     >
       <View style={styles.infoSection}>
-        <Ionicons name="person-circle" color={textColor} size={100} />
+        <Ionicons
+          name='person-circle'
+          style={styles.icon}
+          color={textColor}
+          size={100}
+        />
         <Text style={[styles.sampleName, { color: textColor }]}>
-          {email} {lastName}
+          {firstName} {lastName}
         </Text>
       </View>
 
@@ -87,29 +144,99 @@ const ProfileScreenManager = ({ navigation }) => {
         <Text style={[styles.sampleInfo, { color: textColor }]}>{role}</Text>
       </View>
 
-      <View style={styles.buttonContainer}>
-        {role === "user" && (
-          <TouchableOpacity
-            onPress={makeManager}
-            style={styles.selectManagerButton}
-          >
-            <Text style={styles.buttonText}>Select Manager</Text>
-          </TouchableOpacity>
-        )}
-
-
-        <View style={styles.darkMode}>
-          <Text style={{ color: textColor, fontWeight: "bold", fontSize: 16 }}>
-            Dark Mode{" "}
-          </Text>
-          <Switch value={isDarkModeOn} onValueChange={toggleSwitch}></Switch>
-        </View>
-
-        <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
-          <Ionicons name="log-out-outline" size={25} color="red" />
-          <Text style={styles.logOutText}>Log Out</Text>
-        </TouchableOpacity>
+      <View style={styles.darkMode}>
+        <Text style={{ color: textColor, fontWeight: 'bold', fontSize: 16 }}>
+          Dark Mode{' '}
+        </Text>
+        <Switch value={isDarkModeOn} onValueChange={toggleSwitch}></Switch>
       </View>
+
+      <TouchableOpacity
+        onPress={() => {
+          setIsModalVisible(!isModalVisible);
+        }}
+        style={[styles.btn1]}
+      >
+        <Text style={styles.btnText}>Change PassWord</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
+        <Ionicons name='log-out-outline' size={25} color='red' />
+        <Text style={styles.logOutText}>Log Out</Text>
+      </TouchableOpacity>
+
+      <Modal visible={isModalVisible} animationType='slide' transparent>
+        <TouchableOpacity
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          }}
+          onPress={handleCloseModal}
+        >
+          <View
+            style={{ padding: 20, backgroundColor: 'white', borderRadius: 20 }}
+            onPress={() => {
+              setIsModalVisible(true);
+            }}
+          >
+            <View style={styles.inputs}>
+              <TextInput
+                placeholder='Password'
+                style={{
+                  top: 9,
+                  ...Platform.select({
+                    web: {
+                      outline: 'none',
+                    },
+                  }),
+                }}
+                ref={pwd}
+                returnKeyType='next'
+                onSubmitEditing={() => {
+                  pwd2.current.focus();
+                }}
+                blurOnSubmit={false}
+                secureTextEntry={hidePass ? true : false}
+                onChangeText={(value) => setTextInputPwd(value)}
+              />
+              <TouchableOpacity style={styles.lockButton}>
+                <Entypo
+                  name={hidePass ? 'lock' : 'lock-open'}
+                  style={styles.lockBtn}
+                  onPress={() => {
+                    setHidePass(!hidePass);
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.inputs}>
+              <TextInput
+                style={{
+                  ...Platform.select({
+                    web: {
+                      outline: 'none',
+                    },
+                  }),
+                }}
+                placeholder='Confirm Password'
+                secureTextEntry={hidePass ? true : false}
+                ref={pwd2}
+                onChangeText={(value) => setTextInputNPwd(value)}
+              />
+            </View>
+            <TouchableOpacity
+              style={styles.btn}
+              activeOpacity={0.7}
+              onPress={checkTextInput}
+              hitSlop={{ left: 100, right: 100, top: 20, bottom: 20 }}
+            >
+              <Text style={styles.btnText}>Confirm</Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </Modal>
     </View>
   );
 };
@@ -117,57 +244,57 @@ const ProfileScreenManager = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
     paddingTop: 10,
-    backgroundColor: "#0A2647",
+    backgroundColor: '#0A2647',
   },
   infoSection: {
     marginTop: 5,
     marginBottom: 25,
     marginLeft: 20,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     ...Platform.select({
       web: {
-        alignSelf: "flex-start",
-        flexDirection: "row",
+        alignSelf: 'flex-start',
+        flexDirection: 'row',
       },
     }),
   },
   optionsTitle: {
     fontSize: 17,
-    fontWeight: "bold",
-    color: "white",
-    left: 3,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: 'white',
   },
 
   sampleName: {
     fontSize: 20,
     paddingLeft: 10,
-    fontWeight: "bold",
-    color: "white",
-    justifyContent: "center",
-    alignItems: "center",
+    fontWeight: 'bold',
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   icon: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   sampleInfoTitle: {
     fontSize: 17,
-    color: "white",
-    alignSelf: "flex-start",
-    flexDirection: "row",
-    fontWeight: "bold",
+    color: 'white',
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    fontWeight: 'bold',
   },
 
   sampleInfo: {
     fontSize: 15,
-    color: "white",
-    alignSelf: "flex-start",
-    flexDirection: "row",
+    color: 'white',
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
     marginBottom: 30,
     top: 5,
   },
@@ -189,76 +316,131 @@ const styles = StyleSheet.create({
   optionButton: {
     padding: 5,
     paddingLeft: 10,
-    flexDirection: "row",
+    flexDirection: 'row',
     borderWidth: 1,
-    borderColor: "gray",
+    borderColor: 'gray',
     borderRadius: 5,
     marginBottom: 10,
     marginTop: 5,
     width: 220,
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   managerText: {
     paddingRight: 90,
     paddingLeft: 10,
-    color: "white",
+    color: 'white',
   },
 
   containerBg: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
     paddingTop: 10,
   },
 
   bottomSheet: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 12,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
   },
   closeButton: {
-    alignSelf: "center",
+    alignSelf: 'center',
     marginBottom: 20,
   },
+
   sheetOption: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 18,
     borderBottomWidth: 1,
-    borderBottomColor: "#dbdbdb",
+    borderBottomColor: '#dbdbdb',
   },
 
   logOutContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 10,
     marginLeft: 30,
     marginTop: 50,
     width: 120,
     ...Platform.select({
-      web: {
-      
-      },
+      web: {},
     }),
   },
   logOutText: {
     marginLeft: 10,
-    color: "red",
-    fontWeight: "bold",
+    color: 'red',
+    fontWeight: 'bold',
     fontSize: 15,
   },
 
   darkMode: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginLeft: 30,
+  },
+  inputs: {
+    width: 250,
+    backgroundColor: '#ebeff2',
+    borderRadius: 20,
+    height: 60,
+    marginBottom: 20,
+    justifyContent: 'center',
+    padding: 20,
+    ...Platform.select({
+      web: {
+        outlineStyle: 'none',
+      },
+    }),
+  },
+  btn: {
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    width: 247,
+    backgroundColor: '#0f396b',
+  },
+  btn1: {
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    marginLeft: 75,
+    marginTop: 20,
+    width: 247,
+    backgroundColor: '#0f396b',
+  },
+  btnText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  button: {
+    fontSize: 120,
+  },
+  btnText2: {
+    paddingTop: 20,
+    fontWeight: 'bold',
+  },
+
+  lockBtn: {
+    fontSize: 15,
+    left: 195,
+    bottom: 7,
+    color: '#999999',
+    width: 20,
+    marginLeft: 0,
+    padding: 0,
+  },
+  lockButton: {
+    width: 20,
   },
 });
 
-export default ProfileScreenManager;
+export default ProfileScreenEmployee;
