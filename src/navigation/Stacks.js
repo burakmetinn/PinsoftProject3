@@ -135,13 +135,12 @@ const Stacks = () => {
         }}
       />
       <Stack.Screen
-        name='NewManager'
+        name="NewManager"
         component={NewManager}
         options={{
-          header: () => headerManager,
-          headerTitle: '',
-          headerBackTitle: 'Back',
-          headerTintColor: 'black',
+          headerTitle: "",
+          headerBackTitle: "Back",
+          headerTintColor: "black",
           headerShadowVisible: false,
         }}
       />

@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import { useThemeContext } from "../../ThemeContext";
 
-const NewManager = () => {
+const NewManager = ({navigation}) => {
   const [users, setUsers] = useState([]);
   const login = useSelector((state) => state.data.login);
   const textColor = isDarkModeOn ? "white" : "black";

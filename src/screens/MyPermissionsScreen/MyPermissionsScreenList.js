@@ -146,8 +146,6 @@ const styles = StyleSheet.create({
     color: 'white',
     ...Platform.select({
       web: {
-        marginLeft: 650,
-
         marginTop: 0,
       },
     }),
@@ -202,8 +200,8 @@ const styles = StyleSheet.create({
   flatList: {
     ...Platform.select({
       web: {
-        width: 800,
-        left: 350,
+        width: 1000,
+        left:160
       },
     }),
   },
