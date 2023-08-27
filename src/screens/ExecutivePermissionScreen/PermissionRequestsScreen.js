@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { StyleSheet } from 'react-native';
-import { useThemeContext } from "../../ThemeContext";
+import { useThemeContext } from "../../../ThemeContext";
 
 
 function PermissionRequestsScreen() {

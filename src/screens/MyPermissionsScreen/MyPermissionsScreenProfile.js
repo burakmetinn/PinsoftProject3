@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity ,TouchableWithoutFeedback ,StyleSheet, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useThemeContext } from '../../ThemeContext';
+import { useThemeContext } from '../../../ThemeContext';
 
 const MyPermissionsScreenProfile = ({route}) => {
   const [isSheetVisible, setSheetVisible] = useState(false);

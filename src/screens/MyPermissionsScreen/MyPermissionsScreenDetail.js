@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
-import { useThemeContext } from '../../ThemeContext';
+import { useThemeContext } from '../../../ThemeContext';
 
 import { useSelector } from 'react-redux';
 const MyPermissionsScreenDetail = ({ route, navigation }) => {
