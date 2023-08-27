@@ -1,13 +1,13 @@
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from '../screens/LoginScreen';
-import SignUpScreen from '../screens/SignUp';
-import HomeScreen from '../screens/HomeScreen';
-import TabsManager from './TabsManager';
-import TabsEmployee from './TabsEmployee';
-import ProfileScreen from '../screens/ProfileScreenEmployee';
-import { HeaderBackButton } from '@react-navigation/elements';
-import MyPermissionsScreenList from '../screens/MyPermissionsScreen/MyPermissionsScreenList';
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LoginScreen from "../screens/LoginScreen";
+import SignUpScreen from "../screens/SignUp";
+import HomeScreen from "../screens/HomeScreen";
+import TabsManager from "./TabsManager";
+import TabsEmployee from "./TabsEmployee";
+import ProfileScreen from "../screens/ProfileScreenEmployee";
+import { HeaderBackButton } from "@react-navigation/elements";
+import MyPermissionsScreenList from "../screens/MyPermissionsScreen/MyPermissionsScreenList";
 import {
   Image,
   TouchableOpacity,
@@ -15,28 +15,29 @@ import {
   StyleSheet,
   Platform,
   Alert,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import SelectAdminScreen from '../screens/SelectAdminScreen';
-import { useThemeContext } from '../../ThemeContext';
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import SelectAdminScreen from "../screens/SelectAdminScreen";
+import { useThemeContext } from "../../ThemeContext";
+import NewManager from "../screens/NewManager";
 
 const Stacks = () => {
   const { isDarkModeOn, toggleSwitch } = useThemeContext();
-  const textColor = isDarkModeOn ? 'white' : 'black';
+  const textColor = isDarkModeOn ? "white" : "black";
 
   const headerManager = (
     <View
       style={[
         styles.header,
-        { backgroundColor: isDarkModeOn ? '#171d2b' : 'white' },
+        { backgroundColor: isDarkModeOn ? "#171d2b" : "white" },
       ]}
     >
       <Image
         style={styles.logo}
         source={
           isDarkModeOn
-            ? require('../assets/headerLogoManagerWhite.png')
-            : require('../assets/headerLogoManager.png')
+            ? require("../assets/headerLogoManagerWhite.png")
+            : require("../assets/headerLogoManager.png")
         }
       />
     </View>
@@ -45,15 +46,15 @@ const Stacks = () => {
     <View
       style={[
         styles.header,
-        { backgroundColor: isDarkModeOn ? '#171d2b' : 'white' },
+        { backgroundColor: isDarkModeOn ? "#171d2b" : "white" },
       ]}
     >
       <Image
         style={styles.logo}
         source={
           isDarkModeOn
-            ? require('../assets/headerLogoWhite.png')
-            : require('../assets/headerLogo.png')
+            ? require("../assets/headerLogoWhite.png")
+            : require("../assets/headerLogo.png")
         }
       />
     </View>
@@ -64,22 +65,22 @@ const Stacks = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name='LoginScreen'
+        name="LoginScreen"
         component={LoginScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name='SignUpScreen'
+        name="SignUpScreen"
         component={SignUpScreen}
         options={{
-          headerTitle: '',
-          headerBackTitle: 'Log In',
-          headerTintColor: 'black',
+          headerTitle: "",
+          headerBackTitle: "Log In",
+          headerTintColor: "black",
           headerShadowVisible: false,
         }}
       />
       <Stack.Screen
-        name='TabsManager'
+        name="TabsManager"
         component={TabsManager}
         options={{
           header: () => headerManager,
@@ -87,7 +88,7 @@ const Stacks = () => {
         }}
       />
       <Stack.Screen
-        name='TabsEmployee'
+        name="TabsEmployee"
         component={TabsEmployee}
         options={{
           header: () => headerEmployee,
@@ -95,7 +96,7 @@ const Stacks = () => {
         }}
       />
       <Stack.Screen
-        name='MyPermissionsScreenList'
+        name="MyPermissionsScreenList"
         component={MyPermissionsScreenList}
         options={{
           header: () => headerEmployee,
@@ -103,7 +104,7 @@ const Stacks = () => {
         }}
       />
       <Stack.Screen
-        name='SelectAdminScreen'
+        name="SelectAdminScreen"
         component={SelectAdminScreen}
         options={{
           headerShown: false,
@@ -126,11 +127,21 @@ const Stacks = () => {
         }}
       />
       <Stack.Screen
-        name='Stacks'
+        name="Stacks"
         component={Stacks}
         options={{
           header: () => headerEmployee,
           headerLeft: null,
+        }}
+      />
+      <Stack.Screen
+        name="NewManager"
+        component={NewManager}
+        options={{
+          headerTitle: "",
+          headerBackTitle: "Back",
+          headerTintColor: "black",
+          headerShadowVisible: false,
         }}
       />
     </Stack.Navigator>
@@ -139,8 +150,8 @@ const Stacks = () => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
-    justifyContent: Platform.OS === 'web' ? 'flex-start' : 'center',
+    flexDirection: "row",
+    justifyContent: Platform.OS === "web" ? "flex-start" : "center",
     ...Platform.select({
       web: {
         height: 60,
