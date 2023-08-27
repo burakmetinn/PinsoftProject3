@@ -13,6 +13,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPermList } from '../app/dataSlice';
+import { useThemeContext } from '../../ThemeContext';
 
 const PermissionsPendingApprovalScreen = () => {
   const [rawData, setRawData] = useState([]);
@@ -218,86 +219,35 @@ const PermissionsPendingApprovalScreen = () => {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    padding: 20,
+    backgroundColor: '#0A2647',
+    backgroundColor: '#0A2647',
     ...Platform.select({
       web: {
+        alignItems: 'center',
         alignItems: 'center',
       },
     }),
   },
   header: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    alignItems: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
-    marginBottom: 30,
-  },
-  item: {
-    padding: 10,
-    marginTop: 20,
-    marginBottom: 5,
-    margin: 40,
-    height: 125,
-    borderRadius: 10,
-    backgroundColor: '#ffdb58',
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  name: {
-    fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
-  },
-  date: {
-    color: 'white',
-  },
-
-  detailPanel: {
-    padding: 10,
-    marginHorizontal: 10,
     marginTop: 10,
-    borderRadius: 10,
-  },
-  detailText: {
-    fontSize: 16,
-    color: 'white',
-    marginBottom: 5,
     textAlign: 'center',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 10,
-  },
-  button: {
-    padding: 8,
-    borderRadius: 5,
-    borderWidth: 1.5,
-    borderColor: 'gray',
-  },
-  button2: {
-    padding: 8,
-    borderRadius: 5,
-    borderWidth: 1.5,
-    borderColor: 'gray',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  flatList: {
-    ...Platform.select({
-      web: {
-        width: 800,
-      },
-    }),
   },
   sub: {
     fontSize: 15,
@@ -311,6 +261,92 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: '#0A2647',
     textAlign: 'center',
+  },
+  item: {
+    padding: 10,
+    marginTop: 30,
+    marginTop: 20,
+    marginBottom: 5,
+    margin: 40,
+    height: 125,
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#ccc',
+    backgroundColor: '#ffdb58',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+    fontWeight: 'bold',
+    color: '#0A2647',
+  },
+  date: {
+    color: 'white',
+    color: '#0A2647',
+  },
+
+  detailPanel: {
+    backgroundColor: '#0A2647',
+    backgroundColor: '#ffdb58',
+    padding: 10,
+    marginHorizontal: 10,
+    marginTop: 10,
+    marginLeft: 40,
+    borderRadius: 10,
+    width: 330,
+  },
+  detailText: {
+    fontSize: 16,
+    color: 'white',
+    color: '#0A2647',
+    marginBottom: 5,
+    textAlign: 'center',
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 10,
+  },
+  button: {
+    backgroundColor: '#0A2647',
+    backgroundColor: '#0A2647',
+    padding: 8,
+    borderRadius: 5,
+    borderWidth: 1.5,
+    borderColor: 'white',
+    borderColor: '#0A2647',
+  },
+  button2: {
+    backgroundColor: '#0A2647',
+    backgroundColor: '#0A2647',
+    padding: 8,
+    borderRadius: 5,
+    borderWidth: 1.5,
+    borderColor: 'white',
+    borderColor: '#0A2647',
+  },
+  buttonText: {
+    color: 'white',
+    color: 'white',
+    fontSize: 16,
+  },
+  flatList: {
+    marginTop: 10,
+    ...Platform.select({
+      web: {
+        width: 800,
+      },
+    }),
   },
 });
 

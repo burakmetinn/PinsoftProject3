@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { addPermList } from '../../app/dataSlice';
+import { useThemeContext } from '../../../ThemeContext';
 
 const MyPermissionsScreenList = () => {
   const navigation = useNavigation();
@@ -133,45 +134,60 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#0A2647',
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
+    textAlign: 'center',
     marginBottom: 30,
     color: 'white',
-    alignSelf: 'center',
     ...Platform.select({
-      web: {},
+      web: {
+        marginLeft: 650,
+
+        marginTop: 0,
+      },
     }),
-  },
-  listContent: {
-    marginTop: 0,
   },
   permissionItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 30,
-    paddingVertical: 15,
+    flex: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    height: 100,
+    marginBottom: 22,
+    paddingVertical: 14,
     paddingHorizontal: 15,
-    borderWidth: 1.2,
+    borderWidth: 1,
     borderColor: '#bbb',
-    borderRadius: 10,
+    borderRadius: 8,
+    backgroundColor: '#f4f4f4',
   },
   permissionTitle: {
+    fontSize: 20,
+  },
+  permissionDate: {
     fontSize: 16,
   },
   permissionStatusApproved: {
     color: 'green',
     fontWeight: 'bold',
+    fontSize: 20,
   },
   permissionStatusDenied: {
     color: '#bd2d2d',
     fontWeight: 'bold',
+
+    fontSize: 20,
   },
   permissionStatusPending: {
     color: 'gray',
     fontWeight: 'bold',
+
+    fontSize: 20,
   },
   flatList: {
     ...Platform.select({

@@ -1,8 +1,10 @@
-import { View, Text, Button, ScrollView } from "react-native";
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
-import { Calendar } from "react-native-calendars";
-import { useThemeContext } from "../../ThemeContext";
+import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Calendar } from 'react-native-calendars';
+import { useThemeContext } from '../../ThemeContext';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { addPermList } from '../app/dataSlice';
 
 const HomeScreen = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -66,8 +68,15 @@ const HomeScreen = () => {
   }, []);
 
   return (
-    <ScrollView style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
-      <Text style={[styles.heading,  {color: textColor}]}>Choose Your Date</Text>
+    <ScrollView
+      style={[
+        styles.container,
+        { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
+      ]}
+    >
+      <Text style={[styles.heading, { color: textColor }]}>
+        Choose Your Date
+      </Text>
 
       <Calendar
         onDayPress={(day) => handleDateSelection(day.dateString)}
