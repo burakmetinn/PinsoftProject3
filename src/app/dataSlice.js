@@ -1,9 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const initialState = {
   login: {},
   user: {},
   managerId: '',
+  permissionsDATA: {},
 };
 
 export const dataSlice = createSlice({
@@ -19,10 +22,14 @@ export const dataSlice = createSlice({
     addUser: (state, action) => {
       state.user = action.payload;
     },
+    addPermList: (state, action) => {
+      state.permissionsDATA = action.payload;
+    },
   },
   extraReducers: (builder) => {},
 });
 
-export const { addLogin, addManagerId, addUser } = dataSlice.actions;
+export const { addLogin, addManagerId, addUser, addPermList } =
+  dataSlice.actions;
 
 export default dataSlice.reducer;

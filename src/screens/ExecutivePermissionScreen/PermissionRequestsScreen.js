@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { StyleSheet } from 'react-native';
+import { useThemeContext } from "../../../ThemeContext";
 
 
 function PermissionRequestsScreen() {
@@ -56,8 +57,11 @@ function PermissionRequestsScreen() {
     setIsModalVisible(false);
   };
 
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
       <ScrollView style={{ flex: 1 }}>
         {permissionRequests.map((permission) => (
           <TouchableOpacity

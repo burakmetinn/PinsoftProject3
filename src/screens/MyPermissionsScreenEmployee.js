@@ -10,8 +10,9 @@ import {
   StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useThemeContext } from "../../ThemeContext";
 
-const MyPermissionsScreenList = () => {
+const MyPermissionsScreenEmployee = () => {
   const navigation = useNavigation();
 
   const [permissions, setPermissions] = useState([
@@ -45,78 +46,15 @@ const MyPermissionsScreenList = () => {
       status: "Approved",
       requester: "Firstname5 Lastname5",
     },
-    {
-      id: "6",
-      title: "09/09/2023",
-      status: "Approved",
-      requester: "Firstname6 Lastname6",
-    },
-    {
-      id: "7",
-      title: "11/09/2023",
-      status: "Denied",
-      requester: "Firstname7 Lastname7",
-    },
-    {
-      id: "8",
-      title: "18/09/2023",
-      status: "Pending",
-      requester: "Firstname8 Lastname8",
-    },
-    {
-      id: "9",
-      title: "26/09/2023",
-      status: "Pending",
-      requester: "Firstname9 Lastname9",
-    },
-    {
-      id: "10",
-      title: "30/09/2023",
-      status: "Pending",
-      requester: "Firstname10 Lastname10",
-    },
-    {
-      id: "11",
-      title: "09/10/2023",
-      status: "Pending",
-      requester: "Firstname11 Lastname11",
-    },
-    {
-      id: "12",
-      title: "11/10/2023",
-      status: "Pending",
-      requester: "Firstname12 Lastname12",
-    },
-    {
-      id: "13",
-      title: "18/10/2023",
-      status: "Pending",
-      requester: "Firstname13 Lastname13",
-    },
-    {
-      id: "14",
-      title: "26/10/2023",
-      status: "Pending",
-      requester: "Firstname14 Lastname14",
-    },
-    {
-      id: "15",
-      title: "30/10/2023",
-      status: "Pending",
-      requester: "Firstname15 Lastname15",
-    },
   ]);
 
-  const [selectedPermission, setSelectedPermission] = useState(null);
-
-  const openPermissionDetails = (permission) => {
-    navigation.navigate("My Permissions Detail", { permission });
-  };
+  const { isDarkModeOn, toggleSwitch } = useThemeContext();
+  const textColor = isDarkModeOn ? 'white' : 'black';
 
   const renderPermissionItem = ({ item }) => (
-    <TouchableOpacity onPress={() => openPermissionDetails(item)}>
+    <TouchableOpacity>
       <View style={styles.permissionItem}>
-        <Text style={styles.permissionTitle}>{item.title}</Text>
+        <Text style={[styles.permissionTitle,  {color: textColor}]}>{item.title}</Text>
         <Text style={getStatusStyle(item.status)}>
           {getStatusText(item.status)}
         </Text>
@@ -145,10 +83,9 @@ const MyPermissionsScreenList = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Permission Requests</Text>
+    <View style={[styles.container,  {backgroundColor: isDarkModeOn? '#171d2b' :'#f2f2f2'}]}>
+      <Text style={[styles.header,  {color: textColor}]}>My Permission Requests</Text>
       <FlatList
-        showsHorizontalScrollIndicator={false}
         style={styles.flatList}
         data={permissions}
         renderItem={renderPermissionItem}
@@ -163,17 +100,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#0A2647",
   },
   header: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 30,
     color: "white",
+    alignSelf: 'center',
+
     ...Platform.select({
       web: {
-        marginLeft: 650,
-        marginTop: 50,
       },
     }),
   },
@@ -184,13 +120,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 22,
-    paddingVertical: 14,
+    marginBottom: 30,
+    paddingVertical: 15,
     paddingHorizontal: 15,
-    borderWidth: 1,
+    borderWidth: 1.2,
     borderColor: "#bbb",
-    borderRadius: 8,
-    backgroundColor: "#f4f4f4",
+    borderRadius: 10,
   },
   permissionTitle: {
     fontSize: 16,
@@ -211,10 +146,10 @@ const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         width: 800,
-        left: 350,
+        left: 330,
       },
     }),
   },
 });
 
-export default MyPermissionsScreenList;
+export default MyPermissionsScreenEmployee;
