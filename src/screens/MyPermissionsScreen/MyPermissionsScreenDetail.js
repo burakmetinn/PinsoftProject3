@@ -62,9 +62,11 @@ const MyPermissionsScreenDetail = ({ route, navigation }) => {
         <Text style={styles.detailTitle}>Status:</Text>
         <Text style={styles.status}>{permission.status}</Text>
       </View>
-      <TouchableOpacity style={styles.button} onPress={handleDelete}>
-        <Text style={styles.buttonText}>Delete Request</Text>
-      </TouchableOpacity>
+      {permission.status !== 'PENDING' && (
+        <TouchableOpacity style={styles.button} onPress={handleDelete}>
+          <Text style={styles.buttonText}>Delete Request</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
