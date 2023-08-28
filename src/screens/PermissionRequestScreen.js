@@ -244,11 +244,11 @@ const PermissionRequestScreen = () => {
               {EndDate.toDateString()}
             </Text>
 
-            {showStartDatePicker && (
+            {showEndDatePicker && (
               <>
                 {windowWidth < 425 ? (
                   <DateTimePicker
-                    value={StartDate}
+                    value={EndDate}
                     mode="date"
                     display="calendar"
                     onChange={(event, selectedDate) => {

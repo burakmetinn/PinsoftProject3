@@ -54,7 +54,7 @@ const UserList = () => {
         },
         (error) => {
           console.log(error);
-          alert('Make sure you Selected Your manager');
+          alert('Something went wrong...');
         }
       );
   }, [refreshing]);

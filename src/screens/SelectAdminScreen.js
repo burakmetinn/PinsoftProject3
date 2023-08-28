@@ -63,7 +63,7 @@ const SelecetAdminScreen = ({ navigation }) => {
           }}
           source={require("../assets/headerLogo.png")}
         />
-      </View>
+      </View> 
       <View>
         <Text style={styles.text}>Select Your Manager</Text>
       </View>
