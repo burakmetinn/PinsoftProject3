@@ -106,7 +106,7 @@ const HomeScreenEmployee = () => {
       />
 
       {selectedDate && (
-        <View style={[styles.eventsContainer, { backgroundColor: isDarkModeOn ? "#272d3b" : "white" }]}>
+        <View style={[styles.eventsContainer, { backgroundColor: "white" }]}>
           <Text style={styles.selectedDateText}>
             Selected Date: {selectedDate}
           </Text>
@@ -162,7 +162,6 @@ const styles = StyleSheet.create({
   },
   eventsContainer: {
     flex: 1,
-    backgroundColor: 'white',
     borderRadius: 10,
     padding: 10,
     marginBottom: 30,
