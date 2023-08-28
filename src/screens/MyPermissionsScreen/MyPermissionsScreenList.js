@@ -172,7 +172,6 @@ const styles = StyleSheet.create({
   permissionTitle: {
     fontSize: 17,
     fontWeight: "bold",
-    marginBottom: 5,
   },
 
   permissionDate: {

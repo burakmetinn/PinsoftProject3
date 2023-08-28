@@ -131,11 +131,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 12,
     marginHorizontal: 20,
-    alignSelf: 'center',
     ...Platform.select({
       web: {
         width: 850,
-       
+        alignSelf: 'center',
       },
     }),
   },
