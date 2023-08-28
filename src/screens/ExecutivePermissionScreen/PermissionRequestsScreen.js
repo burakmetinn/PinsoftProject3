@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  FlatList
+
 } from 'react-native';
 import { useThemeContext } from '../../../ThemeContext';
 import { useSelector } from 'react-redux';
@@ -83,41 +85,38 @@ function PermissionRequestsScreen() {
         { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
       ]}
     >
-      <ScrollView style={{ flex: 1 }}>
-        <Text style={[styles.title, { color: textColor }]}>
+       <Text style={[styles.header, { color: textColor }]}>
           {' '}
           Approved Requests{' '}
         </Text>
+      <ScrollView style={{ flex: 1 }}>
+       
         {permissionRequests.map((permission) => (
           <TouchableOpacity
             key={permission.id}
             style={{
               flex: 1,
-              flexDirection: 'row',
               flexWrap: 'wrap',
-              padding: 10,
-              borderWidth: 1,
-              borderColor: 'gray',
-              borderRadius: 20,
-              marginBottom: 10,
+              paddingVertical: 10,
+              paddingHorizontal: 15,
+              borderWidth: 1.2,
+              borderColor: '#aaa',
+              borderRadius: 10,
+              marginBottom: 20,
             }}
             onPress={() => handlePermissionClick(permission)}
           >
-            <Text style={[styles.userInfo, { color: textColor }]}>
-              {permission.user} - {permission.permission}
-            </Text>
-            <Text></Text>
-            <Text style={[styles.start, { color: textColor }]}>
-              Start Date: {permission.startDate}
-            </Text>
-            <Text style={[styles.end, { color: textColor }]}>
-              End Date: {permission.endDate}
-            </Text>
+            <Text style={[styles.permissionTitle, { color: textColor ,fontWeight:'bold'}]}>
+          From {permission.startDate}   To {permission.endDate}
+        </Text>
+        <Text style={[styles.permissionTitle, { color: textColor }]}>
+          "{permission.permission}"
+        </Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
 
-      <Modal visible={isModalVisible} animationType='slide' transparent>
+      <Modal visible={isModalVisible} animationType='fade' transparent>
         <TouchableOpacity
           style={{
             flex: 1,
@@ -126,24 +125,24 @@ function PermissionRequestsScreen() {
             backgroundColor: 'rgba(0,0,0,0.5)',
             ...Platform.select({
               web: {
-                width: 60,
+                
               },
             }),
           }}
           onPress={handleCloseModal}
         >
           <View
-            style={{ padding: 20, backgroundColor: 'white', borderRadius: 20 }}
+            style={{ padding: 40, backgroundColor: 'white', borderRadius: 20 }}
           >
             {selectedPermission && (
               <View>
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                  Request Info
+                <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom:10 }}>
+                  Permission Info
                 </Text>
-                <Text>Cause: {selectedPermission.permission}</Text>
+                <Text>Reason: {selectedPermission.permission}</Text>
                 <Text>Start Date: {selectedPermission.startDate}</Text>
                 <Text>End Date: {selectedPermission.endDate}</Text>
-                <Text>State: {selectedPermission.state}</Text>
+                <Text>Status: {selectedPermission.state}</Text>
                 <Text></Text>
                 <View
                   style={{
@@ -153,12 +152,13 @@ function PermissionRequestsScreen() {
                   }}
                 >
                   <Button
-                    title='close'
+                    title='Close'
                     onPress={handleCloseModal}
-                    color='green'
+                    color='#0f396b'
                     borderRadius='100'
                     style={{
                       width: 100,
+                      marginTop: 10,
                     }}
                   />
                 </View>
@@ -175,17 +175,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#0A2647',
-    alignItems:"center"
-
+    ...Platform.select({
+      web: {
+        alignItems: "center",
+      },
+    }),
   },
-  title: {
+  header: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
+    fontWeight: "bold",
+    marginBottom: 30,
+    color: "white",
+    alignSelf: "center",
 
-    marginVertical: 15,
+    ...Platform.select({
+      web: {},
+    }),
+  },
+  listContent: {
+    marginTop: 0,
+  },
+  permissionItem: {
+    
+    justifyContent: "space-between",
+    marginBottom: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderWidth: 1.2,
+    borderColor: "#bbb",
+    borderRadius: 10,
+  },
+  permissionTitle: {
+    fontSize: 16,
+    
   },
   button: {
     borderRadius: 100,

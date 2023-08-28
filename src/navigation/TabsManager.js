@@ -31,7 +31,7 @@ const MyPermissionsScreenStack = () => {
         name='My Permissions Detail'
         component={MyPermissionsScreenDetail}
         options={{
-          title: 'Profile',
+          title: 'Permission Details',
           headerTintColor: textColor,
           headerStyle: {
             backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2',
@@ -41,7 +41,13 @@ const MyPermissionsScreenStack = () => {
       <Stack.Screen
         name='My Permissions Profile'
         component={MyPermissionsScreenProfile}
-        options={{ title: 'Profile', headerTintColor: 'black' }}
+        options={{
+          title: 'Profile',
+          headerTintColor: textColor,
+          headerStyle: {
+            backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2',
+          },
+        }}
       />
     </Stack.Navigator>
   );

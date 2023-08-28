@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     justifyContent: Platform.OS === "web" ? "flex-start" : "center",
     ...Platform.select({
       web: {
-        height: 60,
+        height: 70,
       },
     }),
   },

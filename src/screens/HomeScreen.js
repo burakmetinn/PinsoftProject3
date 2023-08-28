@@ -103,17 +103,17 @@ const HomeScreen = () => {
       />
 
       {selectedDate && (
-        <View style={styles.eventsContainer}>
-          <Text style={styles.selectedDateText}>
+        <View style={[styles.eventsContainer,{ backgroundColor: isDarkModeOn ? "#272d3b" : "white" }]}>
+          <Text style={[styles.selectedDateText, { color: textColor }]}>
             Selected Date: {selectedDate}
           </Text>
           <ScrollView showsHorizontalScrollIndicator={false}>
             {events.map((event) => (
               <View key={event.id} style={styles.eventItem}>
-                <Text style={styles.eventName}>{event.name}</Text>
-                <Text style={styles.eventDescription}>{event.description}</Text>
-                <Text style={styles.eventDate}>
-                  Ends At : {event.endDate}
+                <Text style={[styles.eventName, { color: textColor }]}>{event.name}</Text>
+                <Text style={[styles.eventDescription, { color: textColor }]}>"{event.description}"</Text>
+                <Text style={[styles.eventDate, { color: textColor }]}>
+                  Ends At: {event.endDate}
                 </Text>
               </View>
             ))}
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 10,
+    marginBottom: 30,
     elevation: 3,
     shadowColor: 'black',
     shadowOpacity: 0.5,
@@ -190,33 +191,28 @@ const styles = StyleSheet.create({
   },
   eventItem: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
     padding: 10,
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 10,
     borderColor: '#ccc',
     marginBottom: 10,
-    textAlign:'center',
+    textAlign: 'center',
   },
   eventName: {
     fontSize: 16,
-    padding:10,
-    marginRight: 10,
-    borderRightWidth: 1,
-    borderColor: '#ccc',
+    paddingHorizontal: 5,
+    marginRight: 5,
+    fontWeight: 'bold',
   },
   eventDescription: {
     fontSize: 16,
-    padding:10,
-    textAlign:'center',
-    marginRight: 10,
-    borderRightWidth: 1,
-    borderColor: '#ccc',
+    paddingHorizontal: 5,
+    marginRight: 5,
+    
   },
   eventDate: {
-    
     fontSize: 16,
+    paddingHorizontal: 5,
   },
 });
 

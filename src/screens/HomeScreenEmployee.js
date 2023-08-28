@@ -94,7 +94,7 @@ const HomeScreenEmployee = () => {
       ]}
     >
       <Text style={[styles.heading, { color: textColor }]}>
-        Permission calender
+        Permission Calendar
       </Text>
 
       <Calendar
@@ -106,16 +106,15 @@ const HomeScreenEmployee = () => {
       />
 
       {selectedDate && (
-        <View style={styles.eventsContainer}>
+        <View style={[styles.eventsContainer, { backgroundColor: isDarkModeOn ? "#272d3b" : "white" }]}>
           <Text style={styles.selectedDateText}>
             Selected Date: {selectedDate}
           </Text>
           <ScrollView showsHorizontalScrollIndicator={false}>
             {events.map((event) => (
-              <View key={event.id} style={styles.eventItem}>
+              <View  style={styles.eventItem}>
                 <Text style={styles.eventName}>{event.name}</Text>
-                <Text style={styles.eventDescription}>{event.description}</Text>
-                <Text style={styles.eventDate}>Ends At : {event.endDate}</Text>
+                <Text style={styles.eventDate}>Ends At: {event.endDate}</Text>
               </View>
             ))}
           </ScrollView>
@@ -166,6 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 10,
+    marginBottom: 30,
     elevation: 3,
     shadowColor: 'black',
     shadowOpacity: 0.5,
@@ -191,33 +191,28 @@ const styles = StyleSheet.create({
   },
   eventItem: {
     flex: 1,
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    alignItems: 'center',
     padding: 10,
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 10,
     borderColor: '#ccc',
     marginBottom: 10,
     textAlign: 'center',
   },
   eventName: {
     fontSize: 16,
-    padding: 5,
+    paddingHorizontal: 5,
     marginRight: 5,
-    borderRightWidth: 1,
-    borderColor: '#ccc',
+    fontWeight: 'bold',
   },
   eventDescription: {
     fontSize: 16,
-    padding: 5,
-    textAlign: 'center',
+    paddingHorizontal: 5,
     marginRight: 5,
-    borderRightWidth: 1,
-    borderColor: '#ccc',
+    
   },
   eventDate: {
     fontSize: 16,
+    paddingHorizontal: 5,
   },
 });
 

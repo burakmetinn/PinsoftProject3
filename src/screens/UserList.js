@@ -74,7 +74,7 @@ const UserList = () => {
           <Text
             style={[styles.text, { color: isDarkModeOn ? 'white' : 'black' }]}
           >
-            Name Surname :
+            Name:{"  "} 
           </Text>
           <Text
             style={[styles.textSm, { color: isDarkModeOn ? 'white' : 'black' }]}
@@ -86,7 +86,7 @@ const UserList = () => {
           <Text
             style={[styles.text, { color: isDarkModeOn ? 'white' : 'black' }]}
           >
-            Role :
+            Role:{"  "} 
           </Text>
           <Text
             style={[styles.textSm, { color: isDarkModeOn ? 'white' : 'black' }]}
@@ -99,7 +99,7 @@ const UserList = () => {
           <Text
             style={[styles.text, { color: isDarkModeOn ? 'white' : 'black' }]}
           >
-            Email Address :
+            Email:{"  "} 
           </Text>
           <Text
             style={[styles.textSm, { color: isDarkModeOn ? 'white' : 'black' }]}
@@ -122,8 +122,12 @@ const UserList = () => {
         <Text
           style={[styles.title, { color: isDarkModeOn ? 'white' : 'black' }]}
         >
-          Company employer List {'\n'}
-          choose an employee to see the options
+          Employee List 
+        </Text>
+        <Text
+          style={[styles.underTitle, { color: isDarkModeOn ? 'white' : 'black' }]}
+        >
+          Choose an employee to see the options
         </Text>
       </View>
       <FlatList
@@ -158,10 +162,10 @@ const styles = StyleSheet.create({
     }),
   },
   header: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 10,
   },
   item: {
     flex: 1,
@@ -171,7 +175,6 @@ const styles = StyleSheet.create({
     padding: 5,
     marginTop: 20,
     marginBottom: 5,
-    margin: 50,
     height: 80,
     width: 300,
     borderRadius: 10,
@@ -183,7 +186,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: 'scroll',
+    
   },
   text: {
     fontSize: 17,
@@ -197,9 +200,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+  },
+  underTitle: {
+    fontSize: 13,
+    marginBottom: 15,
     paddingHorizontal: 10,
     textAlign: 'center',
   },

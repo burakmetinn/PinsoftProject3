@@ -52,11 +52,11 @@ const SelecetAdminScreen = ({ navigation }) => {
             width: 300,
             height: 250,
             top: 50,
-            left: 23,
+            alignSelf:'center',
             marginBottom: 70,
             ...Platform.select({
               web: {
-                left: 600,
+                
                 bottom: 30,
               },
             }),
@@ -128,12 +128,14 @@ const styles = StyleSheet.create({
     height: 50,
     borderColor: "gray",
     borderWidth: 0.5,
-    borderRadius: 8,
-    paddingHorizontal: 8,
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    marginHorizontal: 20,
+    alignSelf: 'center',
     ...Platform.select({
       web: {
         width: 850,
-        marginLeft: 350,
+       
       },
     }),
   },
@@ -146,12 +148,12 @@ const styles = StyleSheet.create({
   text: {
     top: 5,
     paddingBottom: 30,
-    left: 85,
+    alignSelf: 'center',
     fontFamily: "Cochin",
     fontSize: 22,
     ...Platform.select({
       web: {
-        marginLeft: 580,
+        
       },
     }),
   },
@@ -163,10 +165,10 @@ const styles = StyleSheet.create({
     width: 247,
     backgroundColor: "#0f396b",
     top: 100,
-    left: 60,
+    alignSelf:'center',
     ...Platform.select({
       web: {
-        marginLeft: 580,
+       
         marginBottom: 50,
       },
     }),

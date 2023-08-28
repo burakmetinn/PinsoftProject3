@@ -72,7 +72,7 @@ const MyPermissionsScreenDetail = ({ route, navigation }) => {
       <View style={styles.detailContainer}>
         <Text style={[styles.detailTitle, { color: textColor }]}>Reason:</Text>
         <Text style={[styles.detailContent, { color: textColor }]}>
-          {permission.cause}
+          "{permission.cause}"
         </Text>
       </View>
       <View style={styles.detailContainer}>

@@ -10,7 +10,7 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { addUser, addManagerId, addLogin } from '../app/dataSlice';
 import axios from 'axios';
@@ -146,7 +146,7 @@ const ProfileScreenEmployee = ({ navigation }) => {
 
       <View style={styles.darkMode}>
         <Text style={{ color: textColor, fontWeight: 'bold', fontSize: 16 }}>
-          Dark Mode{' '}
+          Dark Theme {' '}
         </Text>
         <Switch value={isDarkModeOn} onValueChange={toggleSwitch}></Switch>
       </View>
@@ -157,7 +157,9 @@ const ProfileScreenEmployee = ({ navigation }) => {
         }}
         style={styles.btn1}
       >
-        <Text style={styles.btnText}>Change PassWord</Text>
+        
+        <Text style={[styles.btnText,{color: isDarkModeOn ? '#d2d2d2' : '#04277f'}]}>Change Password   </Text>
+        <Feather name='edit-3' size={20} color={isDarkModeOn ? '#d2d2d2' : '#04277f'} />
       </TouchableOpacity>
 
       <TouchableOpacity onPress={handleLogout} style={styles.logOutContainer}>
@@ -165,7 +167,7 @@ const ProfileScreenEmployee = ({ navigation }) => {
         <Text style={styles.logOutText}>Log Out</Text>
       </TouchableOpacity>
 
-      <Modal visible={isModalVisible} animationType='slide' transparent>
+      <Modal visible={isModalVisible} animationType='fade' transparent>
         <TouchableOpacity
           style={{
             flex: 1,
@@ -250,7 +252,7 @@ const styles = StyleSheet.create({
   },
   infoSection: {
     marginTop: 5,
-    marginBottom: 25,
+    marginBottom: 30,
     marginLeft: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -367,7 +369,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
     marginLeft: 30,
-    marginTop: 50,
+    marginTop: 70,
     width: 120,
     ...Platform.select({
       web: {},
@@ -408,19 +410,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#0f396b',
   },
   btn1: {
-    padding: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#278dff',
-    borderRadius: 20,
-    marginLeft: 108,
-    marginTop: 20,
-    width: 200,
+    padding: 30,
+    marginTop: 15,
+    width: 230,
+    flexDirection: 'row',
   },
   btnText: {
-    color: '#278dff',
-    fontSize: 20,
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   btnText1: {
     color: 'white',

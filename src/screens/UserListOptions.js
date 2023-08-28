@@ -141,23 +141,22 @@ const UserListOptions = ({ route, navigation }) => {
           { backgroundColor: isDarkModeOn ? '#171d2b' : '#f2f2f2' },
         ]}
       >
-        <TouchableOpacity style={styles.button} onPress={handleDelete}>
-          <Ionicons name='trash-outline' size={18} color='white' />
-          <Text style={[styles.buttonText, { color: 'white' }]}>
-            Delete User
-          </Text>
-        </TouchableOpacity>
+        
+        <View style={styles.manAdmContainer}>
         <TouchableOpacity style={styles.buttonMan} onPress={handleMakeManager}>
-          <FontAwesome5 name='crown' size={18} color='white' />
-          <Text style={[styles.buttonTextMan, { color: 'white' }]}>
-            Make Manager
-          </Text>
+          <FontAwesome5 name='crown' size={18} color='#1897ba' />
+          <Text style={styles.buttonTextMan}>    Make Manager</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonAdm} onPress={handleMakeAdmin}>
-          <MaterialCommunityIcons name='police-badge' size={24} color='white' />
-          <Text style={[styles.buttonTextMan, { color: 'white' }]}>
+          <MaterialCommunityIcons name='police-badge' size={24} color='#1864ba' />
+          <Text style={styles.buttonTextAdm}>
             Make Admin
           </Text>
+        </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.button} onPress={handleDelete}>
+          <Ionicons name='trash-outline' size={18} color='#bd2d2d' />
+          <Text style={styles.buttonText}>  Delete User</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -175,8 +174,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: 50,
-    padding: 10,
+    paddingTop: 30,
+    padding: 20,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
@@ -195,7 +194,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   detailContent: {
-    fontSize: 20,
+    fontSize: 16,
     color: 'white',
   },
   status: {
@@ -204,40 +203,44 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   requesterName: {
-    fontSize: 20,
+    fontSize: 16,
     color: 'black',
   },
-  buttonText: {
-    color: 'black',
-    fontSize: 15,
-    fontWeight: 'bold',
-
-    justifyContent: 'center',
+  
+  manAdmContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 10,
+    alignItems: 'flex-start',
+    justifyContent:'space-between',
+    gap: 10,
   },
   buttonTextMan: {
-    color: 'black',
+    color: '#1897ba',
     fontSize: 15,
     fontWeight: 'bold',
     justifyContent: 'center',
   },
   buttonTextAdm: {
-    color: 'white',
+    color: '#1864ba',
     fontSize: 15,
     fontWeight: 'bold',
     justifyContent: 'center',
   },
+  buttonText: {
+    color: '#bd2d2d',
+    fontSize: 16,
+    fontWeight: 'bold',
+    justifyContent: 'center'
+  },
   button: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    textAlign: 'center',
+    marginBottom: 50,
     padding: 12,
     borderRadius: 10,
-    backgroundColor: '#ff4647',
+    borderWidth: 1.5,
+    borderColor: '#bd2d2d',
     alignSelf: 'center',
-    width: 150,
     flexDirection: 'row',
-    marginBottom: 20,
   },
   buttonMan: {
     flex: 1,
@@ -246,8 +249,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 12,
     borderRadius: 10,
-    width: 150,
-    backgroundColor: '#ede804',
+    borderWidth: 1,
+    borderColor:'#1897ba',
+    height: 60,
     alignSelf: 'center',
     flexDirection: 'row',
     marginBottom: 20,
@@ -259,9 +263,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 12,
     borderRadius: 10,
-
-    width: 150,
-    backgroundColor: '#278dff',
+    borderWidth: 1,
+    borderColor:'#1864ba',
+    height: 60,
     alignSelf: 'center',
     flexDirection: 'row',
     marginBottom: 20,

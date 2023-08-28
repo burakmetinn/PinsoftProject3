@@ -158,9 +158,7 @@ const styles = StyleSheet.create({
     }),
   },
   permissionItem: {
-    flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
     flex: 1,
     flexWrap: "wrap",
     textAlign: "center",
@@ -168,7 +166,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 1.2,
-    borderColor: "#bbb",
+    borderColor: "#aaa",
     borderRadius: 10,
   },
   permissionTitle: {
@@ -182,19 +180,22 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   permissionStatusApproved: {
-    color: "#1cdd00",
+    color: "green",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 15,
+    paddingTop: 5,
   },
   permissionStatusDenied: {
     color: "#bd2d2d",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 15,
+    paddingTop: 5,
   },
   permissionStatusPending: {
     color: "gray",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 15,
+    paddingTop: 5,
   },
   flatList: {
     ...Platform.select({

@@ -161,7 +161,7 @@ const PermissionsPendingApprovalScreen = () => {
         <View style={styles.detailPanel}>
           <Text
             style={[styles.detailText, { color: textColor }]}
-          >{`Reason: ${item.reasonForPermission}`}</Text>
+          >{`Reason: "${item.reasonForPermission}"`}</Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               onPress={() => Alert.alert('Reject', 'Permission Rejected')}
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 10,
     borderWidth: 1.2,
-    borderColor: '#bbb',
+    borderColor: '#aaa',
   },
   row: {
     flexDirection: 'row',
@@ -322,10 +322,14 @@ const styles = StyleSheet.create({
   buttonTextReject: {
     color: '#bd2d2d',
     fontSize: 16,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
   },
   buttonTextApprove: {
     color: 'green',
     fontSize: 16,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
 
   flatList: {

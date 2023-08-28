@@ -77,11 +77,11 @@ const MyPermissionsScreenEmployee = () => {
   const renderPermissionItem = ({ item }) => (
     <TouchableOpacity>
       <View style={styles.permissionItem}>
-        <Text style={[styles.permissionTitle, { color: textColor }]}>
-          {item.title}
+        <Text style={[styles.permissionTitle, { color: textColor ,fontWeight:'bold'}]}>
+          From {item.title}   To {item.endDate}
         </Text>
         <Text style={[styles.permissionTitle, { color: textColor }]}>
-          {item.permission}
+          "{item.permission}"
         </Text>
         <Text style={getStatusStyle(item.status)}>{item.status}</Text>
       </View>
@@ -151,30 +151,36 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   permissionItem: {
-    flexDirection: "row",
+    
     justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 30,
-    paddingVertical: 15,
+    marginBottom: 20,
+    paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 1.2,
-    borderColor: "#bbb",
+    borderColor: "#aaa",
     borderRadius: 10,
   },
   permissionTitle: {
     fontSize: 16,
+    
   },
   permissionStatusApproved: {
     color: "green",
     fontWeight: "bold",
+    fontSize: 15,
+    paddingTop: 5,
   },
   permissionStatusDenied: {
     color: "#bd2d2d",
     fontWeight: "bold",
+    fontSize: 15,
+    paddingTop: 5,
   },
   permissionStatusPending: {
     color: "gray",
     fontWeight: "bold",
+    fontSize: 15,
+    paddingTop: 5,
   },
   flatList: {
     ...Platform.select({
