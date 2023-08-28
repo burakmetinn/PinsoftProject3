@@ -38,13 +38,13 @@ function PermissionRequestsScreen() {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }}>
-        {permissionRequests.map((permission) => (
+        {permissionRequests.map((permission,index) => (
           <TouchableOpacity
             key={permission.id}
-            style={{ padding: 10, borderBottomWidth: 1, borderColor: 'gray',backgroundColor: permission.id % 2 === 0 ? 'lightgray' : 'white',flex:1 }}
+            style={{ padding: 10, borderBottomWidth: 1, borderColor: 'lightgray',backgroundColor: permission.id % 2 === 0 ? '#ffffff' : '#f9f9f9',flex:1 }}
             onPress={() => handlePermissionClick(permission,index)}
           >
-            <Text>{permission.user} - {permission.permission}</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 6 }}>{permission.user} - {permission.permission}</Text>
             <Text>Başlangıç Tarihi: {permission.startDate}</Text>
             <Text>Bitiş Tarihi: {permission.endDate}</Text>
           </TouchableOpacity>
@@ -59,12 +59,12 @@ function PermissionRequestsScreen() {
           <View style={{ padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
             {selectedPermission && (
               <View>
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Kullanıcının İzin Talebi</Text>
-                <Text>Kullanıcı: {selectedPermission.user}</Text>
-                <Text>İzin: {selectedPermission.permission}</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10  }}>Kullanıcının İzin Talebi</Text>
+                <Text style={{ marginBottom: 6 }}>Kullanıcı: {selectedPermission.user}</Text>
+                <Text  style={{ marginBottom: 12 }}>İzin: {selectedPermission.permission}</Text>
                 <Text>Başlangıç Tarihi: {selectedPermission.startDate}</Text>
                 <Text>Bitiş Tarihi: {selectedPermission.endDate}</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 16 }}>
                   <Button title="Onayla" onPress={handleApprove} color="green" />
                   <Button title="Reddet" onPress={handleReject} color="red" />
                 </View>
