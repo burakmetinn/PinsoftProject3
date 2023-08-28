@@ -8,50 +8,78 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useRef, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Entypo from "react-native-vector-icons/Entypo";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { addLogin } from "../app/dataSlice";
 
 const LoginScreen = ({ navigation }) => {
   const [hidePass, setHidePass] = useState(true);
   const [textInputEmail, setTextInputEmail] = useState("");
   const [textInputPwd, setTextInputPwd] = useState("");
-
-  const dispatch = useDispatch();
-
-  const loginHandler = () => {
-    axios
-      .post("https://time-off-tracker-production.up.railway.app/auth/login", {
-        email: textInputEmail,
-        password: textInputPwd,
-      })
-
-      .then(
-        (response) => {
-          dispatch(addLogin(response.data));
-          console.log(response.data.token);
-
-          if (response.data.role === "EMPLOYEE") {
-            navigation.navigate("SelectAdminScreen");
-          } else if (response.data.role === "ADMIN") {
-            navigation.navigate("TabsManager");
-          }
+  const [users, setUsers] = useState([
+    {
+      mail: "cekicengiz01@gmail.com",
+      password: "123123",
+      statu: "user",
+      admin: "burak",
+      starting: "2023/12/12",
+      izinler: [
+        {
+          date: "11/08/2023",
+          dateend: "13/08/2023",
+          statu: "onaylandı",
         },
+        {
+          date: "15/08/2023",
+          dateend: "15/08/2023",
+          statu: "onaylanmadı",
+        },
+        {
+          date: "16/08/2023",
+          dateend: "18/08/2023",
+          statu: "bekliyor",
+        },
+      ],
+    },
+    {
+      mail: "elif@gmail.com",
+      password: "123123",
+      statu: "user",
+      admin: "burak",
+      starting: "2023/12/12",
+    },
+    {
+      mail: "burak@gmail.com",
+      password: "123123",
+      statu: "admin", // Corrected property name here
+      users: "utku, aylin, elif",
+    },
+  ]);
 
-        (error) => {
-          console.log(error);
-          if (!textInputEmail.trim()) {
-            Alert.alert("Error", "Please enter email!");
-          } else if (!textInputPwd.trim()) {
-            Alert.alert("Error", "Please enter password!");
-          } else {
-            Alert.alert("Error", "Make sure you entered the right parameters!");
-          }
-        }
+  console.log(users);
+
+  const checkTextInput = () => {
+    if (!textInputEmail.trim()) {
+      Alert.alert("Error", "Please enter email.");
+    } else if (!textInputPwd.trim()) {
+      Alert.alert("Error", "Please enter password.");
+    } else {
+      const user = users.find(
+        (u) => u.mail === textInputEmail && u.password === textInputPwd
       );
+
+      if (user) {
+        if (user.statu === "admin") {
+          navigation.navigate("TabsManager");
+        } else if (user.statu === "user") {
+          navigation.navigate("TabsEmployee");
+        } else {
+          Alert.alert("Error", "Invalid user status.");
+        }
+      } else {
+        Alert.alert("Error", "Invalid email or password.");
+      }
+    }
   };
 
   const pwd = useRef();
@@ -60,7 +88,12 @@ const LoginScreen = ({ navigation }) => {
       <View style={styles.view}>
         <View>
           <Image
-            style={styles.img}
+            style={{
+              width: 300,
+              height: 250,
+              top: 130,
+              marginBottom: 70,
+            }}
             source={require("../assets/headerLogo.png")}
           />
         </View>
@@ -68,14 +101,7 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.inputs}>
             <TextInput
               placeholder="Email"
-              style={{
-                top: 8,
-                ...Platform.select({
-                  web: {
-                    outline: "none",
-                  },
-                }),
-              }}
+              style={styles.ins}
               returnKeyType="next"
               onSubmitEditing={() => {
                 pwd.current.focus();
@@ -91,14 +117,7 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.inputs}>
             <TextInput
               placeholder="Password"
-              style={{
-                top: 9,
-                ...Platform.select({
-                  web: {
-                    outline: "none",
-                  },
-                }),
-              }}
+              style={styles.ins}
               ref={pwd}
               secureTextEntry={hidePass ? true : false}
               onChangeText={(value) => setTextInputPwd(value)}
@@ -114,16 +133,14 @@ const LoginScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-       
-        <TouchableOpacity
-            style={styles.btn}
-            activeOpacity={0.7}
-            onPress={loginHandler}
+        <View style={styles.btn}>
+          <TouchableOpacity
+            onPress={checkTextInput}
             hitSlop={{ left: 100, right: 100, top: 20, bottom: 20 }}
           >
             <Text style={styles.btnText}>Log In</Text>
-        </TouchableOpacity>
-        
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("SignUpScreen");
@@ -153,17 +170,6 @@ const styles = StyleSheet.create({
     marginTop: 200,
     fontFamily: "Cochin-BoldItalic",
   },
-  img: {
-    width: 300,
-    height: 250,
-    top: 130,
-    marginBottom: 70,
-    ...Platform.select({
-      web: {
-        top: 80,
-      },
-    }),
-  },
   inputs: {
     width: 250,
     backgroundColor: "#ebeff2",
@@ -172,19 +178,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: "center",
     padding: 20,
-
-    ...Platform.select({
-      web: {
-        bottom: 50,
-      },
-    }),
   },
   ins: {
     top: 9,
     ...Platform.select({
       web: {
         outlineStyle: "none",
-        paddingTop: 15,
       },
     }),
   },
@@ -197,11 +196,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 247,
     backgroundColor: "#0f396b",
-    ...Platform.select({
-      web: {
-        bottom: 50,
-      },
-    }),
   },
   btnText: {
     color: "white",
@@ -213,11 +207,6 @@ const styles = StyleSheet.create({
   btnText2: {
     paddingTop: 20,
     fontWeight: "bold",
-    ...Platform.select({
-      web: {
-        bottom: 50,
-      },
-    }),
   },
   lockBtn: {
     fontSize: 15,
