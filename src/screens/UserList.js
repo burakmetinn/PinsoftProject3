@@ -180,6 +180,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1.5,
     fontWeight: 'bold',
+    ...Platform.select({
+      web: {
+        alignSelf: 'center',
+      },
+    }),
   },
   arCont: {
     flex: 1,
