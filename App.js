@@ -1,12 +1,20 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import Stacks from "./navigation/Stacks";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import Stacks from './src/navigation/Stacks';
+import { Provider } from 'react-redux';
+import store from './src/app/store';
+import { ThemeContextProvider } from './ThemeContext';
+
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stacks />
-    </NavigationContainer>
+    <Provider store={store}>
+      <ThemeContextProvider>
+        <NavigationContainer>
+          <Stacks />
+        </NavigationContainer>
+      </ThemeContextProvider> 
+    </Provider>
   );
 };
 
